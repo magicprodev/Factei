@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">FACTAPP</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_saisie_releveindex">Relevé Index</string>
+    <string name="n_prise">N° Prise</string>
+    <string name="index_fin">Valeur Index</string>
+    <string name="etat_prise">Etat Prise</string>
+    <string name="observation">Observations</string>
+    <string name="enregistrer">Enregistrer</string>
+    <string name="saisie_releveindex">Saisie relevé index</string>
+    <string name="secteur">Secteur</string>
+    <string name="date_releve">Date Relevé</string>
+    <string name="required">Obligatoire</string>
+    <string name="index_non_valide">Valeur index non valide</string>
+    <string name="title_activity_liste_releveindex">Liste Relevés index</string>
+
+</resources>
