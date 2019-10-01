@@ -13,5 +13,5 @@
     <string name="required">Obligatoire</string>
     <string name="index_non_valide">Valeur index non valide</string>
     <string name="title_activity_liste_releveindex">Liste Relevés index</string>
-
+    <string name="liste_releveindex">Liste relevés</string>
 </resources>

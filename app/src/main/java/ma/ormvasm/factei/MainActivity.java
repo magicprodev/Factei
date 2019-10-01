@@ -41,7 +41,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
 
     }
+    public void listereleveindex(View v) {
 
+        Intent i = new Intent(MainActivity.this, ListeReleveindex.class);
+        startActivity(i);
+
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

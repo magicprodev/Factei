@@ -74,9 +74,18 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/textView2"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="5dp"
         android:onClick="saisiereleveindex"
         android:text="@string/saisie_releveindex" />
+    <Button
+                android:id="@+id/btnlistreleveindex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/btnreleveindex"
+                android:layout_marginBottom="28dp"
+                android:onClick="listereleveindex"
+                android:text="@string/liste_releveindex" />
         </RelativeLayout>
     </LinearLayout>
 </ScrollView>

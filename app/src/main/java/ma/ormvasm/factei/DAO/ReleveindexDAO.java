@@ -132,7 +132,7 @@ public class ReleveindexDAO extends DAOBase {
     }
 
 
-    public ArrayList<Releveindex> getAllData() {
+    public ArrayList<Releveindex> getListReleveindex() {
         ArrayList<Releveindex> array_list = new ArrayList<Releveindex>();
 
         //hp = new HashMap();

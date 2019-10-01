@@ -6,7 +6,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -16,13 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ma.ormvasm.factei.DAO.Releveindex;
+import ma.ormvasm.factei.DAO.ReleveindexDAO;
+
 
 public class ListeReleveindex extends AppCompatActivity {
 
     TextView textView =null;
     ProgressBar mPogressBar = null;
-    ListView participListView = null;
+    ListView releveindexListView = null;
     List<Releveindex> releves = new ArrayList<Releveindex>();
+    ReleveindexListViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +39,7 @@ public class ListeReleveindex extends AppCompatActivity {
 
         textView = findViewById(R.id.textView);
         mPogressBar =(ProgressBar) findViewById(R.id.progressBar);
-        participListView =(ListView) findViewById(R.id.releveIndexListView) ;
+        releveindexListView =(ListView) findViewById(R.id.releveIndexListView) ;
 
         //test github
 
@@ -43,10 +48,27 @@ public class ListeReleveindex extends AppCompatActivity {
         actionBar.setTitle(R.string.title_activity_liste_releveindex);
 
 
-        String st="hhhh";
+        ViewGroup headerView = (ViewGroup) this.getLayoutInflater().inflate(R.layout.custom_row_releveindex_header, releveindexListView,false);
+
+        releveindexListView.addHeaderView(headerView,null,false);
+
+        mPogressBar.setVisibility(View.VISIBLE);
+        readData();
+        mPogressBar.setVisibility(View.GONE);
+
+
 
 
 
     }
 
+
+
+
+    private void readData(){
+            ReleveindexDAO indx = new ReleveindexDAO(ListeReleveindex.this);
+            releves = indx.getListReleveindex();
+            adapter = new ReleveindexListViewAdapter(releves,this);
+            releveindexListView.setAdapter(adapter);
+    }
 }
