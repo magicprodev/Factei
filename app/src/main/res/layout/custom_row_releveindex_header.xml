@@ -8,38 +8,62 @@
 
     <TextView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_column="0"
-        android:padding="10sp"
+        android:padding="0sp"
         android:gravity="left"
-        android:text="@string/n_prise"
+        android:text="@string/id_releveindex"
         android:textStyle="bold"
         android:background="@color/grey_300"
-        android:layout_weight="40"
+        android:layout_weight="0"
         >
     </TextView>
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_column="1"
+        android:padding="5sp"
+        android:gravity="left"
+        android:text="@string/n_prise"
+        android:textStyle="bold"
+        android:background="@color/grey_300"
+        android:layout_weight="25"
+        >
+    </TextView>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_column="2"
+        android:padding="10sp"
+        android:gravity="left"
+        android:text="@string/date_releve"
+        android:textStyle="bold"
+        android:background="@color/grey_300"
+        android:layout_weight="25"
+        >
+    </TextView>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_column="3"
         android:padding="10sp"
         android:gravity="left"
         android:text="@string/etat_prise"
         android:textStyle="bold"
         android:background="@color/grey_300"
-        android:layout_weight="30"
+        android:layout_weight="25"
         >
     </TextView>
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_column="1"
+        android:layout_column="4"
         android:padding="10sp"
         android:gravity="left"
         android:text="@string/index_fin"
         android:textStyle="bold"
         android:background="@color/grey_300"
-        android:layout_weight="30"
+        android:layout_weight="25"
         >
     </TextView>
 

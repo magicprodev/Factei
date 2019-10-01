@@ -136,7 +136,10 @@ public class ReleveindexDAO extends DAOBase {
         ArrayList<Releveindex> array_list = new ArrayList<Releveindex>();
 
         //hp = new HashMap();
-        Cursor res =  mDb.rawQuery( "select * from releveindex", null );
+        Cursor res =  mDb.rawQuery( "select id_releveindex,code_prise,date_debut_index,date_fin_index,index_debut,index_fin," +
+                "etat_prise as code_etat_prise,volume_index,valide,code_cmv,date_maj,utilisateur_maj,date_insert,utilisateur_insert," +
+                "observations,row_id" +
+                " from releveindex r join etatprise e on r.code_etat_prise=e.code_etat_prise order by code_prise,substr('0000000000'||code_prise, -10, 10)", null );
         res.moveToFirst();
         Releveindex r;
 

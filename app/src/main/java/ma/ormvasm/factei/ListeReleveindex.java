@@ -9,10 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +49,19 @@ public class ListeReleveindex extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.title_activity_liste_releveindex);
 
+
+
+        releveindexListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+               String selected = ((TextView) view.findViewById(R.id.txtIdReleveindex)).getText().toString();
+               Toast.makeText(ListeReleveindex.this, selected, Toast.LENGTH_SHORT).show();
+
+                //Toast.makeText(ListeReleveindex.this, "ON Click "+(i-1), Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         ViewGroup headerView = (ViewGroup) this.getLayoutInflater().inflate(R.layout.custom_row_releveindex_header, releveindexListView,false);
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import ma.ormvasm.factei.DAO.Releveindex;
@@ -55,7 +56,9 @@ public class ReleveindexListViewAdapter extends BaseAdapter {
 
             convertView = inflater.inflate(R.layout.custom_row_releveindex,null);
             cell = new ListCell();
+            cell.idReleveindex=(TextView)convertView.findViewById(R.id.txtIdReleveindex);
             cell.codePrise=(TextView)convertView.findViewById(R.id.txtCodePrise);
+            cell.dateReleve=(TextView)convertView.findViewById(R.id.txtDateFinIndex);
             cell.etatPrise=(TextView)convertView.findViewById(R.id.txtEtatPrise);
             cell.indexFin=(TextView)convertView.findViewById(R.id.txtIndexFin);
             convertView.setTag(cell);
@@ -65,10 +68,13 @@ public class ReleveindexListViewAdapter extends BaseAdapter {
         }
 
         Releveindex item = this.dataArray.get(i);
-
+        cell.idReleveindex.setText(item.getId_releveindex()+"");
+        cell.idReleveindex.setVisibility(View.GONE);
         cell.codePrise.setText(item.getCode_prise()+"");
+        cell.dateReleve.setText(Helper.convertFormatDate(item.getDate_fin_index())+"");
         cell.etatPrise.setText(item.getCode_etat_prise()+"");
-        cell.indexFin.setText(item.getIndex_fin()+"");
+        DecimalFormat decim = new DecimalFormat("#,###");
+        cell.indexFin.setText(decim.format(item.getIndex_fin())+"");
 
 
         if (this.position  == i){
@@ -83,7 +89,9 @@ public class ReleveindexListViewAdapter extends BaseAdapter {
 
     private class ListCell
     {
+        private TextView idReleveindex;
         private TextView codePrise;
+        private TextView dateReleve;
         private TextView etatPrise;
         private TextView indexFin;
 
