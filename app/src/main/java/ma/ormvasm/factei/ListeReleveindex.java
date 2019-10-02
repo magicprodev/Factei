@@ -1,5 +1,6 @@
 package ma.ormvasm.factei;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -56,7 +57,12 @@ public class ListeReleveindex extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                String selected = ((TextView) view.findViewById(R.id.txtIdReleveindex)).getText().toString();
-               Toast.makeText(ListeReleveindex.this, selected, Toast.LENGTH_SHORT).show();
+
+               Intent intent = new Intent(ListeReleveindex.this, SaisieReleveindex.class);
+               intent.putExtra("ID_RELEVE", selected);
+               startActivity(intent);
+               //Toast.makeText(ListeReleveindex.this, selected, Toast.LENGTH_SHORT).show();
+
 
                 //Toast.makeText(ListeReleveindex.this, "ON Click "+(i-1), Toast.LENGTH_SHORT).show();
 

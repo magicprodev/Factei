@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import ma.ormvasm.factei.DAO.Etatprise;
+import ma.ormvasm.factei.DAO.Prise;
 import ma.ormvasm.factei.DAO.PriseDAO;
 import ma.ormvasm.factei.DAO.Releveindex;
 import ma.ormvasm.factei.DAO.ReleveindexDAO;
@@ -39,7 +40,7 @@ public class SaisieReleveindex extends AppCompatActivity {
     ArrayList<Etatprise> ListeEtatprise;
     private String code_secteur="";
     private String code_etat_prise="";
-
+    private String idReleve;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,9 @@ public class SaisieReleveindex extends AppCompatActivity {
         spinnerEtatprise=(Spinner) findViewById(R.id.spinetatprise);
         observations=(TextView) findViewById(R.id.txtobservations);
         datereleve=(TextView) findViewById(R.id.txtdatereleve);
+
+
+        idReleve=getIntent().getStringExtra("ID_RELEVE");
 
 
         String formattedDate ;
@@ -96,6 +100,18 @@ public class SaisieReleveindex extends AppCompatActivity {
                 // DO Nothing here
             }
         });
+
+        if (Integer.parseInt(idReleve)>0) {
+            Releveindex r;
+            ReleveindexDAO rdao=new ReleveindexDAO(SaisieReleveindex.this) ;
+            r = rdao.getData(idReleve);
+            Prise p;
+            PriseDAO pdao = new PriseDAO(SaisieReleveindex.this);
+            p=pdao.getData(r.getCode_prise());
+            numprise.setText(p.getN_prise());
+
+
+        }
 
     }
 

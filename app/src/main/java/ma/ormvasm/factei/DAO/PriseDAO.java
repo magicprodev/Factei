@@ -82,7 +82,7 @@ public class PriseDAO extends DAOBase {
         // CODE
         Cursor res = mDb.rawQuery("SELECT * FROM " + PRISE_TABLE_NAME + " where " + PRISE_COLUMN_CODE_PRISE +  " ='" + st + "'", null);
 
-        if (res.isAfterLast() != false) {
+        if (res.moveToFirst()) {
             res.moveToFirst();
             Prise p;
 

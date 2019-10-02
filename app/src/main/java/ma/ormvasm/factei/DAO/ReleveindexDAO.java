@@ -94,11 +94,11 @@ public class ReleveindexDAO extends DAOBase {
     /**
      * @param //id l'identifiant du relevé d'index à récupérer
      */
-    public Releveindex getData(long id) {
+    public Releveindex getData(String st) {
         // CODE
-        Cursor res =  mDb.rawQuery( "select * from releveindex where id=" + id+ "", null );
+        Cursor res =  mDb.rawQuery( "SELECT * FROM " + RELEVEINDEX_TABLE_NAME + " WHERE " + RELEVEINDEX_COLUMN_ID_RELEVEINDEX +  " ='" + st + "'", null );
 
-        if (res.isAfterLast() != false){
+        if (res.moveToFirst()){
             res.moveToFirst();
             Releveindex r;
             r=objectFromCursor(res);
@@ -139,7 +139,8 @@ public class ReleveindexDAO extends DAOBase {
         Cursor res =  mDb.rawQuery( "select id_releveindex,code_prise,date_debut_index,date_fin_index,index_debut,index_fin," +
                 "etat_prise as code_etat_prise,volume_index,valide,code_cmv,date_maj,utilisateur_maj,date_insert,utilisateur_insert," +
                 "observations,row_id" +
-                " from releveindex r join etatprise e on r.code_etat_prise=e.code_etat_prise order by code_prise,substr('0000000000'||code_prise, -10, 10)", null );
+                " from releveindex r join etatprise e on r.code_etat_prise=e.code_etat_prise " +
+                "order by code_prise,substr('0000000000'||code_prise, -10, 10)", null );
         res.moveToFirst();
         Releveindex r;
 
