@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="0dp"
+    tools:context=".ModifReleveindex">
+
+    <!--<include layout="@layout/content_saisie_releveindex" />-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="10dp">
+
+
+            <TextView
+                android:id="@+id/lbldatereleve"
+                android:layout_width="114dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:text="@string/date_releve"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/txtdatereleve"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/lbldatereleve"
+                android:ems="10"
+                android:inputType="text"
+                android:padding="5dp"
+                android:background="@drawable/bg_textview"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
+
+
+
+            <RelativeLayout
+                android:id="@+id/rlsecteur"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_toRightOf="@id/lblsecteur"
+                android:textSize="18dp"
+                android:layout_below="@+id/txtdatereleve"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                >
+
+                <TextView
+                    android:id="@+id/txtsecteur"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:textSize="18dp"
+                    android:background="@drawable/bg_textview"
+                    android:textColor="@android:color/black"
+                    android:padding="5dp"
+                    />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/lblsecteur"
+                android:layout_width="114dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/txtdatereleve"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:text="@string/secteur"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/lblnumprise"
+                android:layout_width="114dp"
+                android:layout_height="35dp"
+                android:layout_alignBottom="@+id/txtnumprise"
+                android:layout_below="@+id/rlsecteur"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:text="@string/n_prise"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/txtnumprise"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_alignLeft="@+id/rlsecteur"
+                android:layout_below="@+id/rlsecteur"
+                android:layout_marginTop="10dp"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ-0123456789"
+                android:ems="10"
+                android:inputType="text"
+                android:padding="5dp"
+                android:background="@drawable/bg_textview"
+                android:textColor="@android:color/black"
+                android:textSize="18dp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/lblindexfin"
+                android:layout_width="110dp"
+                android:layout_height="35dp"
+                android:layout_alignBottom="@+id/txtindexfin"
+                android:layout_below="@+id/lblnumprise"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:text="@string/index_fin"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+            <EditText
+                android:id="@+id/txtindexfin"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_alignLeft="@+id/rlsecteur"
+                android:layout_below="@+id/txtnumprise"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_spinner"
+                android:ems="10"
+                android:inputType="number"
+                android:padding="5dp">
+
+            </EditText>
+
+
+            <RelativeLayout
+                android:id="@+id/rlspinetatprise"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_toRightOf="@id/lbletatprise"
+                android:layout_alignLeft="@+id/rlsecteur"
+                android:layout_below="@+id/txtindexfin"
+                android:background="@drawable/bg_spinner"
+                android:layout_marginTop="10dp"
+                android:textSize="18dp">
+
+                <Spinner
+                    android:id="@+id/spinetatprise"
+                    style="@style/Widget.AppCompat.DropDownItem.Spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown"
+                    android:textSize="18dp"
+                    />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/lbletatprise"
+                android:layout_width="110dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/txtindexfin"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:text="@string/etat_prise"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+            <TextView
+                android:id="@+id/lblobservation"
+                android:layout_width="110dp"
+                android:layout_height="35dp"
+                android:layout_alignBottom="@+id/txtobservations"
+                android:layout_below="@+id/lbletatprise"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+
+                android:ems="10"
+                android:text="@string/observation"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/txtobservations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/rlsecteur"
+                android:layout_below="@+id/rlspinetatprise"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_spinner"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:padding="5dp"
+                android:singleLine="false">
+
+            </EditText>
+
+
+            <Button
+                android:id="@+id/btnenregistrer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblobservation"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="5dp"
+                android:onClick="enregistrer"
+                android:text="@string/enregistrer" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

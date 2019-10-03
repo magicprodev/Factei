@@ -43,6 +43,7 @@
             android:layout_height="match_parent"
             android:divider="@color/grey_300"
             android:dividerHeight="2.0sp"
+            android:drawSelectorOnTop="true"
             />
 
         <ProgressBar

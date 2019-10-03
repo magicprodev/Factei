@@ -1,6 +1,7 @@
 package ma.ormvasm.factei;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -25,61 +26,49 @@ import ma.ormvasm.factei.DAO.ReleveindexDAO;
 import ma.ormvasm.factei.DAO.Secteur;
 import ma.ormvasm.factei.DAO.EtatpriseDAO;
 
-public class SaisieReleveindex extends AppCompatActivity {
+public class ModifReleveindex extends AppCompatActivity {
 
+    TextView datereleve;
+    TextView secteur;
     TextView numprise;
     TextView indexfin;
     TextView etatprise;
     TextView observations;
-    TextView datereleve;
-    private SpinSecteurAdapter adapterSecteur;
+
     private SpinEtatpriseAdapter adapterEtatprise;
-    Spinner spinnerSecteur;
     Spinner spinnerEtatprise;
     ArrayList<Secteur> ListeSecteur;
     ArrayList<Etatprise> ListeEtatprise;
     private String code_secteur="";
     private String code_etat_prise="";
+    private String idReleve;
+    private Releveindex ri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saisie_releveindex);
+        setContentView(R.layout.activity_modif_releveindex);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        datereleve=(TextView) findViewById(R.id.txtdatereleve);
+        secteur=(TextView) findViewById(R.id.txtsecteur);
         numprise=(TextView) findViewById(R.id.txtnumprise);
         indexfin=(TextView) findViewById(R.id.txtindexfin);
         spinnerEtatprise=(Spinner) findViewById(R.id.spinetatprise);
         observations=(TextView) findViewById(R.id.txtobservations);
-        datereleve=(TextView) findViewById(R.id.txtdatereleve);
 
 
-        String formattedDate ;
-        formattedDate=Helper.getCurrentDate();
 
-        datereleve.setText(formattedDate);
+        idReleve=getIntent().getStringExtra("ID_RELEVE");
 
-        spinnerSecteur = (Spinner)  findViewById(R.id.spinsecteur);
-        loadSpinnerSecteur();
+
+
 
         spinnerEtatprise = (Spinner)  findViewById(R.id.spinetatprise);
         loadSpinnerEtatprise();
-        spinnerSecteur.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Secteur tempSecteur = adapterSecteur.getItem(spinnerSecteur.getSelectedItemPosition());
 
-                if (tempSecteur != null) {
-                    code_secteur=tempSecteur.getCode_secteur();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                // DO Nothing here
-            }
-        });
 
         spinnerEtatprise.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -99,22 +88,28 @@ public class SaisieReleveindex extends AppCompatActivity {
         });
 
 
+    ReleveindexDAO rdao=new ReleveindexDAO(ModifReleveindex.this) ;
+    ri = rdao.getData2(idReleve);
+
+    datereleve.setText(Helper.convertFormatDate(ri.getDate_fin_index()+""));
+    secteur.setText(ri.getCode_cmv()+"");
+    numprise.setText(ri.getRow_id()+"");
+    int etprise=0;
+    if (ri.getCode_etat_prise().equals("B")) etprise=1;
+    spinnerEtatprise.setSelection(etprise);
+    indexfin.setText(ri.getIndex_fin()+"");
+    observations.setText(ri.getObservations()+"");
 
     }
 
+
+
     public void enregistrer(View v) {
 
-        if (validateForm(SaisieReleveindex.this,numprise,indexfin)) {
-            PriseDAO p = new PriseDAO(SaisieReleveindex.this);
+        if (validateForm(ModifReleveindex.this,numprise,indexfin)) {
+            PriseDAO p = new PriseDAO(ModifReleveindex.this);
 
-            String code_prise = "";
-            if (p.getPriseBySecteur(code_secteur, numprise.getText().toString()) != null) {
-                code_prise = p.getPriseBySecteur(code_secteur, numprise.getText().toString()).getCode_prise();
-            } else {
-                Toast.makeText(SaisieReleveindex.this, "N° Prise introuvable", Toast.LENGTH_LONG).show();
-                return;
-            }
-            ;
+            String code_prise = ri.getCode_prise();
 
             String index_fin = indexfin.getText().toString();
             String date_debut_index = "";
@@ -123,7 +118,7 @@ public class SaisieReleveindex extends AppCompatActivity {
 
             if (!index_fin.matches("")) {
 
-                ReleveindexDAO der = new ReleveindexDAO(SaisieReleveindex.this);
+                ReleveindexDAO der = new ReleveindexDAO(ModifReleveindex.this);
                 Releveindex dr = der.getDernierReleve(code_prise);
 
                 if (dr != null) {
@@ -132,23 +127,25 @@ public class SaisieReleveindex extends AppCompatActivity {
                     volume_index = (Integer.parseInt(index_fin) - index_debut>0)?Integer.parseInt(index_fin) - index_debut:0;
                 }
 
-                if (validateIndexFin(SaisieReleveindex.this, index_debut, Integer.parseInt(index_fin), indexfin, code_etat_prise)){
-                    Releveindex r = new Releveindex(1, code_prise, date_debut_index, Helper.getCurrentDateTime(),
-                            index_debut, Integer.parseInt(index_fin), code_etat_prise, volume_index, 0, "04", Helper.getCurrentDateTime(), "admin",
-                            Helper.getCurrentDateTime(), "admin", observations.getText().toString(), Helper.rowId(code_prise));
+                if (validateIndexFin(ModifReleveindex.this, index_debut, Integer.parseInt(index_fin), indexfin, code_etat_prise)){
 
-                ReleveindexDAO rd = new ReleveindexDAO(SaisieReleveindex.this);
+                    ReleveindexDAO rd = new ReleveindexDAO(ModifReleveindex.this);
+                    ri.setIndex_fin(Integer.parseInt(index_fin));
+                    ri.setCode_etat_prise(code_etat_prise);
+                    ri.setObservations(observations.getText().toString());
+                    ri.setUtilisateur_maj("admin");
+                    ri.setDate_maj(Helper.getCurrentDateTime());
+                    ri.setVolume_index(volume_index);
 
-                rd.ajouter(r);
-                Toast.makeText(SaisieReleveindex.this, "Relevé Index ajouté avec succès", Toast.LENGTH_LONG).show();
+                    rd.modifier(ri);
+                    Toast.makeText(ModifReleveindex.this, "Relevé Index modifié avec succès", Toast.LENGTH_LONG).show();
+                    Intent intent=new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
 
-                numprise.setText("");
-                indexfin.setText("");
-                observations.setText("");
-                numprise.requestFocus();
-            }
+                }
             } else {
-                Toast.makeText(SaisieReleveindex.this, "Veuillez renseigner la valeur d'index ", Toast.LENGTH_LONG).show();
+                Toast.makeText(ModifReleveindex.this, "Veuillez renseigner la valeur d'index ", Toast.LENGTH_LONG).show();
                 return;
 
             }
@@ -157,25 +154,12 @@ public class SaisieReleveindex extends AppCompatActivity {
 
 
 
-
-
-    private void loadSpinnerSecteur() {
-        //  url = url +"?cmd=listeSecteur&examen="+idexam;
-        ListeSecteur = new ArrayList<Secteur>();
-        PriseDAO p=new PriseDAO(SaisieReleveindex.this);
-        ListeSecteur = p.getAllSecteur();
-        adapterSecteur = new SpinSecteurAdapter(SaisieReleveindex.this,
-                R.layout.spinner_layout,ListeSecteur);
-        adapterSecteur.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        spinnerSecteur.setAdapter(adapterSecteur);
-
-    }
     private void loadSpinnerEtatprise() {
         //  url = url +"?cmd=listeSecteur&examen="+idexam;
         ListeEtatprise = new ArrayList<Etatprise>();
-        EtatpriseDAO p=new EtatpriseDAO(SaisieReleveindex.this);
+        EtatpriseDAO p=new EtatpriseDAO(ModifReleveindex.this);
         ListeEtatprise = p.getAllData();
-        adapterEtatprise = new SpinEtatpriseAdapter(SaisieReleveindex.this,
+        adapterEtatprise = new SpinEtatpriseAdapter(ModifReleveindex.this,
                 R.layout.spinner_layout,ListeEtatprise);
         adapterEtatprise.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerEtatprise.setAdapter(adapterEtatprise);
@@ -219,5 +203,5 @@ public class SaisieReleveindex extends AppCompatActivity {
         }
 
         return true;
-        }
+    }
 }

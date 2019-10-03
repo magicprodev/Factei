@@ -58,9 +58,10 @@ public class ListeReleveindex extends AppCompatActivity {
 
                String selected = ((TextView) view.findViewById(R.id.txtIdReleveindex)).getText().toString();
 
-               Intent intent = new Intent(ListeReleveindex.this, SaisieReleveindex.class);
+               Intent intent = new Intent(ListeReleveindex.this, ModifReleveindex.class);
                intent.putExtra("ID_RELEVE", selected);
-               startActivity(intent);
+               //startActivity(intent);
+                startActivityForResult(intent, 0);
                //Toast.makeText(ListeReleveindex.this, selected, Toast.LENGTH_SHORT).show();
 
 

@@ -110,6 +110,26 @@ public class ReleveindexDAO extends DAOBase {
 
     }
 
+    public Releveindex getData2(String st) {
+        // CODE
+        Cursor res =  mDb.rawQuery( "select id_releveindex,r.code_prise,date_debut_index,date_fin_index,index_debut,index_fin," +
+                "code_etat_prise,volume_index,valide,secteur as code_cmv,date_maj,utilisateur_maj,date_insert,utilisateur_insert," +
+                "observations,n_prise as row_id" +
+                " from releveindex r join prise p on r.code_prise=p.code_prise  " +
+                " WHERE id_releveindex ='" + st + "'", null );
+
+        if (res.moveToFirst()){
+            res.moveToFirst();
+            Releveindex r;
+            r=objectFromCursor(res);
+            return r;
+        }
+        else {
+            return null;
+        }
+
+    }
+
     public Releveindex objectFromCursor(Cursor curs){
         Releveindex r;
         r=new Releveindex(curs.getInt(curs.getColumnIndex(RELEVEINDEX_COLUMN_ID_RELEVEINDEX)),
