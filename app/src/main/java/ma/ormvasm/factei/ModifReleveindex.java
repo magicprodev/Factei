@@ -1,11 +1,13 @@
 package ma.ormvasm.factei;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -50,6 +52,14 @@ public class ModifReleveindex extends AppCompatActivity {
         setContentView(R.layout.activity_modif_releveindex);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        final LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final android.support.v7.app.ActionBar ab = getSupportActionBar();
+        ab.setDisplayShowHomeEnabled(false);
+        ab.setDisplayShowTitleEnabled(false);
+
+        View view = inflater.inflate(R.layout.action_bar_custom_view,null);
+        ab.setCustomView(view);
+        ab.setDisplayShowCustomEnabled(true);
 
 
         datereleve=(TextView) findViewById(R.id.txtdatereleve);
@@ -152,7 +162,11 @@ public class ModifReleveindex extends AppCompatActivity {
         }
     }
 
-
+    public void annuler(View v) {
+        Intent intent=new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
+    }
 
     private void loadSpinnerEtatprise() {
         //  url = url +"?cmd=listeSecteur&examen="+idexam;

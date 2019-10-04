@@ -8,6 +8,7 @@
     <string name="etat_prise">Etat Prise</string>
     <string name="observation">Observations</string>
     <string name="enregistrer">Enregistrer</string>
+    <string name="annuler">Annuler</string>
     <string name="saisie_releveindex">Ajout relevé index</string>
     <string name="modif_releveindex">Modification relevé index</string>
     <string name="secteur">Secteur</string>
