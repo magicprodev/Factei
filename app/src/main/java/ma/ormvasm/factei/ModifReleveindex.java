@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -60,7 +61,9 @@ public class ModifReleveindex extends AppCompatActivity {
         View view = inflater.inflate(R.layout.action_bar_custom_view,null);
         ab.setCustomView(view);
         ab.setDisplayShowCustomEnabled(true);
-
+        ab.setCustomView(view,new android.support.v7.app.ActionBar.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
 
         datereleve=(TextView) findViewById(R.id.txtdatereleve);
         secteur=(TextView) findViewById(R.id.txtsecteur);
@@ -128,14 +131,14 @@ public class ModifReleveindex extends AppCompatActivity {
 
             if (!index_fin.matches("")) {
 
-                ReleveindexDAO der = new ReleveindexDAO(ModifReleveindex.this);
-                Releveindex dr = der.getDernierReleve(code_prise);
+                //ReleveindexDAO der = new ReleveindexDAO(ModifReleveindex.this);
+                //Releveindex dr = der.getDernierReleve(code_prise);
 
-                if (dr != null) {
-                    date_debut_index = dr.getDate_fin_index();
-                    index_debut = dr.getIndex_fin();
+                //if (dr != null) {
+                    date_debut_index = ri.getDate_fin_index();
+                    index_debut = ri.getIndex_fin();
                     volume_index = (Integer.parseInt(index_fin) - index_debut>0)?Integer.parseInt(index_fin) - index_debut:0;
-                }
+                //}
 
                 if (validateIndexFin(ModifReleveindex.this, index_debut, Integer.parseInt(index_fin), indexfin, code_etat_prise)){
 

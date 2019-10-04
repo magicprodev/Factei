@@ -61,7 +61,7 @@ public class ListeReleveindex extends AppCompatActivity {
                Intent intent = new Intent(ListeReleveindex.this, ModifReleveindex.class);
                intent.putExtra("ID_RELEVE", selected);
                //startActivity(intent);
-                startActivityForResult(intent, 0);
+                startActivityForResult(intent, 1);
                //Toast.makeText(ListeReleveindex.this, selected, Toast.LENGTH_SHORT).show();
 
 
@@ -74,23 +74,33 @@ public class ListeReleveindex extends AppCompatActivity {
 
         releveindexListView.addHeaderView(headerView,null,false);
 
-        mPogressBar.setVisibility(View.VISIBLE);
-        readData();
-        mPogressBar.setVisibility(View.GONE);
 
+        readData();
 
 
 
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-
+        if (requestCode == 1) {
+            if(resultCode == ListeReleveindex.RESULT_OK){
+                readData();
+            }
+            if (resultCode == ListeReleveindex.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }//onActivityResult
 
     private void readData(){
+            mPogressBar.setVisibility(View.VISIBLE);
             ReleveindexDAO indx = new ReleveindexDAO(ListeReleveindex.this);
             releves = indx.getListReleveindex();
             adapter = new ReleveindexListViewAdapter(releves,this);
             releveindexListView.setAdapter(adapter);
+            mPogressBar.setVisibility(View.GONE);
     }
 }

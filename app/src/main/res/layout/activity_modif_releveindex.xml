@@ -214,12 +214,16 @@
                 android:ems="10"
                 android:inputType="textMultiLine"
                 android:padding="5dp"
-                android:singleLine="false">
+                android:singleLine="false"
+                android:lines="3"
+                android:maxLines="5"
+                android:scrollbars="vertical" >
+
 
             </EditText>
 
 
-            <Button
+           <!-- <Button
                 android:id="@+id/btnenregistrer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -227,7 +231,8 @@
                 android:layout_centerInParent="true"
                 android:layout_marginBottom="5dp"
                 android:onClick="enregistrer"
-                android:text="@string/enregistrer" />
+                android:text="@string/enregistrer" />-->
+
 
         </RelativeLayout>
     </LinearLayout>
