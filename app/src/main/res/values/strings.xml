@@ -19,5 +19,9 @@
     <string name="liste_releveindex">Liste relevés</string>
     <string name="id_releveindex">id_releveindex</string>
     <string name="index_fin2">Valeur</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_FragmentAcceuil">Accueil</string>
+
 
 </resources>

@@ -9,16 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ModifReleveindex"
-            android:label="@string/title_activity_modif_releveindex"
-            android:theme="@style/AppTheme.NoActionBar"
+        <activity android:name=".FragmentAcceuil"
+            android:label="@string/title_FragmentAcceuil"
+            android:theme="@style/AppTheme.NoActionBar">
 
-            ></activity>
+        </activity>
+        <activity
+            android:name=".ModifReleveindex"
+            android:label="@string/title_activity_modif_releveindex"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ListeReleveindex"
             android:label="@string/title_activity_liste_releveindex"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

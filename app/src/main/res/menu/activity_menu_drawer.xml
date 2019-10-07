@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_import"
+            android:icon="@drawable/ic_menu_sync"
+            android:title="Import/Export Données" />
+        <item
+            android:id="@+id/nav_salle"
+            android:icon="@drawable/ic_check"
+            android:title="Choisir la salle" />
+        <!--<item
+            android:id="@+id/nav_editEtudiants"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Editer Etudiants" />-->
+        <item
+            android:id="@+id/nav_listeEtudiants"
+            android:icon="@drawable/ic_liste"
+            android:title="Liste Etudiants" />
+        <item
+            android:id="@+id/nav_pointage"
+            android:icon="@drawable/ic_card"
+            android:title="Pointage présence" />
+        <item
+            android:id="@+id/nav_scan"
+            android:icon="@drawable/ic_scan"
+            android:title="Scanner code barre" />
+
+    </group>
+
+    <item android:title="Paramètres">
+        <menu>
+            <item
+                android:id="@+id/serv_param"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:title="Serveur" />
+            <!-- <item
+                 android:id="@+id/nav_send"
+                 android:icon="@drawable/ic_menu_send"
+                 android:title="Send" />-->
+        </menu>
+    </item>
+
+</menu>
