@@ -5,21 +5,21 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_export"
+            android:icon="@drawable/ic_send"
+            android:title="@string/menu_export" />
+        <item
             android:id="@+id/nav_import"
-            android:icon="@drawable/ic_menu_sync"
-            android:title="Import/Export Données" />
+            android:icon="@drawable/ic_receive"
+            android:title="@string/menu_import" />
         <item
             android:id="@+id/nav_salle"
             android:icon="@drawable/ic_check"
             android:title="Choisir la salle" />
-        <!--<item
-            android:id="@+id/nav_editEtudiants"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Editer Etudiants" />-->
         <item
-            android:id="@+id/nav_listeEtudiants"
+            android:id="@+id/nav_listeReleves"
             android:icon="@drawable/ic_liste"
-            android:title="Liste Etudiants" />
+            android:title="@string/liste_releveindex" />
         <item
             android:id="@+id/nav_pointage"
             android:icon="@drawable/ic_card"

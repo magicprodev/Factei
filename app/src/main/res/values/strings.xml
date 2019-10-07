@@ -22,6 +22,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_FragmentAcceuil">Accueil</string>
+    <string name="menu_export">Exporter</string>
+    <string name="menu_import">Importer</string>
 
 
 </resources>
