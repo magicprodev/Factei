@@ -2,7 +2,7 @@
     <string name="app_name">FactIrri 1.0</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_saisie_releveindex">Ajout Relevé Index</string>
-    <string name="title_activity_modif_releveindex">Modification Relevé Index</string>
+    <string name="title_activity_modif_releveindex">Modification Relevé</string>
     <string name="n_prise">N° Prise</string>
     <string name="index_fin">Valeur Index</string>
     <string name="etat_prise">Etat Prise</string>
@@ -10,7 +10,7 @@
     <string name="enregistrer">Enregistrer</string>
     <string name="annuler">Annuler</string>
     <string name="saisie_releveindex">Ajout relevé index</string>
-    <string name="modif_releveindex">Modification relevé index</string>
+    <string name="modif_releveindex">Modification relevé</string>
     <string name="secteur">Secteur</string>
     <string name="date_releve">Date Relevé</string>
     <string name="required">Obligatoire</string>

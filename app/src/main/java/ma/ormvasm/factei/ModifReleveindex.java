@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -55,15 +58,15 @@ public class ModifReleveindex extends AppCompatActivity {
         setSupportActionBar(toolbar);
         final LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final android.support.v7.app.ActionBar ab = getSupportActionBar();
-        ab.setDisplayShowHomeEnabled(false);
-        ab.setDisplayShowTitleEnabled(false);
-
-        View view = inflater.inflate(R.layout.action_bar_custom_view,null);
-        ab.setCustomView(view);
-        ab.setDisplayShowCustomEnabled(true);
-        ab.setCustomView(view,new android.support.v7.app.ActionBar.LayoutParams(
+        //ab.setDisplayShowHomeEnabled(false);
+        ab.setDisplayShowTitleEnabled(true);
+        ab.setDisplayHomeAsUpEnabled(true);
+        //View view = inflater.inflate(R.layout.action_bar_custom_view,null);
+        //ab.setCustomView(view);
+        //ab.setDisplayShowCustomEnabled(true);
+        /*ab.setCustomView(view,new android.support.v7.app.ActionBar.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
+                ViewGroup.LayoutParams.MATCH_PARENT));*/
 
         datereleve=(TextView) findViewById(R.id.txtdatereleve);
         secteur=(TextView) findViewById(R.id.txtsecteur);
@@ -71,18 +74,10 @@ public class ModifReleveindex extends AppCompatActivity {
         indexfin=(TextView) findViewById(R.id.txtindexfin);
         spinnerEtatprise=(Spinner) findViewById(R.id.spinetatprise);
         observations=(TextView) findViewById(R.id.txtobservations);
-
-
-
         idReleve=getIntent().getStringExtra("ID_RELEVE");
-
-
-
 
         spinnerEtatprise = (Spinner)  findViewById(R.id.spinetatprise);
         loadSpinnerEtatprise();
-
-
         spinnerEtatprise.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -221,4 +216,38 @@ public class ModifReleveindex extends AppCompatActivity {
 
         return true;
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_form, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.btn_save) {
+            enregistrer(item.getActionView());
+            return true;
+        }
+        if (id == R.id.btn_cancel) {
+            annuler(item.getActionView());
+            return true;
+        }
+        if (id == android.R.id.home){
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }

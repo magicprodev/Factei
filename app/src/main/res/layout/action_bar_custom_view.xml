@@ -18,6 +18,8 @@
             android:text="@string/annuler"
             android:onClick="annuler"
             android:gravity="center"
+            android:background="@android:color/transparent"
+            android:textColor="@color/colorWhiteDefault"
             />
 
         <Button
@@ -27,6 +29,8 @@
             android:text="@string/enregistrer"
             android:onClick="enregistrer"
             android:gravity="center"
+            android:background="@android:color/transparent"
+            android:textColor="@color/colorWhiteDefault"
             />
     </LinearLayout>
 </RelativeLayout>
