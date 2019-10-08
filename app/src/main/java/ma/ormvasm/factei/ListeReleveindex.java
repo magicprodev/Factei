@@ -19,12 +19,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.app.Fragment;
 import ma.ormvasm.factei.DAO.Releveindex;
 import ma.ormvasm.factei.DAO.ReleveindexDAO;
 
 
-public class ListeReleveindex extends AppCompatActivity {
+public class ListeReleveindex extends  Fragment {
 
     TextView textView =null;
     ProgressBar mPogressBar = null;
@@ -33,24 +33,29 @@ public class ListeReleveindex extends AppCompatActivity {
     ReleveindexListViewAdapter adapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_liste_releveindex);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setContentView(R.layout.activity_liste_releveindex);
+        View myView;
+        myView = inflater.inflate(R.layout.activity_liste_releveindex, container, false);
 
 
-        textView = findViewById(R.id.textView);
-        mPogressBar =(ProgressBar) findViewById(R.id.progressBar);
-        releveindexListView =(ListView) findViewById(R.id.releveIndexListView) ;
+
+        Toolbar toolbar = myView.findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+
+
+        textView = myView.findViewById(R.id.textView);
+        mPogressBar =(ProgressBar) myView.findViewById(R.id.progressBar);
+        releveindexListView =(ListView) myView.findViewById(R.id.releveIndexListView) ;
 
         //test github
 
         //ActionBar actionBar = ((AppCompatActivity) getActivity(this)).getSupportActionBar();
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.title_activity_liste_releveindex);
+        //ActionBar actionBar = getSupportActionBar();
+        //actionBar.setTitle(R.string.title_activity_liste_releveindex);
 
-
+        getActivity().setTitle(getString(R.string.liste_releveindex));
 
         releveindexListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -58,7 +63,7 @@ public class ListeReleveindex extends AppCompatActivity {
 
                String selected = ((TextView) view.findViewById(R.id.txtIdReleveindex)).getText().toString();
 
-               Intent intent = new Intent(ListeReleveindex.this, ModifReleveindex.class);
+               Intent intent = new Intent(getActivity(), ModifReleveindex.class);
                intent.putExtra("ID_RELEVE", selected);
                //startActivity(intent);
                 startActivityForResult(intent, 1);
@@ -70,7 +75,7 @@ public class ListeReleveindex extends AppCompatActivity {
             }
         });
 
-        ViewGroup headerView = (ViewGroup) this.getLayoutInflater().inflate(R.layout.custom_row_releveindex_header, releveindexListView,false);
+        ViewGroup headerView = (ViewGroup) inflater.inflate(R.layout.custom_row_releveindex_header, releveindexListView,false);
 
         releveindexListView.addHeaderView(headerView,null,false);
 
@@ -79,17 +84,17 @@ public class ListeReleveindex extends AppCompatActivity {
 
 
 
-
+        return  myView;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+   @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 1) {
-            if(resultCode == ListeReleveindex.RESULT_OK){
+            if(resultCode == getActivity().RESULT_OK){
                 readData();
             }
-            if (resultCode == ListeReleveindex.RESULT_CANCELED) {
+            if (resultCode == getActivity().RESULT_CANCELED) {
                 //Write your code if there's no result
             }
         }
@@ -97,9 +102,9 @@ public class ListeReleveindex extends AppCompatActivity {
 
     private void readData(){
             mPogressBar.setVisibility(View.VISIBLE);
-            ReleveindexDAO indx = new ReleveindexDAO(ListeReleveindex.this);
+            ReleveindexDAO indx = new ReleveindexDAO(getActivity());
             releves = indx.getListReleveindex();
-            adapter = new ReleveindexListViewAdapter(releves,this);
+            adapter = new ReleveindexListViewAdapter(releves,getActivity());
             releveindexListView.setAdapter(adapter);
             mPogressBar.setVisibility(View.GONE);
     }

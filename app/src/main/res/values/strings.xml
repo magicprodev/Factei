@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FACTAPP</string>
+    <string name="app_name">FactIrri 1.0</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_saisie_releveindex">Ajout Relevé Index</string>
     <string name="title_activity_modif_releveindex">Modification Relevé Index</string>
@@ -24,6 +24,9 @@
     <string name="title_FragmentAcceuil">Accueil</string>
     <string name="menu_export">Exporter</string>
     <string name="menu_import">Importer</string>
-
+    <string name="n_prise_introuvable">N° Prise introuvable</string>
+    <string name="releve_insere_avec_succes" >Relevé Index ajouté avec succès</string>
+    <string name="renseigner_valeur_index" >Veuillez renseigner la valeur d\'index</string>
+    <string name="copyright_orsm" >\u00a9 COPYRIGHT ORMVA-SM 2019</string>
 
 </resources>

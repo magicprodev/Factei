@@ -13,21 +13,14 @@
             android:icon="@drawable/ic_receive"
             android:title="@string/menu_import" />
         <item
-            android:id="@+id/nav_salle"
-            android:icon="@drawable/ic_check"
-            android:title="Choisir la salle" />
+            android:id="@+id/nav_saisie_releve"
+            android:icon="@drawable/ic_add"
+            android:title="@string/saisie_releveindex" />
         <item
             android:id="@+id/nav_listeReleves"
             android:icon="@drawable/ic_liste"
             android:title="@string/liste_releveindex" />
-        <item
-            android:id="@+id/nav_pointage"
-            android:icon="@drawable/ic_card"
-            android:title="Pointage présence" />
-        <item
-            android:id="@+id/nav_scan"
-            android:icon="@drawable/ic_scan"
-            android:title="Scanner code barre" />
+
 
     </group>
 

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,7 +23,8 @@ public class MainActivity extends AppCompatActivity
 
     private Context context;
 
-
+    ListeReleveindex lr;
+    SaisieReleveindex sr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,33 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction;
 
+
+        if (id == R.id.nav_listeReleves) {
+            lr = new ListeReleveindex();
+            fm.beginTransaction()
+                    .replace(R.id.content_frame
+                            , lr)
+                    .addToBackStack(null)
+                    .commit();
+
+        }
+        else
+        if (id == R.id.nav_saisie_releve) {
+            sr = new SaisieReleveindex();
+            fm.beginTransaction()
+                    .replace(R.id.content_frame
+                            , sr)
+                    .addToBackStack(null)
+                    .commit();
+
+
+        }
+
+
+
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -106,5 +135,14 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
+        if (fragment != null) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

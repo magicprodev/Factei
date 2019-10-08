@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="0dp"
+    android:paddingTop="10dp"
     tools:context=".SaisieReleveindex">
 
     <!--<include layout="@layout/content_saisie_releveindex" />-->
@@ -16,7 +16,7 @@
 
 
 
-    <android.support.design.widget.AppBarLayout
+<!--    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -28,7 +28,7 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.AppBarLayout>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -227,7 +227,6 @@
             android:layout_below="@+id/lblobservation"
             android:layout_centerInParent="true"
             android:layout_marginBottom="5dp"
-            android:onClick="enregistrer"
             android:text="@string/enregistrer" />
 
     </RelativeLayout>
