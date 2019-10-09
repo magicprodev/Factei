@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,6 +33,8 @@ import ma.ormvasm.factei.DAO.ReleveindexDAO;
 import ma.ormvasm.factei.DAO.Secteur;
 import ma.ormvasm.factei.DAO.EtatpriseDAO;
 
+import static android.content.ContentValues.TAG;
+
 public class SaisieReleveindex extends Fragment {
 
     TextView numprise;
@@ -51,6 +54,7 @@ public class SaisieReleveindex extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         View myView;
         myView = inflater.inflate(R.layout.activity_saisie_releveindex, container, false);
 
@@ -244,6 +248,8 @@ public class SaisieReleveindex extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        Log.d(TAG, "Fragment.onOptionsItemSelected");
+        menu.clear();
         inflater.inflate(R.menu.menu_form, menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
@@ -261,7 +267,7 @@ public class SaisieReleveindex extends Fragment {
             return true;
         }
         if (id == R.id.btn_cancel) {
-            super.onDetach();
+            getActivity().onBackPressed();
             return true;
         }
 

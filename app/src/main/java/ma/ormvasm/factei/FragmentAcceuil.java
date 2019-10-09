@@ -16,7 +16,7 @@ public class FragmentAcceuil extends Fragment  {
         super.onCreate(savedInstanceState);
         View myView;
         myView = inflater.inflate(R.layout.activity_fragment_acceuil, container, false);
-
+        getActivity().setTitle(getString(R.string.app_name));
         return  myView;
     }
 }
