@@ -26,7 +26,7 @@ public class ReleveindexDAO extends DAOBase {
     public static final String RELEVEINDEX_COLUMN_UTILISATEUR_INSERT= "utilisateur_insert";
     public static final String RELEVEINDEX_COLUMN_OBSERVATIONS= "observations";
     public static final String RELEVEINDEX_COLUMN_ROW_ID = "row_id";
-
+    private String cond_releve="";
     public ReleveindexDAO(Context pContext) {
 
         super(pContext);
@@ -156,11 +156,16 @@ public class ReleveindexDAO extends DAOBase {
         ArrayList<Releveindex> array_list = new ArrayList<Releveindex>();
 
         //hp = new HashMap();
+        String stCond="";
+        if (!cond_releve.equals("")){
+            stCond=" where " + cond_releve;
+                    }
         Cursor res =  mDb.rawQuery( "select id_releveindex,code_prise,date_debut_index,date_fin_index,index_debut,index_fin," +
                 "etat_prise as code_etat_prise,volume_index,valide,code_cmv,date_maj,utilisateur_maj,date_insert,utilisateur_insert," +
                 "observations,row_id" +
                 " from releveindex r join etatprise e on r.code_etat_prise=e.code_etat_prise " +
-                "order by code_prise,substr('0000000000'||code_prise, -10, 10)", null );
+                stCond +
+                " order by code_prise,substr('0000000000'||code_prise, -10, 10)", null );
         res.moveToFirst();
         Releveindex r;
 
@@ -188,5 +193,7 @@ public class ReleveindexDAO extends DAOBase {
         }
 
     }
-
+    public void setCondReleve(String cond) {
+        cond_releve = cond;
+            }
 }

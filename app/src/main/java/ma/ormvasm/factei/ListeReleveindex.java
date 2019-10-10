@@ -43,7 +43,7 @@ public class ListeReleveindex extends  Fragment {
     ReleveindexListViewAdapter adapter;
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
-
+    private String stCond_save="";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +93,7 @@ public class ListeReleveindex extends  Fragment {
         releveindexListView.addHeaderView(headerView,null,false);
 
 
-        readData();
+        readData("");
 
 
 
@@ -105,8 +105,7 @@ public class ListeReleveindex extends  Fragment {
 
         if (requestCode == 1) {
             if(resultCode == getActivity().RESULT_OK){
-                adapter = new ReleveindexListViewAdapter(releves,getActivity());
-                releveindexListView.setAdapter(adapter);
+                readData(stCond_save);
             }
             if (resultCode == getActivity().RESULT_CANCELED) {
                 //Write your code if there's no result
@@ -114,9 +113,10 @@ public class ListeReleveindex extends  Fragment {
         }
     }//onActivityResult
 
-    private void readData(){
+    private void readData(String stCond){
             mPogressBar.setVisibility(View.VISIBLE);
             ReleveindexDAO indx = new ReleveindexDAO(getActivity());
+            indx.setCondReleve(stCond);
             releves = indx.getListReleveindex();
             adapter = new ReleveindexListViewAdapter(releves,getActivity());
             releveindexListView.setAdapter(adapter);
@@ -141,21 +141,14 @@ public class ListeReleveindex extends  Fragment {
                 public boolean onQueryTextChange(String newText) {
                     //Log.i("onQueryTextChange", newText);
 
-                    readData();
+                    //readData("code_prise like '%"+newText+"%'");
                     return true;
                 }
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     //Log.i("onQueryTextSubmit", query);
-                    List<Releveindex> releves_search = new ArrayList<Releveindex>();
-                    for (Releveindex rel : releves) {
-                        if (rel.getCode_prise().contains(query)) {
-                            releves_search.add(rel);
-                        }
-                    }
-                    releves=releves_search;
-                    adapter = new ReleveindexListViewAdapter(releves, getActivity());
-                    releveindexListView.setAdapter(adapter);
+                    stCond_save="code_prise like '%"+query+"%'";
+                    readData(stCond_save);
                     return true;
                     }
                 };
