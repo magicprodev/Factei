@@ -1,5 +1,6 @@
 package ma.ormvasm.factei;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -11,12 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -40,6 +43,10 @@ public class ListeReleveindex extends  Fragment {
     ProgressBar mPogressBar = null;
     ListView releveindexListView = null;
     List<Releveindex> releves = new ArrayList<Releveindex>();
+    View lastView = null;
+    int position = -1;
+    private Menu menu;
+    String menuMode="";
     ReleveindexListViewAdapter adapter;
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
@@ -52,7 +59,7 @@ public class ListeReleveindex extends  Fragment {
         View myView;
         myView = inflater.inflate(R.layout.activity_liste_releveindex, container, false);
 
-
+        menuMode="consult";
 
         Toolbar toolbar = myView.findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
@@ -85,6 +92,51 @@ public class ListeReleveindex extends  Fragment {
 
                 //Toast.makeText(ListeReleveindex.this, "ON Click "+(i-1), Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        releveindexListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (ListeReleveindex.this.lastView !=  null)
+                    ListeReleveindex.this.lastView.setBackgroundResource(R.color.colorWhiteDefault);
+                //hideKeyboard(getActivity());
+
+                ListeReleveindex.this.position = i;
+                view.setBackgroundResource(R.color.green_200);
+                adapter.setPosition(i);
+                view.setSelected(true);
+
+                ListeReleveindex.this.lastView = view;
+                updateUI("edit");
+
+                return true;
+            }
+        });
+        myView.setFocusableInTouchMode(true);
+        myView.requestFocus();
+        myView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+                        //Toast.makeText(ParticipFragment.this.context, "Back Pressed", Toast.LENGTH_SHORT).show();
+                        if (ListeReleveindex.this.menuMode.equals("edit")){
+                            updateUI("consult");
+                            if (ListeReleveindex.this.position > 0) {
+                                releveindexListView.clearChoices();
+                                releveindexListView.requestLayout();
+                                ListeReleveindex.this.lastView.setBackgroundResource(R.color.colorWhiteDefault);
+                            }
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+                return false;
             }
         });
 
@@ -126,6 +178,8 @@ public class ListeReleveindex extends  Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        this.menu = menu;
+        //updateUI("consult");
         inflater.inflate(R.menu.menu_list, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
@@ -163,13 +217,75 @@ public class ListeReleveindex extends  Fragment {
         switch (item.getItemId()) {
             case R.id.action_search:
                 // Not implemented here
-                return false;
-            default:
-                break;
+                return true;
+            case R.id.action_delete:
+                // Not implemented here
+                Toast.makeText(getActivity(), "Suppression", Toast.LENGTH_SHORT).show();
+                return true;
+            case android.R.id.home:
+                updateUI("consult");
+
+                if (this.position > 0) {
+                    releveindexListView.clearChoices();
+                    releveindexListView.requestLayout();
+                }
+
+                return true;
         }
         searchView.setOnQueryTextListener(queryTextListener);
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
 
+        updateUI(this.menuMode);
+        /*if (this.position==-1) {
+            MenuItem filter = menu.findItem(R.id.action_delete);
+            filter.setVisible(false);
+        }*/
+
+    }
+
+    public void updateUI(String argMenuMode){
+
+        switch (argMenuMode) {
+            case "consult":
+                this.menu.getItem(0).setVisible(true);
+                this.menu.getItem(1).setVisible(false);
+                //myInterface.showDrawer();
+                releveindexListView.setEnabled(true);
+                int l=ListeReleveindex.this.position;
+                if (lastView!=null) {
+                    lastView.setBackgroundResource(R.color.colorWhiteDefault);
+                    this.position=-1;
+                    adapter.setPosition(-1);
+                }
+
+                break;
+            case "edit":
+                this.menu.getItem(0).setVisible(false);
+                this.menu.getItem(1).setVisible(true);
+                //myInterface.hideDrawer();
+                releveindexListView.setEnabled(false);
+
+                break;
+
+        }
+        this.menuMode = argMenuMode;
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 }
+
+
