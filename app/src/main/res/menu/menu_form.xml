@@ -5,4 +5,8 @@
         android:id="@+id/btn_cancel" android:icon="@android:drawable/ic_menu_close_clear_cancel" app:showAsAction="always|withText" android:title="@string/enregistrer"/>
     <item
         android:id="@+id/btn_save" android:icon="@android:drawable/ic_menu_save" app:showAsAction="always"   android:title="@string/annuler"/>
-    </menu>
+    <item
+        android:id="@+id/btn_delete" android:icon="@android:drawable/ic_menu_close_clear_cancel" android:title="@string/menu_delete"
+        app:actionViewClass="android.support.v7.widget.SearchView" app:showAsAction="never"/>
+
+</menu>

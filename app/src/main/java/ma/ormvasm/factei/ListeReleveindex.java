@@ -39,18 +39,19 @@ import ma.ormvasm.factei.DAO.ReleveindexDAO;
 
 public class ListeReleveindex extends  Fragment {
 
-    TextView textView =null;
+    TextView textView = null;
     ProgressBar mPogressBar = null;
     ListView releveindexListView = null;
     List<Releveindex> releves = new ArrayList<Releveindex>();
     View lastView = null;
     int position = -1;
     private Menu menu;
-    String menuMode="";
+    //String menuMode = "";
     ReleveindexListViewAdapter adapter;
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
-    private String stCond_save="";
+    private String stCond_save = "";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,15 +60,15 @@ public class ListeReleveindex extends  Fragment {
         View myView;
         myView = inflater.inflate(R.layout.activity_liste_releveindex, container, false);
 
-        menuMode="consult";
+        //menuMode = "consult";
 
         Toolbar toolbar = myView.findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
 
         textView = myView.findViewById(R.id.textView);
-        mPogressBar =(ProgressBar) myView.findViewById(R.id.progressBar);
-        releveindexListView =(ListView) myView.findViewById(R.id.releveIndexListView) ;
+        mPogressBar = (ProgressBar) myView.findViewById(R.id.progressBar);
+        releveindexListView = (ListView) myView.findViewById(R.id.releveIndexListView);
 
         //test github
 
@@ -81,13 +82,13 @@ public class ListeReleveindex extends  Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-               String selected = ((TextView) view.findViewById(R.id.txtIdReleveindex)).getText().toString();
+                String selected = ((TextView) view.findViewById(R.id.txtIdReleveindex)).getText().toString();
 
-               Intent intent = new Intent(getActivity(), ModifReleveindex.class);
-               intent.putExtra("ID_RELEVE", selected);
-               //startActivity(intent);
+                Intent intent = new Intent(getActivity(), ModifReleveindex.class);
+                intent.putExtra("ID_RELEVE", selected);
+                //startActivity(intent);
                 startActivityForResult(intent, 1);
-               //Toast.makeText(ListeReleveindex.this, selected, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ListeReleveindex.this, selected, Toast.LENGTH_SHORT).show();
 
 
                 //Toast.makeText(ListeReleveindex.this, "ON Click "+(i-1), Toast.LENGTH_SHORT).show();
@@ -95,7 +96,7 @@ public class ListeReleveindex extends  Fragment {
             }
         });
 
-        releveindexListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+       /* releveindexListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -113,50 +114,26 @@ public class ListeReleveindex extends  Fragment {
 
                 return true;
             }
-        });
+        });*/
         myView.setFocusableInTouchMode(true);
         myView.requestFocus();
-        myView.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+        ViewGroup headerView = (ViewGroup) inflater.inflate(R.layout.custom_row_releveindex_header, releveindexListView, false);
 
-                        //Toast.makeText(ParticipFragment.this.context, "Back Pressed", Toast.LENGTH_SHORT).show();
-                        if (ListeReleveindex.this.menuMode.equals("edit")){
-                            updateUI("consult");
-                            if (ListeReleveindex.this.position > 0) {
-                                releveindexListView.clearChoices();
-                                releveindexListView.requestLayout();
-                                ListeReleveindex.this.lastView.setBackgroundResource(R.color.colorWhiteDefault);
-                            }
-                            return true;
-                        }
-                        return false;
-                    }
-                }
-                return false;
-            }
-        });
-
-        ViewGroup headerView = (ViewGroup) inflater.inflate(R.layout.custom_row_releveindex_header, releveindexListView,false);
-
-        releveindexListView.addHeaderView(headerView,null,false);
+        releveindexListView.addHeaderView(headerView, null, false);
 
 
         readData("");
 
 
-
-        return  myView;
+        return myView;
     }
 
-   @Override
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 1) {
-            if(resultCode == getActivity().RESULT_OK){
+            if (resultCode == getActivity().RESULT_OK) {
                 readData(stCond_save);
             }
             if (resultCode == getActivity().RESULT_CANCELED) {
@@ -165,14 +142,14 @@ public class ListeReleveindex extends  Fragment {
         }
     }//onActivityResult
 
-    private void readData(String stCond){
-            mPogressBar.setVisibility(View.VISIBLE);
-            ReleveindexDAO indx = new ReleveindexDAO(getActivity());
-            indx.setCondReleve(stCond);
-            releves = indx.getListReleveindex();
-            adapter = new ReleveindexListViewAdapter(releves,getActivity());
-            releveindexListView.setAdapter(adapter);
-            mPogressBar.setVisibility(View.GONE);
+    private void readData(String stCond) {
+        mPogressBar.setVisibility(View.VISIBLE);
+        ReleveindexDAO indx = new ReleveindexDAO(getActivity());
+        indx.setCondReleve(stCond);
+        releves = indx.getListReleveindex();
+        adapter = new ReleveindexListViewAdapter(releves, getActivity());
+        releveindexListView.setAdapter(adapter);
+        mPogressBar.setVisibility(View.GONE);
     }
 
 
@@ -198,32 +175,30 @@ public class ListeReleveindex extends  Fragment {
                     //readData("code_prise like '%"+newText+"%'");
                     return true;
                 }
+
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     //Log.i("onQueryTextSubmit", query);
-                    stCond_save="code_prise like '%"+query+"%'";
+                    stCond_save = "code_prise like '%" + query + "%'";
                     readData(stCond_save);
                     return true;
-                    }
-                };
-
-                    searchView.setOnQueryTextListener(queryTextListener);
                 }
-            super.onCreateOptionsMenu(menu, inflater);
+            };
+
+            searchView.setOnQueryTextListener(queryTextListener);
+        }
+        super.onCreateOptionsMenu(menu, inflater);
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
                 // Not implemented here
                 return true;
-            case R.id.action_delete:
-                // Not implemented here
-                Toast.makeText(getActivity(), "Suppression", Toast.LENGTH_SHORT).show();
-                return true;
             case android.R.id.home:
-                updateUI("consult");
+                //updateUI("consult");
 
                 if (this.position > 0) {
                     releveindexListView.clearChoices();
@@ -236,15 +211,16 @@ public class ListeReleveindex extends  Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+
+    /*@Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
         updateUI(this.menuMode);
-        /*if (this.position==-1) {
+        *//*if (this.position==-1) {
             MenuItem filter = menu.findItem(R.id.action_delete);
             filter.setVisible(false);
-        }*/
+        }*//*
 
     }
 
@@ -286,6 +262,7 @@ public class ListeReleveindex extends  Fragment {
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+    */
 }
 
 

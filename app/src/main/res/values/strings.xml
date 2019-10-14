@@ -30,5 +30,11 @@
     <string name="copyright_orsm" >\u00a9 COPYRIGHT ORMVA-SM 2019</string>
     <string name="menu_search" >Rechercher</string>
     <string name="menu_delete" >Supprimer</string>
+    <string name="releve_supprime_avec_succe" >Relevé supprimé avec succès</string>
+    <string name="confirm_delete">Etes vous sûr de vouloir supprimer : %1$s ?</string>
+    <string name="delete_record">Supprimer</string>
+    <string name="cancel_record">Annuler</string>
+    <string name="suppresion"> <b>Suppresion</b></string>
+
 
 </resources>

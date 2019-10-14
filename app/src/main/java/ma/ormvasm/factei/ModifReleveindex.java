@@ -1,12 +1,15 @@
 package ma.ormvasm.factei;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -166,6 +170,15 @@ public class ModifReleveindex extends AppCompatActivity {
         finish();
     }
 
+    public void supprimer(long id_rel) {
+        ReleveindexDAO rdao=new ReleveindexDAO(ModifReleveindex.this) ;
+        rdao.supprimer(id_rel);
+        Toast.makeText(ModifReleveindex.this,  getString(R.string.releve_supprime_avec_succe), Toast.LENGTH_LONG).show();
+        Intent intent=new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
     private void loadSpinnerEtatprise() {
         //  url = url +"?cmd=listeSecteur&examen="+idexam;
         ListeEtatprise = new ArrayList<Etatprise>();
@@ -222,6 +235,22 @@ public class ModifReleveindex extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_form, menu);
+        ReleveindexDAO rdao=new ReleveindexDAO(ModifReleveindex.this) ;
+        String code_prise=ri.getCode_prise();
+
+        MenuItem filter_delete = menu.findItem(R.id.btn_delete);
+        MenuItem filter_save = menu.findItem(R.id.btn_save);
+
+        Releveindex rr = rdao.getDernierReleve(ri.getCode_prise());
+
+        if (rr.getId_releveindex()!=ri.getId_releveindex()) {
+            filter_delete.setVisible(false);
+            filter_save.setVisible(false);
+        }
+        else{
+            filter_delete.setVisible(true);
+            filter_save.setVisible(true);
+        }
         return true;
     }
 
@@ -241,12 +270,61 @@ public class ModifReleveindex extends AppCompatActivity {
             annuler(item.getActionView());
             return true;
         }
+        if (id == R.id.btn_delete) {
+            showDeleteDialog(R.layout.custom_title_dialog,getString(R.string.suppresion) ,getString(R.string.delete_record),getString(R.string.cancel_record), ri);
+            return true;
+        }
         if (id == android.R.id.home){
             onBackPressed();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void showDeleteDialog(int titre_layout,String dialogTitle ,String positiveButtonTitle, String negativeButtonTitle, final Releveindex rel){
+
+         LayoutInflater inflater = (LayoutInflater) ModifReleveindex.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //int tt =R.layout.custom_title_dialog;
+        View customTitleView = inflater.inflate(titre_layout, null);
+        TextView title = (TextView) customTitleView.findViewById(R.id.title);
+        title.setText(dialogTitle);
+
+        final long toDeleteID = rel.getId_releveindex();
+        String toDelete="Relevé index : Prise: "+rel.getCode_prise()+" Date relevé : "+rel.getDate_fin_index();
+
+        final AlertDialog d = new AlertDialog.Builder(ModifReleveindex.this)
+                .setCustomTitle(customTitleView)
+                .setMessage(ModifReleveindex.this.getString(R.string.confirm_delete, toDelete) )
+                .setPositiveButton(positiveButtonTitle, null) //Set to null. We override the onclick
+                .setNegativeButton(negativeButtonTitle, null)
+                .create();
+
+        d.setCanceledOnTouchOutside(false);
+
+        d.setOnShowListener(new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow(DialogInterface dialog) {
+
+                Button b = d.getButton(AlertDialog.BUTTON_POSITIVE);
+                b.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        // TODO Do something
+                        supprimer(rel.getId_releveindex());
+                        d.dismiss();
+                        }
+
+
+
+                });
+            }
+        });
+
+        d.show();
     }
 
 
