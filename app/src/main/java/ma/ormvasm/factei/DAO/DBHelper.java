@@ -54,6 +54,29 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String RELEVEINDEX_TABLE_DROP ="DROP TABLE IF EXISTS " + RELEVEINDEX_TABLE_NAME;
 
 
+    //TABLE parametre
+
+    public static final String PARAMETRE_TABLE_NAME = "parametre";
+    public static final String PARAMETRE_COLUMN_CODE_PARAMETRE = "code_parametre";
+    public static final String PARAMETRE_COLUMN_VALEUR_PARAMETRE = "valeur_parametre";
+    public static final String PARAMETRE_COLUMN_DATE_MAJ = "date_maj";
+    public static final String PARAMETRE_COLUMN_UTILISATEUR_MAJ = "utilisateur_maj";
+    public static final String PARAMETRE_COLUMN_DATE_INSERT = "date_insert";
+    public static final String PARAMETRE_COLUMN_UTILISATEUR_INSER = "utilisateur_insert";
+
+    public static final String PARAMETRE_TABLE_CREATE =
+            "CREATE TABLE " + PARAMETRE_TABLE_NAME + " (" +
+                    PARAMETRE_COLUMN_CODE_PARAMETRE+ " TEXT, " +
+                    PARAMETRE_COLUMN_VALEUR_PARAMETRE+ " TEXT, " +
+                    PARAMETRE_COLUMN_DATE_MAJ+ " TEXT, " +
+                    PARAMETRE_COLUMN_UTILISATEUR_MAJ+ " TEXT, " +
+                    PARAMETRE_COLUMN_DATE_INSERT+ " TEXT, " +
+                    PARAMETRE_COLUMN_UTILISATEUR_INSER+ " TEXT); " ;
+
+    public static final String ARAMETRE_TABLE_DROP ="DROP TABLE IF EXISTS " + PARAMETRE_TABLE_NAME;
+
+
+
     //TABLE prise
     public static final String PRISE_TABLE_NAME = "prise";
     public static final String PRISE_COLUMN_CODE_PRISE="code_prise";
@@ -109,6 +132,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(RELEVEINDEX_TABLE_CREATE);
         db.execSQL(PRISE_TABLE_CREATE);
         db.execSQL(ETATPRISE_TABLE_CREATE);
+        db.execSQL(PARAMETRE_TABLE_CREATE);
         //Prises
 
         db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('1-EM1','1','s2a1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
@@ -211,6 +235,13 @@ public class DBHelper extends SQLiteOpenHelper {
         //etat prise
         db.execSQL("insert into etatprise(code_etat_prise,etat_prise) values('N','Normal');");
         db.execSQL("insert into etatprise(code_etat_prise,etat_prise) values('B','Bloqué');");
+
+        //parametre
+        db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('CODE_CMV','');");
+        db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('UTILISATEUR','');");
+        db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('IP_SERVEUR','');");
+
+
     }
 
     @Override
