@@ -73,9 +73,37 @@ public class DBHelper extends SQLiteOpenHelper {
                     PARAMETRE_COLUMN_DATE_INSERT+ " TEXT, " +
                     PARAMETRE_COLUMN_UTILISATEUR_INSER+ " TEXT); " ;
 
-    public static final String ARAMETRE_TABLE_DROP ="DROP TABLE IF EXISTS " + PARAMETRE_TABLE_NAME;
+    public static final String PARAMETRE_TABLE_DROP ="DROP TABLE IF EXISTS " + PARAMETRE_TABLE_NAME;
+
+    //TABLE cmv
+
+    public static final String CMV_TABLE_NAME = "cmv";
+    public static final String CMV_COLUMN_CODE_CMV = "code_cmv";
+    public static final String CMV_COLUMN_CMV = "cmv";
 
 
+    public static final String CMV_TABLE_CREATE =
+            "CREATE TABLE " + CMV_TABLE_NAME + " (" +
+                    CMV_COLUMN_CODE_CMV+ " TEXT, " +
+                    CMV_COLUMN_CMV+ " TEXT); " ;
+
+    public static final String CMV_TABLE_DROP ="DROP TABLE IF EXISTS " + CMV_TABLE_NAME;
+
+    //TABLE utilisateur
+
+    public static final String UTILISATEUR_TABLE_NAME = "utilisateur";
+    public static final String UTILISATEUR_COLUMN_CODE_UTILISATEUR = "code_utilisateur";
+    public static final String UTILISATEUR_COLUMN_UTILISATEUR = "utilisateur";
+    public static final String UTILISATEUR_COLUMN_MOT_PASSE = "mot_passe";
+
+
+    public static final String UTILISATEUR_TABLE_CREATE =
+            "CREATE TABLE " + UTILISATEUR_TABLE_NAME + " (" +
+                    UTILISATEUR_COLUMN_CODE_UTILISATEUR+ " TEXT, " +
+                    UTILISATEUR_COLUMN_UTILISATEUR+ " TEXT, " +
+                    UTILISATEUR_COLUMN_MOT_PASSE+ " TEXT); " ;
+
+    public static final String UTILISATEUR_TABLE_DROP ="DROP TABLE IF EXISTS " + UTILISATEUR_TABLE_NAME;
 
     //TABLE prise
     public static final String PRISE_TABLE_NAME = "prise";
@@ -133,6 +161,9 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(PRISE_TABLE_CREATE);
         db.execSQL(ETATPRISE_TABLE_CREATE);
         db.execSQL(PARAMETRE_TABLE_CREATE);
+        db.execSQL(CMV_TABLE_CREATE);
+        db.execSQL(UTILISATEUR_TABLE_CREATE);
+
         //Prises
 
         db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('1-EM1','1','s2a1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
@@ -241,6 +272,20 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('UTILISATEUR','');");
         db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('IP_SERVEUR','');");
 
+        //cmv
+        db.execSQL("INSERT INTO cmv(code_cmv, cmv) values('01','801')");
+        db.execSQL("INSERT INTO cmv(code_cmv, cmv) values('02','802')");
+        db.execSQL("INSERT INTO cmv(code_cmv, cmv) values('03','803')");
+        db.execSQL("INSERT INTO cmv(code_cmv, cmv) values('04','804')");
+        db.execSQL("INSERT INTO cmv(code_cmv, cmv) values('05','805')");
+        db.execSQL("INSERT INTO cmv(code_cmv, cmv) values('06','806')");
+        db.execSQL("INSERT INTO cmv(code_cmv, cmv) values('07','807')");
+        db.execSQL("INSERT INTO cmv(code_cmv, cmv) values('08','808')");
+        db.execSQL("INSERT INTO cmv(code_cmv, cmv) values('09','809')");
+        db.execSQL("INSERT INTO cmv(code_cmv, cmv) values('10','810')");
+        db.execSQL("INSERT INTO cmv(code_cmv, cmv) values('11','811')");
+        db.execSQL("INSERT INTO cmv(code_cmv, cmv) values('12','812')");
+
 
     }
 
@@ -250,7 +295,9 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(RELEVEINDEX_TABLE_DROP);
         db.execSQL(PRISE_TABLE_DROP);
         db.execSQL(ETATPRISE_TABLE_DROP);
-
+        db.execSQL(PARAMETRE_TABLE_DROP);
+        db.execSQL(CMV_TABLE_DROP);
+        db.execSQL(UTILISATEUR_TABLE_DROP);
         onCreate(db);
     }
 
