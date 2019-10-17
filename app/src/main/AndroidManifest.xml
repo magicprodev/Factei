@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FragmentAcceuil"
+        <activity android:name=".FragmentSettings"></activity>
+        <activity
+            android:name=".FragmentAcceuil"
             android:label="@string/title_FragmentAcceuil"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ModifReleveindex"
             android:label="@string/title_activity_modif_releveindex"
@@ -21,11 +21,7 @@
         <activity
             android:name=".ListeReleveindex"
             android:label="@string/title_activity_liste_releveindex"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
-
-        </activity>
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

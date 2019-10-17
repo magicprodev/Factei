@@ -287,6 +287,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO cmv(code_cmv, cmv) values('12','812')");
 
 
+        //utilisateur
+        db.execSQL("INSERT INTO utilisateur(code_utilisateur,utilisateur,mot_passe) values('admin','admin','admin');");
     }
 
     @Override
@@ -300,10 +302,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(UTILISATEUR_TABLE_DROP);
         onCreate(db);
     }
-
-
-
-
 
 
 }

@@ -69,13 +69,13 @@ public class SaisieReleveindex extends Fragment {
         observations=(TextView) myView.findViewById(R.id.txtobservations);
         datereleve=(TextView) myView.findViewById(R.id.txtdatereleve);
 
-        Button b = (Button) myView.findViewById(R.id.btnenregistrer);
+        /*Button b = (Button) myView.findViewById(R.id.btnenregistrer);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 enregistrer(view);
             }
-        });
+        });*/
 
         getActivity().setTitle(getString(R.string.saisie_releveindex));
 

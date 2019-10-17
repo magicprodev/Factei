@@ -220,14 +220,14 @@
         </EditText>
 
 
-        <Button
+        <!--<Button
             android:id="@+id/btnenregistrer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblobservation"
             android:layout_centerInParent="true"
             android:layout_marginBottom="5dp"
-            android:text="@string/enregistrer" />
+            android:text="@string/enregistrer" />-->
 
     </RelativeLayout>
 </LinearLayout>
