@@ -27,9 +27,9 @@
     <item android:title="Paramètres">
         <menu>
             <item
-                android:id="@+id/serv_param"
+                android:id="@+id/nav_parametres"
                 android:icon="@drawable/ic_settings_black_24dp"
-                android:title="Serveur" />
+                android:title="@string/parametres" />
             <!-- <item
                  android:id="@+id/nav_send"
                  android:icon="@drawable/ic_menu_send"

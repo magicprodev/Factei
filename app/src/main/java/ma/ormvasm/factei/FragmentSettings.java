@@ -13,10 +13,11 @@ public class FragmentSettings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View myView;
-        myView = inflater.inflate(R.layout.activity_fragment_acceuil, container, false);
+        myView = inflater.inflate(R.layout.activity_fragment_settings, container, false);
         getActivity().setTitle(getString(R.string.app_name));
         return  myView;
     }
+
 
 
 }

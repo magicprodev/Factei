@@ -1,11 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="10dp"
     tools:context=".FragmentSettings">
 
+    <!--<include layout="@layout/content_saisie_releveindex" />-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
 
-</android.support.constraint.ConstraintLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="10dp">
+
+
+            <TextView
+                android:id="@+id/lblcmv"
+                android:layout_width="114dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:text="@string/cmv"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Spinner
+                android:id="@+id/spincmv"
+                android:layout_toRightOf="@id/lblcmv"
+
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:spinnerMode="dropdown"
+                android:ems="10"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textColor="@android:color/background_dark"
+                android:textSize="18dp"
+                />
+
+            <TextView
+                android:id="@+id/lblserveur"
+                android:layout_width="110dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/lblcmv"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:text="@string/serveur"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+            <EditText
+                android:id="@+id/txtserveur"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_alignLeft="@+id/spincmv"
+                android:layout_below="@+id/spincmv"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_spinner"
+                android:ems="10"
+                android:inputType="number"
+                android:padding="5dp">
+
+            </EditText>
+
+
+
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

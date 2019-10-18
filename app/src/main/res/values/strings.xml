@@ -35,6 +35,10 @@
     <string name="delete_record">Supprimer</string>
     <string name="cancel_record">Annuler</string>
     <string name="suppresion"> <b>Suppresion</b></string>
+    <string name="cmv">CMV</string>
+    <string name="serveur">Serveur</string>
+    <string name="parametres">Paramètres</string>
+
 
 
 </resources>

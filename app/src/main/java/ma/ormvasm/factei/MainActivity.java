@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity
 
     ListeReleveindex lr;
     SaisieReleveindex sr;
+    FragmentSettings fs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,10 +95,17 @@ public class MainActivity extends AppCompatActivity
 
 
         }
+        else
+        if (id == R.id.nav_parametres) {
+            fs = new FragmentSettings();
+            fm.beginTransaction()
+                    .replace(R.id.content_frame
+                            , fs)
+                    .addToBackStack(null)
+                    .commit();
 
 
-
-
+        }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
