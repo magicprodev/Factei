@@ -57,7 +57,7 @@ public class CmvDAO extends DAOBase{
      */
     public Cmv getData(String st) {
         // CODE
-        Cursor res = mDb.rawQuery("SELECT * FROM " + CMV_TABLE_NAME + " where " + CMV_COLUMN_CODE_CMV +  " ='" + st + "'", null);
+        Cursor res = mDb.rawQuery("SELECT * FROM " + CMV_TABLE_NAME + " where " + CMV_COLUMN_CODE_CMV +  " ='" + st + "' ORDER BY cmv", null);
 
         if (res.moveToFirst()) {
             res.moveToFirst();
@@ -73,13 +73,33 @@ public class CmvDAO extends DAOBase{
 
     }
 
+    public Cmv getData2(String st) {
+        // CODE
+        Cursor res = mDb.rawQuery("SELECT code_cmv,ROW_NUMBER () OVER ( " +
+                " ORDER BY cmv \n" +
+                " ) RowNum FROM " + CMV_TABLE_NAME + " where " + CMV_COLUMN_CODE_CMV +  " ='" + st + "'", null);
+
+        if (res.moveToFirst()) {
+            res.moveToFirst();
+            Cmv p;
+
+            p = new Cmv(
+                    res.getString(res.getColumnIndex(CMV_COLUMN_CODE_CMV)),
+                    res.getString(res.getColumnIndex("ROW_NUMBER")));
+            return p;
+        } else {
+            return null;
+        }
+
+    }
+
 
 
     public ArrayList<Cmv> getAllData() {
         ArrayList<Cmv> array_list = new ArrayList<Cmv>();
 
         //hp = new HashMap();
-        Cursor res = mDb.rawQuery("select * from cmv", null);
+        Cursor res = mDb.rawQuery("select * from cmv order by cmv", null);
         res.moveToFirst();
         Cmv p;
 

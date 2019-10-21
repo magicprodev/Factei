@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="10dp"
-    tools:context=".FragmentSettings">
+    tools:context=".SaisieReleveindex">
 
     <!--<include layout="@layout/content_saisie_releveindex" />-->
     <LinearLayout
@@ -13,8 +13,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-
-
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -25,59 +23,72 @@
 
 
             <TextView
-                android:id="@+id/lblcmv"
+                android:id="@+id/lblserveur"
                 android:layout_width="114dp"
                 android:layout_height="35dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:text="@string/cmv"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <Spinner
-                android:id="@+id/spincmv"
-                android:layout_toRightOf="@id/lblcmv"
-
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:spinnerMode="dropdown"
-                android:ems="10"
-                android:inputType="text"
-                android:padding="5dp"
-                android:textColor="@android:color/background_dark"
-                android:textSize="18dp"
-                />
-
-            <TextView
-                android:id="@+id/lblserveur"
-                android:layout_width="110dp"
-                android:layout_height="35dp"
-                android:layout_below="@+id/lblcmv"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:ems="10"
                 android:text="@string/serveur"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-
             <EditText
                 android:id="@+id/txtserveur"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:layout_alignLeft="@+id/spincmv"
-                android:layout_below="@+id/spincmv"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/lblserveur"
                 android:background="@drawable/bg_spinner"
                 android:ems="10"
-                android:inputType="number"
-                android:padding="5dp">
+                android:inputType="text"
+                android:padding="5dp"
+                android:textColor="@android:color/background_dark"
+                android:textSize="18dp" />
 
-            </EditText>
+
+
+            <RelativeLayout
+                android:id="@+id/rlspincmv"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_toRightOf="@id/lblcmv"
+                android:background="@drawable/bg_spinner"
+                android:textSize="18dp"
+                android:layout_below="@+id/txtserveur"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp">
+
+                <Spinner
+                    android:id="@+id/spincmv"
+                    style="@style/Widget.AppCompat.DropDownItem.Spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown"
+                    android:textSize="18dp"
+                    />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/lblcmv"
+                android:layout_width="114dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/txtserveur"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:text="@string/cmv"
+                android:textSize="18dp" />
 
 
 
-        </RelativeLayout>
+            </RelativeLayout>
+
+
+
+
+
+
     </LinearLayout>
 </ScrollView>
