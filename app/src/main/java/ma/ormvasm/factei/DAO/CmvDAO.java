@@ -75,9 +75,8 @@ public class CmvDAO extends DAOBase{
 
     public Cmv getData2(String st) {
         // CODE
-        Cursor res = mDb.rawQuery("SELECT code_cmv,ROW_NUMBER () OVER ( " +
-                " ORDER BY cmv \n" +
-                " ) RowNum FROM " + CMV_TABLE_NAME + " where " + CMV_COLUMN_CODE_CMV +  " ='" + st + "'", null);
+        Cursor res = mDb.rawQuery("select code_cmv, cmv, (select count(*) from cmv b  where a.code_cmv >= b.code_cmv) as row_num\n" +
+                " from cmv a where code_cmv ='" + st + "'", null);
 
         if (res.moveToFirst()) {
             res.moveToFirst();
@@ -85,7 +84,7 @@ public class CmvDAO extends DAOBase{
 
             p = new Cmv(
                     res.getString(res.getColumnIndex(CMV_COLUMN_CODE_CMV)),
-                    res.getString(res.getColumnIndex("ROW_NUMBER")));
+                    res.getString(res.getColumnIndex("row_num")));
             return p;
         } else {
             return null;
@@ -99,7 +98,7 @@ public class CmvDAO extends DAOBase{
         ArrayList<Cmv> array_list = new ArrayList<Cmv>();
 
         //hp = new HashMap();
-        Cursor res = mDb.rawQuery("select * from cmv order by cmv", null);
+        Cursor res = mDb.rawQuery("select code_cmv,cmv from cmv order by cmv", null);
         res.moveToFirst();
         Cmv p;
 

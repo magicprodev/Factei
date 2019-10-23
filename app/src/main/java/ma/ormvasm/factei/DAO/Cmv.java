@@ -4,7 +4,7 @@ public class Cmv {
         private String code_cmv;
         private String cmv;
 
-        public Cmv(String codecmv,String cmv){
+        public Cmv(String code_cmv,String cmv){
             this.code_cmv=code_cmv;
             this.cmv=cmv;
         }

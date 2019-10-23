@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -52,12 +53,12 @@ public class FragmentSettings extends Fragment {
 
         spinnercmv.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long id) {
                 Cmv tempCmv = adaptercmv.getItem(spinnercmv.getSelectedItemPosition());
-
+                //code_cmv = ((TextView) view.findViewById(R.id.txtCodeCmv)).getText().toString();
                 if (tempCmv != null) {
                     code_cmv=tempCmv.getCode_cmv();
-                    int u=1;
+
                 }
             }
 
@@ -76,15 +77,21 @@ public class FragmentSettings extends Fragment {
         p=pdao.getData("CODE_CMV");
         p.setValeur_parametre(code_cmv);
         pdao.modifier(p);
+
+        p=pdao.getData("IP_SERVEUR");
+        p.setValeur_parametre(serveur.getText().toString());
+        pdao.modifier(p);
+
     }
     private void loadSpinnerCmv() {
         //  url = url +"?cmd=listeSecteur&examen="+idexam;
         ListeCmv = new ArrayList<Cmv>();
         CmvDAO p=new CmvDAO(getActivity());
         ListeCmv = p.getAllData();
-        adaptercmv = new SpinCmvAdapter(getActivity(),
-                R.layout.spinner_layout,ListeCmv);
+        adaptercmv = new SpinCmvAdapter(getActivity(),R.layout.spinner_layout,ListeCmv);
+        //adaptercmv = new SpinCmvAdapter(ListeCmv,getActivity());
         adaptercmv.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        //adaptercmv = new SpinCmvAdapter(getActivity(),ListeCmv);
         spinnercmv.setAdapter(adaptercmv);
 
     }
@@ -102,8 +109,9 @@ public class FragmentSettings extends Fragment {
             pos = Integer.parseInt(c.getData2(p.getValeur_parametre()).getCmv());
         }
 
-        spinnercmv.setSelection(pos);
-
+        spinnercmv.setSelection(pos-1);
+        p=pdao.getData("IP_SERVEUR");
+        serveur.setText(p.getValeur_parametre()+"");
     }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -130,11 +138,19 @@ public class FragmentSettings extends Fragment {
             return true;
         }
         if (id == R.id.btn_cancel) {
+
             getActivity().onBackPressed();
             return true;
         }
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPause() {
+        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        super.onPause();
     }
 }

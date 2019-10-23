@@ -14,13 +14,11 @@ import ma.ormvasm.factei.DAO.Cmv;
 
 public class SpinCmvAdapter extends ArrayAdapter<Cmv> {
 
-    // Your sent context
     private Context context;
-    // Your custom values for the spinnerExam (User)
     private  ArrayList<Cmv> values;
 
     public SpinCmvAdapter(Context context, int textViewResourceId,
-                              ArrayList<Cmv> values) {
+                          ArrayList<Cmv> values) {
         super(context, textViewResourceId, values);
         this.context = context;
         this.values = values;
@@ -42,32 +40,20 @@ public class SpinCmvAdapter extends ArrayAdapter<Cmv> {
     }
 
 
-    // And the "magic" goes here
-    // This is for the "passive" state of the spinnerExam
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // I created a dynamic TextView here, but you can reference your own  custom layout for each spinnerExam item
-        // TextView label = new TextView(context);
 
-        //label.setTextColor(Color.BLACK);
         TextView label = new TextView(context);
         label.setTextColor(Color.BLACK);
         label.setTextSize(18);
-        // Then you can get the current item using the values array (Users array) and the current position
-        // You can NOW reference each method you has created in your bean object (User class)
         label.setText(values.get(position).getCmv());
 
-        // And finally return your dynamic (or custom) view for each spinnerExam item
         return label;
     }
 
-    // And here is when the "chooser" is popped up
-    // Normally is the same view, but you can customize it if you want
     @Override
     public View getDropDownView(int position, View convertView,
                                 ViewGroup parent) {
-        //TextView label = new TextView(context);
-        //label.setTextColor(Color.BLACK);
         TextView label = new TextView (new ContextThemeWrapper(context, R.style.spinnerItemStyle), null, 0);
 
 
