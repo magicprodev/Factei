@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity
     ListeReleveindex lr;
     SaisieReleveindex sr;
     FragmentSettings fs;
+    FragmentListeUtilisateur fu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +107,17 @@ public class MainActivity extends AppCompatActivity
 
 
         }
+        else
+        if (id == R.id.nav_utilisateurs) {
+            fu = new FragmentListeUtilisateur();
+            fm.beginTransaction()
+                    .replace(R.id.content_frame
+                            , fu)
+                    .addToBackStack(null)
+                    .commit();
 
+
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

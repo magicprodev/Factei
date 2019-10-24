@@ -95,13 +95,15 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String UTILISATEUR_COLUMN_CODE_UTILISATEUR = "code_utilisateur";
     public static final String UTILISATEUR_COLUMN_UTILISATEUR = "utilisateur";
     public static final String UTILISATEUR_COLUMN_MOT_PASSE = "mot_passe";
+    public static final String UTILISATEUR_COLUMN_CODE_CMV = "code_cmv";
 
 
     public static final String UTILISATEUR_TABLE_CREATE =
             "CREATE TABLE " + UTILISATEUR_TABLE_NAME + " (" +
                     UTILISATEUR_COLUMN_CODE_UTILISATEUR+ " TEXT, " +
                     UTILISATEUR_COLUMN_UTILISATEUR+ " TEXT, " +
-                    UTILISATEUR_COLUMN_MOT_PASSE+ " TEXT); " ;
+                    UTILISATEUR_COLUMN_MOT_PASSE+ " TEXT, " +
+                    UTILISATEUR_COLUMN_CODE_CMV+ " TEXT); " ;
 
     public static final String UTILISATEUR_TABLE_DROP ="DROP TABLE IF EXISTS " + UTILISATEUR_TABLE_NAME;
 
@@ -288,7 +290,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
         //utilisateur
-        db.execSQL("INSERT INTO utilisateur(code_utilisateur,utilisateur,mot_passe) values('admin','admin','admin');");
+        db.execSQL("INSERT INTO utilisateur(code_utilisateur,utilisateur,mot_passe,code_cmv) values('admin','admin','admin','');");
     }
 
     @Override

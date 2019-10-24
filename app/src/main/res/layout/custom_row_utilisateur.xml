@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100"
+    android:descendantFocusability="blocksDescendants"
+    android:clickable="false"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:background="@drawable/listitem_selector"
+
+    >
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtCodeUtilisateur"
+        android:layout_column="0"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        android:paddingLeft="5sp"
+        android:paddingRight="5sp"
+        android:gravity="left"
+        android:layout_weight="35"
+        >
+    </TextView>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtUtilisateur"
+        android:layout_column="1"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        android:paddingLeft="5sp"
+        android:paddingRight="5sp"
+        android:gravity="left"
+        android:layout_weight="50"
+
+
+        >
+    </TextView>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtCodeCmv"
+        android:layout_column="2"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        android:paddingLeft="5sp"
+        android:paddingRight="5sp"
+        android:gravity="left"
+        android:layout_weight="15"
+
+        >
+    </TextView>
+
+
+
+
+</LinearLayout>

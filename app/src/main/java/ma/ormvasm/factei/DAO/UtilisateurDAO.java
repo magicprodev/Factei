@@ -10,7 +10,9 @@ public class UtilisateurDAO extends DAOBase{
         public static final String UTILISATEUR_COLUMN_CODE_UTILISATEUR= "code_utilisateur";
         public static final String UTILISATEUR_COLUMN_UTILISATEUR = "utilisateur";
         public static final String UTILISATEUR_COLUMN_MOT_PASSE = "mot_passe";
+        public static final String UTILISATEUR_COLUMN_CODE_CMV = "code_cmv";
 
+        private String cond_releve="";
 
         public UtilisateurDAO(Context pContext) {
 
@@ -27,6 +29,7 @@ public class UtilisateurDAO extends DAOBase{
             value.put(UTILISATEUR_COLUMN_CODE_UTILISATEUR, p.getCode_utilisateur());
             value.put(UTILISATEUR_COLUMN_UTILISATEUR, p.getUtilisateur());
             value.put(UTILISATEUR_COLUMN_MOT_PASSE, p.getMot_passe());
+            value.put(UTILISATEUR_COLUMN_CODE_CMV, p.getCode_cmv());
 
             mDb.insert(UTILISATEUR_TABLE_NAME, null, value);
 
@@ -49,6 +52,7 @@ public class UtilisateurDAO extends DAOBase{
             value.put(UTILISATEUR_COLUMN_CODE_UTILISATEUR, p.getCode_utilisateur());
             value.put(UTILISATEUR_COLUMN_UTILISATEUR, p.getUtilisateur());
             value.put(UTILISATEUR_COLUMN_MOT_PASSE, p.getMot_passe());
+            value.put(UTILISATEUR_COLUMN_CODE_CMV, p.getCode_cmv());
 
 
             mDb.update(UTILISATEUR_TABLE_NAME, value, UTILISATEUR_COLUMN_CODE_UTILISATEUR + " = ?", new String[]{p.getCode_utilisateur()});
@@ -68,7 +72,8 @@ public class UtilisateurDAO extends DAOBase{
                 p = new Utilisateur(
                         res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_CODE_UTILISATEUR)),
                         res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_UTILISATEUR)),
-                        res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_MOT_PASSE)));
+                        res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_MOT_PASSE)),
+                        res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_CODE_CMV)));
                 return p;
             } else {
                 return null;
@@ -80,9 +85,12 @@ public class UtilisateurDAO extends DAOBase{
 
         public ArrayList<Utilisateur> getAllData() {
             ArrayList<Utilisateur> array_list = new ArrayList<Utilisateur>();
-
+            String stCond="";
+            if (!cond_releve.equals("")){
+                stCond=" where " + cond_releve;
+            }
             //hp = new HashMap();
-            Cursor res = mDb.rawQuery("select * from utilisateur", null);
+            Cursor res = mDb.rawQuery("select * from utilisateur " +   stCond +" order by utilisateur", null);
             res.moveToFirst();
             Utilisateur p;
 
@@ -91,7 +99,8 @@ public class UtilisateurDAO extends DAOBase{
                 p = new Utilisateur(
                         res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_CODE_UTILISATEUR)),
                         res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_UTILISATEUR)),
-                        res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_MOT_PASSE)));
+                        res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_MOT_PASSE)),
+                        res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_CODE_CMV)));
 
                 array_list.add(p);
                 res.moveToNext();
@@ -99,7 +108,9 @@ public class UtilisateurDAO extends DAOBase{
             return array_list;
         }
 
-
+    public void setCondUtilisateur(String cond) {
+        cond_releve = cond;
+    }
 
     }
 

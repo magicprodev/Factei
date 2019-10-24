@@ -30,10 +30,10 @@
                 android:id="@+id/nav_parametres"
                 android:icon="@drawable/ic_settings_black_24dp"
                 android:title="@string/parametres" />
-            <!-- <item
-                 android:id="@+id/nav_send"
-                 android:icon="@drawable/ic_menu_send"
-                 android:title="Send" />-->
+            <item
+                 android:id="@+id/nav_utilisateurs"
+                 android:icon="@drawable/ic_people_black_24dp"
+                 android:title="@string/liste_utilisateur" />
         </menu>
     </item>
 
