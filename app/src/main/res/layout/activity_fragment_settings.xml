@@ -35,16 +35,20 @@
             <EditText
                 android:id="@+id/txtserveur"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@id/lblserveur"
                 android:background="@drawable/bg_spinner"
                 android:ems="10"
-                android:inputType="text"
                 android:padding="5dp"
                 android:textColor="@android:color/background_dark"
-                android:textSize="18dp" />
+                android:textSize="18dp"
+                android:inputType="textMultiLine"
+                android:singleLine="false"
+                android:lines="3"
+                android:maxLines="5"
+                android:scrollbars="vertical"/>
 
 
 
@@ -55,6 +59,8 @@
                 android:layout_toRightOf="@id/lblcmv"
                 android:background="@drawable/bg_spinner"
                 android:textSize="18dp"
+                android:ems="10"
+                android:padding="5dp"
                 android:layout_below="@+id/txtserveur"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp">
@@ -68,6 +74,8 @@
                     android:spinnerMode="dropdown"
                     android:textSize="18dp"
                     />
+
+
             </RelativeLayout>
 
             <TextView
@@ -82,10 +90,47 @@
                 android:textSize="18dp" />
 
 
+            <RelativeLayout
+                android:id="@+id/rlspinutilisateur"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_toRightOf="@id/lblcmv"
+                android:background="@drawable/bg_spinner"
+                android:textSize="18dp"
+                android:ems="10"
+                android:padding="5dp"
+                android:layout_below="@+id/rlspincmv"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp">
+
+                <Spinner
+                    android:id="@+id/spinutilisateur"
+                    style="@style/Widget.AppCompat.DropDownItem.Spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown"
+                    android:textSize="18dp"
+                    />
+
 
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/lblutilisateur"
+                android:layout_width="114dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/rlspincmv"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:text="@string/utilisateur"
+                android:textSize="18dp" />
 
+
+
+
+         </RelativeLayout>
 
 
 

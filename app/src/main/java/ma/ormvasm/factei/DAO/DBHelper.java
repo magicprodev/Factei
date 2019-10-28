@@ -95,6 +95,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String UTILISATEUR_COLUMN_CODE_UTILISATEUR = "code_utilisateur";
     public static final String UTILISATEUR_COLUMN_UTILISATEUR = "utilisateur";
     public static final String UTILISATEUR_COLUMN_MOT_PASSE = "mot_passe";
+    public static final String UTILISATEUR_COLUMN_GROUPE = "groupe";
     public static final String UTILISATEUR_COLUMN_CODE_CMV = "code_cmv";
 
 
@@ -103,6 +104,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     UTILISATEUR_COLUMN_CODE_UTILISATEUR+ " TEXT, " +
                     UTILISATEUR_COLUMN_UTILISATEUR+ " TEXT, " +
                     UTILISATEUR_COLUMN_MOT_PASSE+ " TEXT, " +
+                    UTILISATEUR_COLUMN_GROUPE+ " TEXT, " +
                     UTILISATEUR_COLUMN_CODE_CMV+ " TEXT); " ;
 
     public static final String UTILISATEUR_TABLE_DROP ="DROP TABLE IF EXISTS " + UTILISATEUR_TABLE_NAME;
@@ -270,7 +272,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("insert into etatprise(code_etat_prise,etat_prise) values('B','Bloqué');");
 
         //parametre
-        db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('CODE_CMV','');");
+        db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('CODE_CMV','01');");
         db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('UTILISATEUR','');");
         db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('IP_SERVEUR','');");
 
@@ -290,7 +292,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
         //utilisateur
-        db.execSQL("INSERT INTO utilisateur(code_utilisateur,utilisateur,mot_passe,code_cmv) values('admin','admin','admin','');");
+        db.execSQL("INSERT INTO utilisateur(code_utilisateur,utilisateur,mot_passe,groupe,code_cmv) values('admin','admin','admin','ADM','');");
     }
 
     @Override

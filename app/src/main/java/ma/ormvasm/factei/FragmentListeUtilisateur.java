@@ -3,9 +3,11 @@ package ma.ormvasm.factei;
 import android.app.Fragment;
 import android.app.SearchManager;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,7 +27,11 @@ import android.app.Fragment;
 
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import ma.ormvasm.factei.DAO.Parametre;
+import ma.ormvasm.factei.DAO.ParametreDAO;
 import ma.ormvasm.factei.DAO.Utilisateur;
 import ma.ormvasm.factei.DAO.UtilisateurDAO;
 
@@ -41,7 +47,9 @@ public class FragmentListeUtilisateur extends Fragment {
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
     private String stCond_save = "";
-
+    private String urlString ="";
+    Parametre p;
+    ParametreDAO pdao ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,27 +127,19 @@ public class FragmentListeUtilisateur extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            // mPogressBar.setVisibility(View.VISIBLE);
+             mPogressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
         protected JSONArray doInBackground(ApiConnector... params) {
-            int idClass = -1;
-            int idExam = -1;
-            int idSalle = -1;
-            int temp = spinnerClasse.getSelectedItemPosition();
-            if (adapterClasse.getItem(spinnerClasse.getSelectedItemPosition())!=null)
-                idClass =  adapterClasse.getItem(spinnerClasse.getSelectedItemPosition()).getIdclasse();
-            int temp2 = spinnerExam.getSelectedItemPosition();
-            if(spinnerExam.getSelectedItemPosition() != -1 && adapterExam.getItem(spinnerExam.getSelectedItemPosition()) !=null)
-                idExam =  adapterExam.getItem(spinnerExam.getSelectedItemPosition()).getIdexam();
-            if(spinnerSalle.getSelectedItemPosition() != -1 && adapterSalle.getItem(spinnerSalle.getSelectedItemPosition())!=null)
-                idSalle =  adapterSalle.getItem(spinnerSalle.getSelectedItemPosition()).getIdsalle();
 
-            if(idClass != -1 && idExam != -1 &&  idSalle != -1 )
-                urlString = urlString + "?cmd=listeEtudiants&classe="+idClass+"&examen="+idExam+"&salle="+idSalle;
-            else
-                return null;
+            pdao =new ParametreDAO(getActivity());
+            p=pdao.getData("IP_SERVEUR");
+            String serv =p.getValeur_parametre();
+            p=pdao.getData("CODE_CMV");
+            String cmv =p.getValeur_parametre();
+            urlString = serv + "/datalist/?cmd=userslist&cmv=" +cmv+"&offset=0";
+
             if (ApiConnector.isServerAlive(urlString)==false){
                 serverOK = false;
                 return null;
@@ -147,7 +147,7 @@ public class FragmentListeUtilisateur extends Fragment {
 
             else {
 
-                JSONArray jsonArray = params[0].getDataExamenEtudiant(urlString);
+                JSONArray jsonArray = params[0].getDataUtilisateurs(urlString);
                 serverOK = true;
                 //setListViewAdapter(jsonArray);
                 return jsonArray;}
@@ -160,15 +160,37 @@ public class FragmentListeUtilisateur extends Fragment {
                     textView.setText("donnees_non_trouvees");
                 else
                     //setTextToTextView(jsonArray);
-                    setListViewAdapter(jsonArray);}
+                    actualiserUtilisateurs(jsonArray);}
             else {
                 textView.setText("probleme_connexion");
             }
 
-//            mPogressBar.setVisibility(View.GONE);
+            mPogressBar.setVisibility(View.GONE);
         }
     }
 
+    void actualiserUtilisateurs(JSONArray jsonarr){
+          Utilisateur u;
+          UtilisateurDAO udao =new UtilisateurDAO(getActivity());
+          udao.supprimerTout();
 
+        try {
+
+            for(int i=0;i<jsonarr.length();i++){
+
+                JSONObject jsonObj=jsonarr.getJSONObject(i);
+
+                u=new Utilisateur(jsonObj.getString("code_utilisateur"),jsonObj.getString("utilisateur"),jsonObj.getString("mot_passe"),jsonObj.getString("groupe"),jsonObj.getString("code_cmv"));
+
+                udao.ajouter(u);
+            }
+            readData("");
+
+        } catch (JSONException e) {
+            Log.e("MYAPP", "unexpected JSON exception", e);
+            // Do something to recover ... or kill the app.
+        }
+
+    }
 }
 

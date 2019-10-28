@@ -66,10 +66,13 @@ public class UtilisateurListViewAdapter extends BaseAdapter {
             cell = (ListCell) convertView.getTag();
         }
 
+
         Utilisateur item = this.dataArray.get(i);
         cell.codeUtilisateur.setText(item.getCode_utilisateur()+"");
         cell.utilisateur.setText(item.getUtilisateur()+"");
-        cell.codeCmv.setText(item.getCode_cmv()+"");
+        String str =item.getCode_cmv();
+        if (str==null) str="";
+        cell.codeCmv.setText(str);
 
 
         if (this.position  == i){

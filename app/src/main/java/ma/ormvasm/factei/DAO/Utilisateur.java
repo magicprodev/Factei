@@ -4,12 +4,14 @@ public class Utilisateur {
     private String code_utilisateur;
     private String utilisateur;
     private String mot_passe;
+    private String groupe;
     private String code_cmv;
 
-    public Utilisateur(String code_utilisateur,String utilisateur,String mot_passe, String code_cmv){
+    public Utilisateur(String code_utilisateur,String utilisateur,String mot_passe, String groupe,String code_cmv){
         this.code_utilisateur=code_utilisateur;
         this.utilisateur=utilisateur;
         this.mot_passe=mot_passe;
+        this.groupe=groupe;
         this.code_cmv=code_cmv;
     }
     public String getCode_utilisateur(){
@@ -42,4 +44,8 @@ public class Utilisateur {
     public void setCode_cmv(String code_cmv){
         this.code_cmv=code_cmv;
     }
+
+    public String getGroupe(){return groupe;}
+
+    public void setGroupe(String groupe){this.groupe=groupe;  }
 }

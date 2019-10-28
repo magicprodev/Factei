@@ -10,6 +10,7 @@ public class UtilisateurDAO extends DAOBase{
         public static final String UTILISATEUR_COLUMN_CODE_UTILISATEUR= "code_utilisateur";
         public static final String UTILISATEUR_COLUMN_UTILISATEUR = "utilisateur";
         public static final String UTILISATEUR_COLUMN_MOT_PASSE = "mot_passe";
+        public static final String UTILISATEUR_COLUMN_GROUPE = "groupe";
         public static final String UTILISATEUR_COLUMN_CODE_CMV = "code_cmv";
 
         private String cond_releve="";
@@ -29,6 +30,7 @@ public class UtilisateurDAO extends DAOBase{
             value.put(UTILISATEUR_COLUMN_CODE_UTILISATEUR, p.getCode_utilisateur());
             value.put(UTILISATEUR_COLUMN_UTILISATEUR, p.getUtilisateur());
             value.put(UTILISATEUR_COLUMN_MOT_PASSE, p.getMot_passe());
+            value.put(UTILISATEUR_COLUMN_GROUPE, p.getGroupe());
             value.put(UTILISATEUR_COLUMN_CODE_CMV, p.getCode_cmv());
 
             mDb.insert(UTILISATEUR_TABLE_NAME, null, value);
@@ -43,6 +45,11 @@ public class UtilisateurDAO extends DAOBase{
             mDb.delete(UTILISATEUR_TABLE_NAME, UTILISATEUR_COLUMN_CODE_UTILISATEUR + " = ?", new String[]{st});
         }
 
+        public void supprimerTout() {
+            // CODE
+            mDb.delete(UTILISATEUR_TABLE_NAME,UTILISATEUR_COLUMN_CODE_UTILISATEUR + " <> ?" ,new String[]{"admin"});
+        }
+
         /**
          * @param p le relevé d'index modifié
          */
@@ -52,6 +59,7 @@ public class UtilisateurDAO extends DAOBase{
             value.put(UTILISATEUR_COLUMN_CODE_UTILISATEUR, p.getCode_utilisateur());
             value.put(UTILISATEUR_COLUMN_UTILISATEUR, p.getUtilisateur());
             value.put(UTILISATEUR_COLUMN_MOT_PASSE, p.getMot_passe());
+            value.put(UTILISATEUR_COLUMN_MOT_PASSE, p.getGroupe());
             value.put(UTILISATEUR_COLUMN_CODE_CMV, p.getCode_cmv());
 
 
@@ -73,6 +81,7 @@ public class UtilisateurDAO extends DAOBase{
                         res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_CODE_UTILISATEUR)),
                         res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_UTILISATEUR)),
                         res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_MOT_PASSE)),
+                        res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_GROUPE)),
                         res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_CODE_CMV)));
                 return p;
             } else {
@@ -90,7 +99,7 @@ public class UtilisateurDAO extends DAOBase{
                 stCond=" where " + cond_releve;
             }
             //hp = new HashMap();
-            Cursor res = mDb.rawQuery("select * from utilisateur " +   stCond +" order by utilisateur", null);
+            Cursor res = mDb.rawQuery("select code_utilisateur,utilisateur,mot_passe,groupe,cmv as code_cmv from utilisateur u left join cmv c on u.code_cmv=c.code_cmv " +   stCond +" order by u.code_cmv,utilisateur", null);
             res.moveToFirst();
             Utilisateur p;
 
@@ -100,6 +109,7 @@ public class UtilisateurDAO extends DAOBase{
                         res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_CODE_UTILISATEUR)),
                         res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_UTILISATEUR)),
                         res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_MOT_PASSE)),
+                        res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_GROUPE)),
                         res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_CODE_CMV)));
 
                 array_list.add(p);
@@ -107,6 +117,52 @@ public class UtilisateurDAO extends DAOBase{
             }
             return array_list;
         }
+
+    public ArrayList<Utilisateur> getAiguadiers() {
+        ArrayList<Utilisateur> array_list = new ArrayList<Utilisateur>();
+
+        Cursor res = mDb.rawQuery("select code_utilisateur,utilisateur,mot_passe,groupe,cmv as code_cmv from utilisateur u left join cmv c on u.code_cmv=c.code_cmv where groupe='AIG' order by u.code_cmv,utilisateur", null);
+        res.moveToFirst();
+        Utilisateur p;
+
+        while (res.isAfterLast() == false) {
+
+            p = new Utilisateur(
+                    res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_CODE_UTILISATEUR)),
+                    res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_UTILISATEUR)),
+                    res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_MOT_PASSE)),
+                    res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_GROUPE)),
+                    res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_CODE_CMV)));
+
+            array_list.add(p);
+            res.moveToNext();
+        }
+        return array_list;
+    }
+
+
+
+    public Utilisateur getData2(String st) {
+        // CODE
+        String sttt="select code_utilisateur, utilisateur, (select count(*) from utilisateur b  where b.groupe='AIG' and  a.code_utilisateur >= b.code_utilisateur) as row_num\n" +
+                " from utilisateur a where a.groupe='AIG' and a.code_utilisateur ='" + st + "'";
+
+        Cursor res = mDb.rawQuery("select code_utilisateur, utilisateur, (select count(*) from utilisateur b  where b.groupe='AIG' and  a.code_utilisateur >= b.code_utilisateur) as row_num\n" +
+                " from utilisateur a where a.groupe='AIG' and a.code_utilisateur ='" + st + "'", null);
+
+        if (res.moveToFirst()) {
+            res.moveToFirst();
+            Utilisateur p;
+
+            p = new Utilisateur(
+                    res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_CODE_UTILISATEUR)),
+                    res.getString(res.getColumnIndex("row_num")),"","","");
+            return p;
+        } else {
+            return null;
+        }
+
+    }
 
     public void setCondUtilisateur(String cond) {
         cond_releve = cond;

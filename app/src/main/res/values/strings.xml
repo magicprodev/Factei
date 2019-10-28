@@ -43,6 +43,7 @@
     <string name="code_utilisateur">Code utilisateur</string>
     <string name="utilisateur">Utilisateur</string>
     <string name="code_cmv">C.M.V</string>
+    <string name="select_cmv">(Choisir CMV)</string>
 
 
 </resources>

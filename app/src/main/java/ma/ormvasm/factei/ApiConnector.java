@@ -68,7 +68,7 @@ public class ApiConnector {
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private static final String TIME_FORMAT = "HH:mm:ss";
 
-    public  JSONArray getDataExamenEtudiant( String urlString){
+    public  JSONArray getDataUtilisateurs( String urlString){
         JSONArray jsonArray = null;
         HttpURLConnection urlConnection =null;
 
@@ -97,6 +97,7 @@ public class ApiConnector {
 
                 try {
                     jsonArray = new JSONArray(jsonString);
+                    int i =145;
                 }
                 catch(JSONException e) {
                     e.printStackTrace();
@@ -166,5 +167,34 @@ public class ApiConnector {
             throw new JsonParseException("Unparseable time: \"" + jsonElement.getAsString()
                     + "\". Supported formats: " + TIME_FORMAT);
         }
+    }
+
+    public static boolean isServerAlive(String urlString) {
+        int t = 0;
+
+        HttpURLConnection urlConnection = null;
+
+        try {
+            URL url = new URL(urlString);
+
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setConnectTimeout(100000);
+                urlConnection.connect();
+
+                int b = urlConnection.getResponseCode();
+
+                if ( b != 200) return false;
+                return true;
+            } catch (IOException e) {
+                return false; // Either timeout or unreachable or failed DNS lookup.
+            }
+        } catch (Exception e) {
+            //Log.e(e.getMessage(),"rrr");
+            return false; // Either timeout or unreachable or failed DNS lookup.
+
+        }
+
+
     }
 }

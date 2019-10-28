@@ -31,17 +31,22 @@ public class SpinCmvAdapter extends ArrayAdapter<Cmv> {
 
     @Override
     public Cmv getItem(int position){
+
+
         return values.get(position);
     }
 
     @Override
     public long getItemId(int position){
+
         return position;
     }
 
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+
 
         TextView label = new TextView(context);
         label.setTextColor(Color.BLACK);
@@ -61,5 +66,8 @@ public class SpinCmvAdapter extends ArrayAdapter<Cmv> {
 
         return label;
     }
+
+
+
 }
 
