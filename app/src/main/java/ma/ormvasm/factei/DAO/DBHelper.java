@@ -30,6 +30,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String RELEVEINDEX_COLUMN_DATE_INSERT = "date_insert";
     public static final String RELEVEINDEX_COLUMN_UTILISATEUR_INSERT= "utilisateur_insert";
     public static final String RELEVEINDEX_COLUMN_OBSERVATIONS= "observations";
+    public static final String RELEVEINDEX_COLUMN_POSITION_X= "position_x";
+    public static final String RELEVEINDEX_COLUMN_POSITION_Y= "position_y";
     public static final String RELEVEINDEX_COLUMN_ROW_ID = "row_id";
 
     public static final String RELEVEINDEX_TABLE_CREATE =
@@ -49,6 +51,8 @@ public class DBHelper extends SQLiteOpenHelper {
                     RELEVEINDEX_COLUMN_DATE_INSERT + " TEXT, " +
                     RELEVEINDEX_COLUMN_UTILISATEUR_INSERT + " TEXT, " +
                     RELEVEINDEX_COLUMN_OBSERVATIONS + " TEXT, " +
+                    RELEVEINDEX_COLUMN_POSITION_X + " TEXT, " +
+                    RELEVEINDEX_COLUMN_POSITION_Y + " TEXT, " +
                     RELEVEINDEX_COLUMN_ROW_ID + " TEXT);";
 
     public static final String RELEVEINDEX_TABLE_DROP ="DROP TABLE IF EXISTS " + RELEVEINDEX_TABLE_NAME;

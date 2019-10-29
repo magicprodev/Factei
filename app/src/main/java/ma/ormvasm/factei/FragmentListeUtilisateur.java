@@ -110,29 +110,20 @@ public class FragmentListeUtilisateur extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                // Not implemented here
-                refresh();
+                new getAllUsersTask().execute(new ApiConnector());
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void refresh(){
-        new getAllDartsTask().execute(new ApiConnector());
-    }
-
-
-    private class getAllDartsTask extends AsyncTask<ApiConnector,Long, JSONArray> {
+    private class getAllUsersTask extends AsyncTask<ApiConnector,Long, JSONArray> {
         private boolean serverOK = true ;
-
         @Override
         protected void onPreExecute() {
              mPogressBar.setVisibility(View.VISIBLE);
         }
-
         @Override
         protected JSONArray doInBackground(ApiConnector... params) {
-
             pdao =new ParametreDAO(getActivity());
             p=pdao.getData("IP_SERVEUR");
             String serv =p.getValeur_parametre();
@@ -144,53 +135,26 @@ public class FragmentListeUtilisateur extends Fragment {
                 serverOK = false;
                 return null;
             }
-
             else {
-
                 JSONArray jsonArray = params[0].getDataUtilisateurs(urlString);
                 serverOK = true;
-                //setListViewAdapter(jsonArray);
                 return jsonArray;}
         }
-
         @Override
         protected void onPostExecute(JSONArray jsonArray) {
+            final UtilisateurDAO udao =new UtilisateurDAO(getActivity());
             if (serverOK){
                 if (jsonArray == null)
-                    textView.setText("donnees_non_trouvees");
+                    textView.setText(getString(R.string.donnees_non_trouvees));
                 else
-                    //setTextToTextView(jsonArray);
-                    actualiserUtilisateurs(jsonArray);}
+                    udao.InsererUtilisateursFromJson(jsonArray,getActivity());
+                    readData("");   }
             else {
-                textView.setText("probleme_connexion");
+                textView.setText(getString(R.string.probleme_connexion));
             }
-
             mPogressBar.setVisibility(View.GONE);
         }
     }
 
-    void actualiserUtilisateurs(JSONArray jsonarr){
-          Utilisateur u;
-          UtilisateurDAO udao =new UtilisateurDAO(getActivity());
-          udao.supprimerTout();
-
-        try {
-
-            for(int i=0;i<jsonarr.length();i++){
-
-                JSONObject jsonObj=jsonarr.getJSONObject(i);
-
-                u=new Utilisateur(jsonObj.getString("code_utilisateur"),jsonObj.getString("utilisateur"),jsonObj.getString("mot_passe"),jsonObj.getString("groupe"),jsonObj.getString("code_cmv"));
-
-                udao.ajouter(u);
-            }
-            readData("");
-
-        } catch (JSONException e) {
-            Log.e("MYAPP", "unexpected JSON exception", e);
-            // Do something to recover ... or kill the app.
-        }
-
-    }
 }
 

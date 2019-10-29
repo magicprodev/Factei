@@ -1,6 +1,7 @@
 package ma.ormvasm.factei;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,8 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -35,10 +40,14 @@ public class FragmentSettings extends Fragment {
     private SpinUtilisateurAdapter adapterutilisateur;
     Spinner spinnercmv;
     Spinner spinnerutilisateur;
+    Button btnrefresh;
     private String code_cmv="";
     private String code_utilisateur="";
     ArrayList<Cmv> listeCmv;
     ArrayList<Utilisateur> listeUtilisateur;
+    private String urlString ="";
+    Parametre p;
+    ParametreDAO pdao ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +63,7 @@ public class FragmentSettings extends Fragment {
         serveur=(TextView) myView.findViewById(R.id.txtserveur);
         spinnercmv=(Spinner) myView.findViewById(R.id.spincmv);
         spinnerutilisateur=(Spinner) myView.findViewById(R.id.spinutilisateur);
+        btnrefresh=(Button) myView.findViewById(R.id.btnrefreshusers);
 
         loadSpinnerCmv();
         loadSpinnerUtilisateur();
@@ -94,6 +104,14 @@ public class FragmentSettings extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 // DO Nothing here
+            }
+        });
+
+        btnrefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                new getAllUsersTask().execute(new ApiConnector());
             }
         });
 
@@ -212,5 +230,50 @@ public class FragmentSettings extends Fragment {
         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
         super.onPause();
+    }
+
+
+    private class getAllUsersTask extends AsyncTask<ApiConnector,Long, JSONArray> {
+        private boolean serverOK = true ;
+        @Override
+        protected void onPreExecute() {
+            //mPogressBar.setVisibility(View.VISIBLE);
+        }
+        @Override
+        protected JSONArray doInBackground(ApiConnector... params) {
+            pdao =new ParametreDAO(getActivity());
+            p=pdao.getData("IP_SERVEUR");
+            String serv =p.getValeur_parametre();
+            p=pdao.getData("CODE_CMV");
+            String cmv =p.getValeur_parametre();
+            urlString = serv + "/datalist/?cmd=userslist&cmv=" +cmv+"&offset=0";
+
+            if (ApiConnector.isServerAlive(urlString)==false){
+                serverOK = false;
+                return null;
+            }
+            else {
+                JSONArray jsonArray = params[0].getDataUtilisateurs(urlString);
+                serverOK = true;
+                return jsonArray;}
+        }
+        @Override
+        protected void onPostExecute(JSONArray jsonArray) {
+            final UtilisateurDAO udao =new UtilisateurDAO(getActivity());
+            if (serverOK){
+                if (jsonArray == null)
+                  Toast.makeText(getActivity(), getString(R.string.donnees_non_trouvees),
+                        Toast.LENGTH_LONG).show();
+                else
+                    udao.InsererUtilisateursFromJson(jsonArray,getActivity());
+                    loadSpinnerUtilisateur();
+
+                  }
+            else {
+                  Toast.makeText(getActivity(), getString(R.string.probleme_connexion),
+                        Toast.LENGTH_LONG).show();
+            }
+            //mPogressBar.setVisibility(View.GONE);
+        }
     }
 }

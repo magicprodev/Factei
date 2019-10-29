@@ -114,8 +114,16 @@
                     />
 
 
+
             </RelativeLayout>
 
+            <Button
+                android:id="@+id/btnrefreshusers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rlspinutilisateur"
+                android:layout_alignRight="@+id/rlspinutilisateur"
+                android:text="@string/refresh" />
             <TextView
                 android:id="@+id/lblutilisateur"
                 android:layout_width="114dp"

@@ -43,7 +43,10 @@
     <string name="code_utilisateur">Code utilisateur</string>
     <string name="utilisateur">Utilisateur</string>
     <string name="code_cmv">C.M.V</string>
-    <string name="select_cmv">(Choisir CMV)</string>
+    <string name="donnees_non_trouvees">Données non trouvées</string>
+    <string name="probleme_connexion">Problème de connexion</string>
+    <string name="refresh">Rafraîchir</string>
+
 
 
 </resources>

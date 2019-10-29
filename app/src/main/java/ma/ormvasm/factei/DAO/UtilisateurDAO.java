@@ -2,6 +2,12 @@ package ma.ormvasm.factei.DAO;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class UtilisateurDAO extends DAOBase{
@@ -168,6 +174,23 @@ public class UtilisateurDAO extends DAOBase{
         cond_releve = cond;
     }
 
+
+    public void InsererUtilisateursFromJson(JSONArray jsonarr,Context context){
+        Utilisateur u;
+        UtilisateurDAO udao =new UtilisateurDAO(context);
+        udao.supprimerTout();
+        try {
+            for(int i=0;i<jsonarr.length();i++){
+                JSONObject jsonObj=jsonarr.getJSONObject(i);
+                u=new Utilisateur(jsonObj.getString("code_utilisateur"),jsonObj.getString("utilisateur"),jsonObj.getString("mot_passe"),jsonObj.getString("groupe"),jsonObj.getString("code_cmv"));
+                udao.ajouter(u);
+            }
+
+        } catch (JSONException e) {
+            Log.e("MYAPP", "unexpected JSON exception", e);
+        }
+
+    }
     }
 
 

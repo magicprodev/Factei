@@ -25,6 +25,8 @@ public class ReleveindexDAO extends DAOBase {
     public static final String RELEVEINDEX_COLUMN_DATE_INSERT = "date_insert";
     public static final String RELEVEINDEX_COLUMN_UTILISATEUR_INSERT= "utilisateur_insert";
     public static final String RELEVEINDEX_COLUMN_OBSERVATIONS= "observations";
+    public static final String RELEVEINDEX_COLUMN_POSITION_X= "position_x";
+    public static final String RELEVEINDEX_COLUMN_POSITION_Y= "position_y";
     public static final String RELEVEINDEX_COLUMN_ROW_ID = "row_id";
     private String cond_releve="";
     public ReleveindexDAO(Context pContext) {
@@ -53,6 +55,8 @@ public class ReleveindexDAO extends DAOBase {
         value.put(RELEVEINDEX_COLUMN_DATE_INSERT, r.getDate_insert());
         value.put(RELEVEINDEX_COLUMN_UTILISATEUR_INSERT, r.getUtilisateur_insert());
         value.put(RELEVEINDEX_COLUMN_OBSERVATIONS, r.getObservations());
+        value.put(RELEVEINDEX_COLUMN_POSITION_X, r.getPosition_x());
+        value.put(RELEVEINDEX_COLUMN_POSITION_Y, r.getPosition_y());
         value.put(RELEVEINDEX_COLUMN_ROW_ID, r.getRow_id());
         mDb.insert(RELEVEINDEX_TABLE_NAME, null, value);
 
@@ -86,6 +90,8 @@ public class ReleveindexDAO extends DAOBase {
         value.put(RELEVEINDEX_COLUMN_DATE_INSERT, r.getDate_insert());
         value.put(RELEVEINDEX_COLUMN_UTILISATEUR_INSERT, r.getUtilisateur_insert());
         value.put(RELEVEINDEX_COLUMN_OBSERVATIONS, r.getObservations());
+        value.put(RELEVEINDEX_COLUMN_POSITION_Y, r.getPosition_x());
+        value.put(RELEVEINDEX_COLUMN_POSITION_Y, r.getPosition_y());
         value.put(RELEVEINDEX_COLUMN_ROW_ID, r.getRow_id());
 
         mDb.update(RELEVEINDEX_TABLE_NAME, value, RELEVEINDEX_COLUMN_ID_RELEVEINDEX  + " = ?", new String[] {String.valueOf(r.getId_releveindex())});
@@ -114,7 +120,7 @@ public class ReleveindexDAO extends DAOBase {
         // CODE
         Cursor res =  mDb.rawQuery( "select id_releveindex,r.code_prise,date_debut_index,date_fin_index,index_debut,index_fin," +
                 "code_etat_prise,volume_index,valide,secteur as code_cmv,date_maj,utilisateur_maj,date_insert,utilisateur_insert," +
-                "observations,n_prise as row_id" +
+                "observations,position_x,position_y,n_prise as row_id" +
                 " from releveindex r join prise p on r.code_prise=p.code_prise  " +
                 " WHERE id_releveindex ='" + st + "'", null );
 
@@ -147,6 +153,8 @@ public class ReleveindexDAO extends DAOBase {
                 curs.getString(curs.getColumnIndex(RELEVEINDEX_COLUMN_DATE_INSERT)),
                 curs.getString(curs.getColumnIndex(RELEVEINDEX_COLUMN_UTILISATEUR_INSERT)),
                 curs.getString(curs.getColumnIndex(RELEVEINDEX_COLUMN_OBSERVATIONS)),
+                curs.getDouble(curs.getColumnIndex(RELEVEINDEX_COLUMN_POSITION_X)),
+                curs.getDouble(curs.getColumnIndex(RELEVEINDEX_COLUMN_POSITION_Y)),
                 curs.getString(curs.getColumnIndex(RELEVEINDEX_COLUMN_ROW_ID)));
         return r;
     }
@@ -162,7 +170,7 @@ public class ReleveindexDAO extends DAOBase {
                     }
         Cursor res =  mDb.rawQuery( "select id_releveindex,code_prise,date_debut_index,date_fin_index,index_debut,index_fin," +
                 "etat_prise as code_etat_prise,volume_index,valide,code_cmv,date_maj,utilisateur_maj,date_insert,utilisateur_insert," +
-                "observations,row_id" +
+                "observations,position_x,position_y,row_id" +
                 " from releveindex r join etatprise e on r.code_etat_prise=e.code_etat_prise " +
                 stCond +
                 " order by code_prise,substr('0000000000'||code_prise, -10, 10)", null );

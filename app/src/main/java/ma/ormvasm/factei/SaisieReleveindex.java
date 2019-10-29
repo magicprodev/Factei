@@ -2,7 +2,12 @@ package ma.ormvasm.factei;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -50,6 +55,9 @@ public class SaisieReleveindex extends Fragment {
     ArrayList<Etatprise> ListeEtatprise;
     private String code_secteur="";
     private String code_etat_prise="";
+    LocationManager locationManager;
+    double position_x=0;
+    double position_y=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -123,8 +131,19 @@ public class SaisieReleveindex extends Fragment {
         });
 
 
+        //GPS localizations
+
+        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        }
+        locationManager=(LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER,2000,10, locationListenerGPS);
+
+
         return  myView;
     }
+
+
 
     public void enregistrer(View v) {
 
@@ -159,7 +178,7 @@ public class SaisieReleveindex extends Fragment {
                 if (validateIndexFin(getActivity(), index_debut, Integer.parseInt(index_fin), indexfin, code_etat_prise)){
                     Releveindex r = new Releveindex(1, code_prise, date_debut_index, Helper.getCurrentDateTime(),
                             index_debut, Integer.parseInt(index_fin), code_etat_prise, volume_index, 0, "04", Helper.getCurrentDateTime(), "admin",
-                            Helper.getCurrentDateTime(), "admin", observations.getText().toString(), Helper.rowId(code_prise));
+                            Helper.getCurrentDateTime(), "admin", observations.getText().toString(),position_x,position_y, Helper.rowId(code_prise));
 
                 ReleveindexDAO rd = new ReleveindexDAO(getActivity());
 
@@ -169,6 +188,8 @@ public class SaisieReleveindex extends Fragment {
                 numprise.setText("");
                 indexfin.setText("");
                 observations.setText("");
+                position_x=0;
+                position_y=0;
                 numprise.requestFocus();
             }
             } else {
@@ -274,4 +295,38 @@ public class SaisieReleveindex extends Fragment {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    //Get GPS Localizations
+
+    LocationListener locationListenerGPS=new LocationListener() {
+        @Override
+        public void onLocationChanged(android.location.Location location) {
+            //double latitude=location.getLatitude();
+            //double longitude=location.getLongitude();
+            //String msg=latitude + ","+longitude;
+            position_x=location.getLatitude();
+            position_y=location.getLongitude();
+
+            //Toast.makeText(getActivity(),msg,Toast.LENGTH_LONG).show();
+            //observations.setText(msg);
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
+
+
 }

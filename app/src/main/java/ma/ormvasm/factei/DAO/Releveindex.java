@@ -18,9 +18,11 @@ public class Releveindex {
     private String utilisateur_insert;
     private String observations;
     private String row_id;
+    private double position_x;
+    private double position_y;
 
 
-    public Releveindex(int id_releveindex,String code_prise,String date_debut_index,String date_fin_index,int index_debut,int index_fin,String code_etat_prise,int volume_index,int valide,String code_cmv,String date_maj,String utilisateur_maj,String date_insert,String utilisateur_insert,String observations,String row_id){
+    public Releveindex(int id_releveindex,String code_prise,String date_debut_index,String date_fin_index,int index_debut,int index_fin,String code_etat_prise,int volume_index,int valide,String code_cmv,String date_maj,String utilisateur_maj,String date_insert,String utilisateur_insert,String observations,double position_x,double position_y,String row_id){
         this.id_releveindex=id_releveindex;
         this.code_prise=code_prise;
         this.date_debut_index=date_debut_index;
@@ -36,6 +38,8 @@ public class Releveindex {
         this.date_insert=date_insert;
         this.utilisateur_insert=utilisateur_insert;
         this.observations=observations;
+        this.position_x=position_x;
+        this.position_y=position_y;
         this.row_id=row_id;
     }
     public int getId_releveindex(){
@@ -165,6 +169,18 @@ public class Releveindex {
     public void setObservations(String observations){
         this.observations=observations;
     }
+
+    public double getPosition_x(){
+        return position_x;
+    }
+
+    public void setPosition_x(double volume_index){
+        this.position_x=position_x;
+    }
+
+    public double getPosition_y(){return position_y; }
+
+    public void setPosition_y(double volume_index){this.position_y=position_y; }
 
     public String getRow_id(){
         return row_id;
