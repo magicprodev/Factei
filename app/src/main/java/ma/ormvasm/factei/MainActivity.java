@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity
     SaisieReleveindex sr;
     FragmentSettings fs;
     FragmentListeUtilisateur fu;
+    FragmentImportData fi;
+    FragmentExportData fe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +115,28 @@ public class MainActivity extends AppCompatActivity
             fm.beginTransaction()
                     .replace(R.id.content_frame
                             , fu)
+                    .addToBackStack(null)
+                    .commit();
+
+
+        }
+        else
+        if (id == R.id.nav_import) {
+            fi = new FragmentImportData();
+            fm.beginTransaction()
+                    .replace(R.id.content_frame
+                            , fi)
+                    .addToBackStack(null)
+                    .commit();
+
+
+        }
+        else
+        if (id == R.id.nav_export) {
+            fe = new FragmentExportData();
+            fm.beginTransaction()
+                    .replace(R.id.content_frame
+                            , fe)
                     .addToBackStack(null)
                     .commit();
 

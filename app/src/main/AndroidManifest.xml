@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ma.ormvasm.factei">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,8 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FragmentListeUtilisateur"></activity>
-
+        <activity
+            android:name=".FragmentExportData"
+            android:label="@string/title_activity_fragment_export_data"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".FragmentImportData"
+            android:label="@string/title_activity_fragment_import_data"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".FragmentListeUtilisateur" />
         <activity android:name=".FragmentSettings" />
         <activity
             android:name=".FragmentAcceuil"
@@ -42,5 +47,8 @@
             android:label="@string/title_activity_saisie_releveindex"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>

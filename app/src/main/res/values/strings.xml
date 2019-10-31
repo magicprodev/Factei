@@ -46,7 +46,13 @@
     <string name="donnees_non_trouvees">Données non trouvées</string>
     <string name="probleme_connexion">Problème de connexion</string>
     <string name="refresh">Rafraîchir</string>
-
+    <string name="title_activity_fragment_import_data">Import données</string>
+    <string name="title_activity_fragment_export_data">Export données</string>
+    <string name="import_data">Import données</string>
+    <string name="importer">Importer</string>
+    <string name="import_data_msg">Aucun CMV et/ou Utilisateur trouvé(s)</string>
+    <string name="export_data">Export données</string>
+    <string name="exporter">Exporter</string>
 
 
 </resources>
