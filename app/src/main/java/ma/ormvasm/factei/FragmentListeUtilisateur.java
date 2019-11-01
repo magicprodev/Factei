@@ -136,7 +136,7 @@ public class FragmentListeUtilisateur extends Fragment {
                 return null;
             }
             else {
-                JSONArray jsonArray = params[0].getDataUtilisateurs(urlString);
+                JSONArray jsonArray = params[0].getData(Utilisateur.class,urlString);
                 serverOK = true;
                 return jsonArray;}
         }
@@ -147,6 +147,7 @@ public class FragmentListeUtilisateur extends Fragment {
                 if (jsonArray == null)
                     textView.setText(getString(R.string.donnees_non_trouvees));
                 else
+
                     udao.InsererUtilisateursFromJson(jsonArray,getActivity());
                     readData("");   }
             else {

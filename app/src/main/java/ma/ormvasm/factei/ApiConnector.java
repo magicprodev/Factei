@@ -68,7 +68,7 @@ public class ApiConnector {
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private static final String TIME_FORMAT = "HH:mm:ss";
 
-    public  JSONArray getDataUtilisateurs( String urlString){
+    public  JSONArray getData(Class myClass, String urlString){
         JSONArray jsonArray = null;
         HttpURLConnection urlConnection =null;
 
@@ -85,7 +85,10 @@ public class ApiConnector {
                         .setDateFormat("yyyy-MM-dd");
                 gb.registerTypeAdapter(Time.class, new TimeDeserializer());
                 Gson gson = gb.create();
-                Type listType = new TypeToken<ArrayList<Utilisateur>>(){}.getType();
+
+                //Type listType = new TypeToken<ArrayList<Utilisateur>>(){}.getType();
+
+                Type listType = TypeToken.getParameterized(ArrayList.class, myClass).getType();
 
                 final ArrayList<Utilisateur> response = gson.fromJson(
                         new InputStreamReader(is, Charset.forName("UTF-8")),

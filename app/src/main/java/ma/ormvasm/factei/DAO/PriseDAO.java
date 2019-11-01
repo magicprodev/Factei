@@ -3,6 +3,11 @@ package ma.ormvasm.factei.DAO;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -55,6 +60,10 @@ public class PriseDAO extends DAOBase {
         mDb.delete(PRISE_TABLE_NAME, PRISE_COLUMN_CODE_PRISE + " = ?", new String[]{st});
     }
 
+    public void supprimerTout() {
+        // CODE
+        mDb.delete(PRISE_TABLE_NAME,"" ,new String[]{});
+    }
     /**
      * @param p le relevé d'index modifié
      */
@@ -187,5 +196,23 @@ public class PriseDAO extends DAOBase {
         }
 
         return secteurList;
+    }
+
+    public void InsererPrisesFromJson(JSONArray jsonarr, Context context){
+        Prise pr;
+        PriseDAO prdao =new PriseDAO(context);
+        prdao.supprimerTout();
+
+        try {
+            for(int i=0;i<jsonarr.length();i++){
+                JSONObject jsonObj=jsonarr.getJSONObject(i);
+                pr=new Prise(jsonObj.getString("code_prise"),jsonObj.getString("n_prise"), jsonObj.getString("code_antenne"), jsonObj.getString("antenne"), jsonObj.getString("code_secteur"), jsonObj.getString("secteur"), jsonObj.getString("code_zoneaig"), jsonObj.getString("zoneaig"), jsonObj.getString("code_cmv"), jsonObj.getString("row_id"));
+                prdao.ajouter(pr);
+            }
+
+        } catch (JSONException e) {
+            Log.e("MYAPP", "unexpected JSON exception", e);
+        }
+
     }
 }

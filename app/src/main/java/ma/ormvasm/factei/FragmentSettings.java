@@ -253,7 +253,7 @@ public class FragmentSettings extends Fragment {
                 return null;
             }
             else {
-                JSONArray jsonArray = params[0].getDataUtilisateurs(urlString);
+                JSONArray jsonArray = params[0].getData(Utilisateur.class,urlString);
                 serverOK = true;
                 return jsonArray;}
         }
