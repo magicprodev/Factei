@@ -1,5 +1,9 @@
 package ma.ormvasm.factei;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -29,7 +33,7 @@ public class Helper {
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         String formattedDate = df.format(c);
-        return st + "_M" + formattedDate;
+        return "M" + formattedDate;
     }
 
     public static String convertFormatDate(String sdate){
@@ -63,5 +67,19 @@ public class Helper {
     }
         return "";
 
+    }
+
+    public  static void showMessage(Context context, String msg, String titre,int icon){
+        new AlertDialog.Builder(context)
+                .setTitle(titre)
+                .setMessage(msg)
+                .setCancelable(false)
+                .setIcon(icon)
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Whatever...
+                    }
+                }).show();
     }
 }

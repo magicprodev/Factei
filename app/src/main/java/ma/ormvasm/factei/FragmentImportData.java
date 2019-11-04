@@ -21,9 +21,12 @@ import android.widget.Toast;
 
 import org.json.JSONArray;
 
+import java.util.ArrayList;
+
 import ma.ormvasm.factei.DAO.CmvDAO;
 import ma.ormvasm.factei.DAO.Parametre;
 import ma.ormvasm.factei.DAO.ParametreDAO;
+import ma.ormvasm.factei.DAO.Prise;
 import ma.ormvasm.factei.DAO.PriseDAO;
 import ma.ormvasm.factei.DAO.UtilisateurDAO;
 import ma.ormvasm.factei.DAO.Utilisateur;
@@ -113,7 +116,7 @@ public class FragmentImportData extends Fragment {
             public void onClick(View view)
             {
                 //Toast.makeText(getActivity(), "Import", Toast.LENGTH_LONG).show();
-                new getAllPrisesTask().execute(new ApiConnector());
+                //new getAllPrisesTask().execute(new ApiConnector());
             }
         });
 
@@ -125,48 +128,7 @@ public class FragmentImportData extends Fragment {
     }
 
 
-    private class getAllPrisesTask extends AsyncTask<ApiConnector,Long, JSONArray> {
-        private boolean serverOK = true ;
-        @Override
-        protected void onPreExecute() {
-            mPogressBar.setVisibility(View.VISIBLE);
-        }
-        @Override
-        protected JSONArray doInBackground(ApiConnector... params) {
-            pdao =new ParametreDAO(getActivity());
-            p=pdao.getData("IP_SERVEUR");
-            String serv =p.getValeur_parametre();
-            p=pdao.getData("CODE_CMV");
-            String cmv =p.getValeur_parametre();
-            urlString = serv + "/datalist/?cmd=priseslist&cmv=" +cmv+"&offset=0";
 
-            if (ApiConnector.isServerAlive(urlString)==false){
-                serverOK = false;
-                return null;
-            }
-            else {
-                JSONArray jsonArray = params[0].getData(Utilisateur.class,urlString);
-                serverOK = true;
-                return jsonArray;}
-        }
-        @Override
-        protected void onPostExecute(JSONArray jsonArray) {
-            final PriseDAO prdao =new PriseDAO(getActivity());
-            if (serverOK){
-                if (jsonArray == null)
-                    textView.setText(getString(R.string.donnees_non_trouvees));
-                else
-
-                    prdao.InsererPrisesFromJson(jsonArray,getActivity());
-                Toast.makeText(getActivity(), "Import", Toast.LENGTH_LONG).show();
-                //readData("");
-                }
-            else {
-                textView.setText(getString(R.string.probleme_connexion));
-            }
-            mPogressBar.setVisibility(View.GONE);
-        }
-    }
 
 
 

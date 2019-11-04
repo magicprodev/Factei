@@ -32,6 +32,7 @@ import org.json.JSONObject;
 
 import ma.ormvasm.factei.DAO.Parametre;
 import ma.ormvasm.factei.DAO.ParametreDAO;
+import ma.ormvasm.factei.DAO.Prise;
 import ma.ormvasm.factei.DAO.Utilisateur;
 import ma.ormvasm.factei.DAO.UtilisateurDAO;
 
@@ -136,7 +137,8 @@ public class FragmentListeUtilisateur extends Fragment {
                 return null;
             }
             else {
-                JSONArray jsonArray = params[0].getData(Utilisateur.class,urlString);
+                ArrayList<Utilisateur> resp=new ArrayList<Utilisateur>();
+                JSONArray jsonArray = params[0].getData(Utilisateur.class,urlString,resp);
                 serverOK = true;
                 return jsonArray;}
         }
@@ -144,14 +146,17 @@ public class FragmentListeUtilisateur extends Fragment {
         protected void onPostExecute(JSONArray jsonArray) {
             final UtilisateurDAO udao =new UtilisateurDAO(getActivity());
             if (serverOK){
-                if (jsonArray == null)
-                    textView.setText(getString(R.string.donnees_non_trouvees));
-                else
+                if (jsonArray == null) {
+                    Helper.showMessage(getActivity(), getString(R.string.donnees_non_trouvees), getString(R.string.title_err_import), R.drawable.ic_error_red);
+                }
+                else{
 
                     udao.InsererUtilisateursFromJson(jsonArray,getActivity());
-                    readData("");   }
+                    readData("");}
+                    //Helper.showMessage(getActivity(),getString(R.string.donnees_importees_avec_succes),getString(R.string.message),R.drawable.ic_success_green);
+            }
             else {
-                textView.setText(getString(R.string.probleme_connexion));
+                Helper.showMessage(getActivity(),getString(R.string.probleme_connexion),getString(R.string.title_err_import),R.drawable.ic_error_red);
             }
             mPogressBar.setVisibility(View.GONE);
         }

@@ -202,6 +202,17 @@ public class ReleveindexDAO extends DAOBase {
 
     }
     public void setCondReleve(String cond) {
+
         cond_releve = cond;
             }
+    public int getNbRelevesindex() {
+        // CODE
+        Cursor res = mDb.rawQuery("SELECT count(*) as nb_tot_releves FROM " + RELEVEINDEX_TABLE_NAME+" WHERE valide=0", null);
+        int nb = 0;
+        if (res.moveToFirst()) {
+            res.moveToFirst();
+            nb = res.getInt(res.getColumnIndex("nb_tot_releves"));
+        }
+        return nb;
+    }
 }

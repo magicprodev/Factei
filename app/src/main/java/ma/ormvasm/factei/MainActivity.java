@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity
     FragmentListeUtilisateur fu;
     FragmentImportData fi;
     FragmentExportData fe;
+    FragmentListePrise fp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,17 @@ public class MainActivity extends AppCompatActivity
             fm.beginTransaction()
                     .replace(R.id.content_frame
                             , sr)
+                    .addToBackStack(null)
+                    .commit();
+
+
+        }
+        else
+        if (id == R.id.nav_listePrises) {
+            fp = new FragmentListePrise();
+            fm.beginTransaction()
+                    .replace(R.id.content_frame
+                            , fp)
                     .addToBackStack(null)
                     .commit();
 

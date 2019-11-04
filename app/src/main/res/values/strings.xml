@@ -43,7 +43,7 @@
     <string name="code_utilisateur">Code utilisateur</string>
     <string name="utilisateur">Utilisateur</string>
     <string name="code_cmv">C.M.V</string>
-    <string name="donnees_non_trouvees">Données non trouvées</string>
+    <string name="donnees_non_trouvees">Aucune Donnée trouvée</string>
     <string name="probleme_connexion">Problème de connexion</string>
     <string name="refresh">Rafraîchir</string>
     <string name="title_activity_fragment_import_data">Import données</string>
@@ -53,6 +53,16 @@
     <string name="import_data_msg">Aucun CMV et/ou Utilisateur trouvé(s)</string>
     <string name="export_data">Export données</string>
     <string name="exporter">Exporter</string>
+    <string name="liste_prise">Liste prises</string>
+    <string name="code_prise">Code prise</string>
+    <string name="num_prise">N° prise</string>
+    <string name="antenne">Antenne</string>
+    <string name="donnees_importees_avec_succes">Données importées avec succès</string>
+    <string name="title_import">Import</string>
+    <string name="title_err_import">Erreur Import</string>
+    <string name="nb_total_prises">Nombre total de prises : </string>
+    <string name="nb_total_releves">Nombre total de relevés : </string>
+
 
 
 </resources>

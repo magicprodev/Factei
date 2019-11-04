@@ -111,6 +111,7 @@ public class FragmentSettings extends Fragment {
             @Override
             public void onClick(View view)
             {
+                enregistrer(view);
                 new getAllUsersTask().execute(new ApiConnector());
             }
         });
@@ -246,6 +247,8 @@ public class FragmentSettings extends Fragment {
             String serv =p.getValeur_parametre();
             p=pdao.getData("CODE_CMV");
             String cmv =p.getValeur_parametre();
+
+
             urlString = serv + "/datalist/?cmd=userslist&cmv=" +cmv+"&offset=0";
 
             if (ApiConnector.isServerAlive(urlString)==false){
@@ -253,7 +256,8 @@ public class FragmentSettings extends Fragment {
                 return null;
             }
             else {
-                JSONArray jsonArray = params[0].getData(Utilisateur.class,urlString);
+                ArrayList<Utilisateur> resp=new ArrayList<Utilisateur>();
+                JSONArray jsonArray = params[0].getData(Utilisateur.class,urlString,resp);
                 serverOK = true;
                 return jsonArray;}
         }
@@ -261,17 +265,15 @@ public class FragmentSettings extends Fragment {
         protected void onPostExecute(JSONArray jsonArray) {
             final UtilisateurDAO udao =new UtilisateurDAO(getActivity());
             if (serverOK){
-                if (jsonArray == null)
-                  Toast.makeText(getActivity(), getString(R.string.donnees_non_trouvees),
-                        Toast.LENGTH_LONG).show();
-                else
+                if (jsonArray == null) {
+                    Helper.showMessage(getActivity(), getString(R.string.donnees_non_trouvees), getString(R.string.title_err_import), R.drawable.ic_error_red);
+                }
+                else{
                     udao.InsererUtilisateursFromJson(jsonArray,getActivity());
-                    loadSpinnerUtilisateur();
-
-                  }
+                    loadSpinnerUtilisateur();}
+              }
             else {
-                  Toast.makeText(getActivity(), getString(R.string.probleme_connexion),
-                        Toast.LENGTH_LONG).show();
+                Helper.showMessage(getActivity(),getString(R.string.probleme_connexion),getString(R.string.title_err_import),R.drawable.ic_error_red);
             }
             //mPogressBar.setVisibility(View.GONE);
         }

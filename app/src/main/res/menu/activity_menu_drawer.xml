@@ -20,6 +20,10 @@
             android:id="@+id/nav_listeReleves"
             android:icon="@drawable/ic_liste"
             android:title="@string/liste_releveindex" />
+        <item
+            android:id="@+id/nav_listePrises"
+            android:icon="@drawable/ic_prise"
+            android:title="@string/liste_prise" />
 
 
     </group>

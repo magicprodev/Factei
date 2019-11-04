@@ -149,6 +149,7 @@ public class ListeReleveindex extends  Fragment {
         releves = indx.getListReleveindex();
         adapter = new ReleveindexListViewAdapter(releves, getActivity());
         releveindexListView.setAdapter(adapter);
+        textView.setText(getString(R.string.nb_total_releves)+" "+indx.getNbRelevesindex());
         mPogressBar.setVisibility(View.GONE);
     }
 

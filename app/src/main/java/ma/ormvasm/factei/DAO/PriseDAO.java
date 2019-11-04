@@ -24,6 +24,8 @@ public class PriseDAO extends DAOBase {
     public static final String PRISE_COLUMN_ZONEAIG = "zoneaig";
     public static final String PRISE_COLUMN_CODE_CMV = "code_cmv";
     public static final String PRISE_COLUMN_ROW_ID = "row_id";
+    private String cond_prise="";
+
 
     public PriseDAO(Context pContext) {
 
@@ -31,9 +33,15 @@ public class PriseDAO extends DAOBase {
         open();
     }
 
+    public void setCondPrise(String cond) {
+        cond_prise = cond;
+    }
+
     /**
      * @param p le relevé d'index à ajouter à la base
      */
+
+
     public void ajouter(Prise p) {
         // CODE
         ContentValues value = new ContentValues();
@@ -170,6 +178,42 @@ public class PriseDAO extends DAOBase {
         return array_list;
     }
 
+    public ArrayList<Prise> getPrises() {
+        ArrayList<Prise> array_list = new ArrayList<Prise>();
+
+        //hp = new HashMap();
+        String stCond="";
+        if (!cond_prise.equals("")){
+            stCond=" where " + cond_prise;
+        }
+
+        Cursor res = mDb.rawQuery("select * from prise "+
+                stCond +
+                " order by code_secteur,substr('0000000000'||n_prise, -10, 10)", null );
+
+        res.moveToFirst();
+        Prise p;
+
+        while (res.isAfterLast() == false) {
+
+            p = new Prise(
+                    res.getString(res.getColumnIndex(PRISE_COLUMN_CODE_PRISE)),
+                    res.getString(res.getColumnIndex(PRISE_COLUMN_N_PRISE)),
+                    res.getString(res.getColumnIndex(PRISE_COLUMN_CODE_ANTENNE)),
+                    res.getString(res.getColumnIndex(PRISE_COLUMN_ANTENNE)),
+                    res.getString(res.getColumnIndex(PRISE_COLUMN_CODE_SECTEUR)),
+                    res.getString(res.getColumnIndex(PRISE_COLUMN_SECTEUR)),
+                    res.getString(res.getColumnIndex(PRISE_COLUMN_CODE_ZONEAIG)),
+                    res.getString(res.getColumnIndex(PRISE_COLUMN_ZONEAIG)),
+                    res.getString(res.getColumnIndex(PRISE_COLUMN_CODE_CMV)),
+                    res.getString(res.getColumnIndex(PRISE_COLUMN_ROW_ID)));
+
+            array_list.add(p);
+            res.moveToNext();
+        }
+        return array_list;
+    }
+
 
     public ArrayList<Secteur> getAllSecteur() {
         String query;
@@ -215,4 +259,17 @@ public class PriseDAO extends DAOBase {
         }
 
     }
+
+    public int getNbPrises() {
+        // CODE
+        Cursor res = mDb.rawQuery("SELECT count(*) as nb_tot_prises FROM " + PRISE_TABLE_NAME, null);
+        int nb = 0;
+        if (res.moveToFirst()) {
+            res.moveToFirst();
+            nb = res.getInt(res.getColumnIndex("nb_tot_prises"));
+        }
+        return nb;
+    }
+
+
 }

@@ -9,10 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".FragmentListePrise"></activity>
+        <activity android:name=".FragmentLitsePrise" />
         <activity
             android:name=".FragmentExportData"
             android:label="@string/title_activity_fragment_export_data"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FragmentImportData"
             android:label="@string/title_activity_fragment_import_data"
