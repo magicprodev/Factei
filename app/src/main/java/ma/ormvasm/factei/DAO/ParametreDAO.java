@@ -46,7 +46,7 @@ public class ParametreDAO  extends DAOBase {
         value.put(PARAMETRE_COLUMN_UTILISATEUR_MAJ, p.getUtilisateur_maj());
         value.put(PARAMETRE_COLUMN_DATE_INSERT, p.getDate_insert());
         value.put(PARAMETRE_COLUMN_UTILISATEUR_INSER, p.getUtilisateur_insert());
-        mDb.insert(PARAMETRE_TABLE_NAME, null, value);
+        //mDb.insert(PARAMETRE_TABLE_NAME, null, value);
 
         mDb.update(PARAMETRE_TABLE_NAME, value, PARAMETRE_COLUMN_CODE_PARAMETRE + " = ?", new String[]{p.getCode_parametre()});
     }

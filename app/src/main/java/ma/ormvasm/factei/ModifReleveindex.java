@@ -29,6 +29,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import ma.ormvasm.factei.DAO.Etatprise;
+import ma.ormvasm.factei.DAO.Parametre;
+import ma.ormvasm.factei.DAO.ParametreDAO;
 import ma.ormvasm.factei.DAO.Prise;
 import ma.ormvasm.factei.DAO.PriseDAO;
 import ma.ormvasm.factei.DAO.Releveindex;
@@ -128,6 +130,11 @@ public class ModifReleveindex extends AppCompatActivity {
             Integer index_debut = 0;
             Integer volume_index = 0;
 
+            Parametre prm;
+            ParametreDAO pdao = new ParametreDAO(ModifReleveindex.this);
+            prm=pdao.getData("UTILISATEUR");
+            String utilisateur =prm.getValeur_parametre();
+
             if (!index_fin.matches("")) {
 
                 //ReleveindexDAO der = new ReleveindexDAO(ModifReleveindex.this);
@@ -135,7 +142,7 @@ public class ModifReleveindex extends AppCompatActivity {
 
                 //if (dr != null) {
                     date_debut_index = ri.getDate_fin_index();
-                    index_debut = ri.getIndex_fin();
+                    index_debut = ri.getIndex_debut();
                     volume_index = (Integer.parseInt(index_fin) - index_debut>0)?Integer.parseInt(index_fin) - index_debut:0;
                 //}
 
@@ -145,7 +152,7 @@ public class ModifReleveindex extends AppCompatActivity {
                     ri.setIndex_fin(Integer.parseInt(index_fin));
                     ri.setCode_etat_prise(code_etat_prise);
                     ri.setObservations(observations.getText().toString());
-                    ri.setUtilisateur_maj("admin");
+                    ri.setUtilisateur_maj(utilisateur);
                     ri.setDate_maj(Helper.getCurrentDateTime());
                     ri.setVolume_index(volume_index);
 

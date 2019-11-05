@@ -23,7 +23,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_FragmentAcceuil">Accueil</string>
     <string name="menu_export">Exporter</string>
-    <string name="menu_import">Importer</string>
+    <string name="menu_import">Anciens Index</string>
     <string name="n_prise_introuvable">N° Prise introuvable</string>
     <string name="releve_insere_avec_succes">Relevé Index ajouté avec succès</string>
     <string name="renseigner_valeur_index">Veuillez renseigner la valeur d\'index</string>
@@ -46,10 +46,10 @@
     <string name="donnees_non_trouvees">Aucune Donnée trouvée</string>
     <string name="probleme_connexion">Problème de connexion</string>
     <string name="refresh">Rafraîchir</string>
-    <string name="title_activity_fragment_import_data">Import données</string>
+    <string name="title_activity_fragment_import_data">Anciens Index</string>
     <string name="title_activity_fragment_export_data">Export données</string>
     <string name="import_data">Import données</string>
-    <string name="importer">Importer</string>
+    <string name="importer">Importer Anciens Index</string>
     <string name="import_data_msg">Aucun CMV et/ou Utilisateur trouvé(s)</string>
     <string name="export_data">Export données</string>
     <string name="exporter">Exporter</string>
@@ -62,6 +62,7 @@
     <string name="title_err_import">Erreur Import</string>
     <string name="nb_total_prises">Nombre total de prises : </string>
     <string name="nb_total_releves">Nombre total de relevés : </string>
+    <string name="confirm_inport_anciens_index">Vous êtes sûr de vouloir importer les anciens index. Attention : Tous les relevés d\'index existants seront supprimés ?  </string>
 
 
 

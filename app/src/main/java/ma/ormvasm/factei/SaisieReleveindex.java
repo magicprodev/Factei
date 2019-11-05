@@ -31,6 +31,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import ma.ormvasm.factei.DAO.Etatprise;
+import ma.ormvasm.factei.DAO.Parametre;
+import ma.ormvasm.factei.DAO.ParametreDAO;
 import ma.ormvasm.factei.DAO.Prise;
 import ma.ormvasm.factei.DAO.PriseDAO;
 import ma.ormvasm.factei.DAO.Releveindex;
@@ -176,9 +178,16 @@ public class SaisieReleveindex extends Fragment {
                 }
 
                 if (validateIndexFin(getActivity(), index_debut, Integer.parseInt(index_fin), indexfin, code_etat_prise)){
+                    Parametre prm;
+                    ParametreDAO pdao = new ParametreDAO(getActivity());
+                    prm=pdao.getData("CODE_CMV");
+                    String codecmv =prm.getValeur_parametre();
+                    prm=pdao.getData("UTILISATEUR");
+                    String utilisateur =prm.getValeur_parametre();
+
                     Releveindex r = new Releveindex(1, code_prise, date_debut_index, Helper.getCurrentDateTime(),
-                            index_debut, Integer.parseInt(index_fin), code_etat_prise, volume_index, 0, "04", Helper.getCurrentDateTime(), "admin",
-                            Helper.getCurrentDateTime(), "admin", observations.getText().toString(),position_x,position_y, Helper.rowId(code_prise));
+                            index_debut, Integer.parseInt(index_fin), code_etat_prise, volume_index, 0, codecmv, Helper.getCurrentDateTime(), utilisateur,
+                            Helper.getCurrentDateTime(), utilisateur, observations.getText().toString(),position_x,position_y, Helper.rowId(code_prise));
 
                 ReleveindexDAO rd = new ReleveindexDAO(getActivity());
 

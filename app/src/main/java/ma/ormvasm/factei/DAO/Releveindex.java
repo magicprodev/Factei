@@ -9,7 +9,6 @@ public class Releveindex {
     private int index_fin;
     private String code_etat_prise;
     private int volume_index;
-    private int volume_estime_utilisateur;
     private int valide;
     private String code_cmv;
     private String date_maj;
@@ -104,14 +103,6 @@ public class Releveindex {
 
     public void setVolume_index(int volume_index){
         this.volume_index=volume_index;
-    }
-
-    public int getVolume_estime_utilisateur(){
-        return volume_estime_utilisateur;
-    }
-
-    public void setVolume_estime_utilisateur(int volume_estime_utilisateur){
-        this.volume_estime_utilisateur=volume_estime_utilisateur;
     }
 
     public int getValide(){

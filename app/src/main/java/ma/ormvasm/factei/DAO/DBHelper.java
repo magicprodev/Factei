@@ -173,104 +173,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(UTILISATEUR_TABLE_CREATE);
 
         //Prises
-
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('1-EM1','1','s2a1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('101-EM1','101','s1a1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('103-EM1','103','s2d','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('105-EM1','105','s2a','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('106-EM1','106','s1a','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('107-EM1','107','s1a','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('108-EM1','108','s1a','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('109-EM1','109','s1a','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('111-EM1','111','s1a','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('112-EM1','112','s1a','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('113-EM1','113','s1a','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('114-EM1','114','s1a','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('115-EM1','115','s1a','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('116-EM1','116','s1a','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('117-EM1','117','s1a','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('119-EM1','119','s1c','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('120-EM1','120','s1c','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('121-EM1','121','s1c','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('122-EM1','122','s1b','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('123-EM1','123','s1b','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('124-EM1','124','s1b','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('125-EM1','125','s1b','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('126-EM1','126','s1b','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('127-EM1','127','s1b','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('128-EM1','128','s1b','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('129-EM1','129','s1b','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('13-EM1','13','s2c','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('130-EM1','130','s1b','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('131-EM1','131','s1b','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('132-EM1','132','s1b','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('133-EM1','133','s1b','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('134-EM1','134','s1b','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('1909-EM1','1909','s2b','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('22-EM1','22','s2d1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('23-EM1','23','s2d1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('24-EM1','24','s2d1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('25-EM1','25','s2d1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('26-EM1','26','s2d1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('27-EM1','27','s2d1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('28-EM1','28','s2d1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('29-EM1','29','s2d1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('30-EM1','30','s2d1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('31-EM1','31','s2d1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('32-EM1','32','s2d','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('33-EM1','33','s2d','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('34-EM1','34','s2d','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('35-EM1','35','s2d','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('36-EM1','36','s2d','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('37-EM1','37','s2d','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('38-EM1','38','s1d11','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('39-EM1','39','s1d11','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('40-EM1','40','s1d11','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('41-EM1','41','s1d11','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('42-EM1','42','s1d11','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('43-EM1','43','s1d12','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('44-EM1','44','s1d12','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('4400-EM1','4400','s1b','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('45-EM1','45','s1d12','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('6600-EM1','6600','s1a1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('7000-EM1','7000','s1a','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('8800-EM1','8800','s1b','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('98-EM1','98','s1a1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('99-EM1','99','s1a1','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('99900-EM1','99900','s1c','A','EM3','El Mhazem 3','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('1-EM1','1','s2a1','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('101-EM1','101','s1a1','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('103-EM1','103','s2d','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('105-EM1','105','s2a','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('106-EM1','106','s1a','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('107-EM1','107','s1a','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('108-EM1','108','s1a','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('109-EM1','109','s1a','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('111-EM1','111','s1a','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('112-EM1','112','s1a','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('113-EM1','113','s1a','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('114-EM1','114','s1a','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('115-EM1','115','s1a','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('116-EM1','116','s1a','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('117-EM1','117','s1a','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('119-EM1','119','s1c','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('120-EM1','120','s1c','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('121-EM1','121','s1c','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('122-EM1','122','s1b','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('123-EM1','123','s1b','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('124-EM1','124','s1b','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('125-EM1','125','s1b','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('126-EM1','126','s1b','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('127-EM1','127','s1b','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('128-EM1','128','s1b','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('129-EM1','129','s1b','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('13-EM1','13','s2c','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('130-EM1','130','s1b','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('131-EM1','131','s1b','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('132-EM1','132','s1b','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('133-EM1','133','s1b','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('134-EM1','134','s1b','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
-        db.execSQL("insert into prise(code_prise,n_prise,code_antenne,antenne,code_secteur,secteur,code_zoneaig,zoneaig,code_cmv,row_id) values('1909-EM1','1909','s2b','A1','EM1','El Mhazem 1','1','AMRIBTI','04','');");
         //etat prise
         db.execSQL("insert into etatprise(code_etat_prise,etat_prise) values('N','Normal');");
         db.execSQL("insert into etatprise(code_etat_prise,etat_prise) values('B','Bloqué');");
@@ -297,6 +199,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
         //utilisateur
         db.execSQL("INSERT INTO utilisateur(code_utilisateur,utilisateur,mot_passe,groupe,code_cmv) values('admin','admin','admin','ADM','');");
+        db.execSQL("INSERT INTO utilisateur(code_utilisateur,utilisateur,mot_passe,groupe,code_cmv) values('fact','fact','fact','ADF','');");
+
     }
 
     @Override

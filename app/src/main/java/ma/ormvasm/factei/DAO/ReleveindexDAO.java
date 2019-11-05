@@ -3,6 +3,11 @@ package ma.ormvasm.factei.DAO;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -168,6 +173,12 @@ public class ReleveindexDAO extends DAOBase {
         if (!cond_releve.equals("")){
             stCond=" where " + cond_releve;
                     }
+        if (stCond.equals("")){
+            stCond=" where valide=0 ";
+        }
+        else {
+            stCond=stCond+" and valide=0 ";
+        }
         Cursor res =  mDb.rawQuery( "select id_releveindex,code_prise,date_debut_index,date_fin_index,index_debut,index_fin," +
                 "etat_prise as code_etat_prise,volume_index,valide,code_cmv,date_maj,utilisateur_maj,date_insert,utilisateur_insert," +
                 "observations,position_x,position_y,row_id" +
@@ -188,6 +199,7 @@ public class ReleveindexDAO extends DAOBase {
     public Releveindex getDernierReleve(String code_prise) {
         // CODE
         String query ="SELECT * FROM " + RELEVEINDEX_TABLE_NAME + " WHERE " + RELEVEINDEX_COLUMN_CODE_PRISE + " ='" + code_prise + "' ORDER BY " + RELEVEINDEX_COLUMN_DATE_FIN_INDEX + " DESC LIMIT 1";
+
         Cursor res =  mDb.rawQuery( query, null );
 
         if (res.moveToFirst()){
@@ -214,5 +226,29 @@ public class ReleveindexDAO extends DAOBase {
             nb = res.getInt(res.getColumnIndex("nb_tot_releves"));
         }
         return nb;
+    }
+
+    public void InsererRelevesFromJson(JSONArray jsonarr, Context context){
+        Releveindex r;
+        ReleveindexDAO rdao =new ReleveindexDAO(context);
+        rdao.supprimerTout();
+
+        try {
+            for(int i=0;i<jsonarr.length();i++){
+                JSONObject jsonObj=jsonarr.getJSONObject(i);
+                r=new Releveindex(jsonObj.getInt("id_releveindex"),jsonObj.getString("code_prise"),jsonObj.getString("date_debut_index"),jsonObj.getString("date_fin_index"),jsonObj.getInt("index_debut"),jsonObj.getInt("index_fin"),jsonObj.getString("code_etat_prise"),jsonObj.getInt("volume_index"),jsonObj.getInt("valide"),jsonObj.getString("code_cmv"),jsonObj.getString("date_maj"),jsonObj.getString("utilisateur_maj"),jsonObj.getString("date_insert"),jsonObj.getString("utilisateur_insert"),jsonObj.getString("observations"),jsonObj.getDouble("position_x"),jsonObj.getDouble("position_y"),jsonObj.getString("row_id"));
+                rdao.ajouter(r);
+            }
+
+        } catch (JSONException e) {
+            Log.e("MYAPP", "unexpected JSON exception", e);
+        }
+
+    }
+
+
+    public void supprimerTout() {
+        // CODE
+        mDb.delete(RELEVEINDEX_TABLE_NAME, "", new String[] {});
     }
 }
