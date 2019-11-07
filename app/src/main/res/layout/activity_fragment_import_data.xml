@@ -104,18 +104,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="0dp"
+                    android:layout_marginBottom="10dp"
                     android:background="#1E88E5"
                     android:text="@string/importer"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
 
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingLeft="10dp">
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="?android:attr/progressBarStyleLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:layout_marginTop="10dp"
                     android:progressDrawable="@drawable/circular_progressbar_view"
                     android:indeterminateDrawable="@drawable/circular_progressbar_view"
                     android:background="@drawable/circle_shape"/>

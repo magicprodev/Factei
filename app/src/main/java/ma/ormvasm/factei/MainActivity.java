@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity
     FragmentImportData fi;
     FragmentExportData fe;
     FragmentListePrise fp;
-
+    Bundle args;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +81,21 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_listeReleves) {
             lr = new ListeReleveindex();
+            args = new Bundle();
+            args.putString("valide", "0");
+            lr.setArguments(args);
+            fm.beginTransaction()
+                    .replace(R.id.content_frame
+                            , lr)
+                    .addToBackStack(null)
+                    .commit();
+
+        }
+        if (id == R.id.nav_listeAnciensReleves) {
+            lr = new ListeReleveindex();
+            args = new Bundle();
+            args.putString("valide", "1");
+            lr.setArguments(args);
             fm.beginTransaction()
                     .replace(R.id.content_frame
                             , lr)

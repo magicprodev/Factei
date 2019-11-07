@@ -134,6 +134,17 @@ public class FragmentListePrise extends Fragment {
             };
 
             searchView.setOnQueryTextListener(queryTextListener);
+
+            searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+                @Override
+                public boolean onClose() {
+                    //Toast t = Toast.makeText(getActivity(), "close", Toast.LENGTH_SHORT);
+                    //t.show();
+                    stCond_save = "";
+                    readData(stCond_save);
+                    return false;
+                }
+            });
         }
 
         super.onCreateOptionsMenu(menu, inflater);

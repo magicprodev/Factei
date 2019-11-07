@@ -173,13 +173,8 @@ public class ReleveindexDAO extends DAOBase {
         if (!cond_releve.equals("")){
             stCond=" where " + cond_releve;
                     }
-        if (stCond.equals("")){
-            stCond=" where valide=0 ";
-        }
-        else {
-            stCond=stCond+" and valide=0 ";
-        }
-        Cursor res =  mDb.rawQuery( "select id_releveindex,code_prise,date_debut_index,date_fin_index,index_debut,index_fin," +
+
+       Cursor res =  mDb.rawQuery( "select id_releveindex,code_prise,date_debut_index,date_fin_index,index_debut,index_fin," +
                 "etat_prise as code_etat_prise,volume_index,valide,code_cmv,date_maj,utilisateur_maj,date_insert,utilisateur_insert," +
                 "observations,position_x,position_y,row_id" +
                 " from releveindex r join etatprise e on r.code_etat_prise=e.code_etat_prise " +
@@ -217,9 +212,9 @@ public class ReleveindexDAO extends DAOBase {
 
         cond_releve = cond;
             }
-    public int getNbRelevesindex() {
+    public int getNbRelevesindex(String valide) {
         // CODE
-        Cursor res = mDb.rawQuery("SELECT count(*) as nb_tot_releves FROM " + RELEVEINDEX_TABLE_NAME+" WHERE valide=0", null);
+        Cursor res = mDb.rawQuery("SELECT count(*) as nb_tot_releves FROM " + RELEVEINDEX_TABLE_NAME+" WHERE valide="+valide, null);
         int nb = 0;
         if (res.moveToFirst()) {
             res.moveToFirst();
@@ -250,5 +245,32 @@ public class ReleveindexDAO extends DAOBase {
     public void supprimerTout() {
         // CODE
         mDb.delete(RELEVEINDEX_TABLE_NAME, "", new String[] {});
+    }
+
+
+    public ArrayList<Releveindex> getListReleveindex2() {
+        ArrayList<Releveindex> array_list = new ArrayList<Releveindex>();
+
+        //hp = new HashMap();
+        String stCond="";
+        if (!cond_releve.equals("")){
+            stCond=" where " + cond_releve;
+        }
+
+        Cursor res =  mDb.rawQuery( "select id_releveindex,code_prise,date_debut_index,date_fin_index,index_debut,index_fin," +
+                "code_etat_prise,volume_index,valide,code_cmv,date_maj,utilisateur_maj,date_insert,utilisateur_insert," +
+                "observations,position_x,position_y,row_id" +
+                " from releveindex r  " +
+                stCond +
+                " order by code_prise,substr('0000000000'||code_prise, -10, 10)", null );
+        res.moveToFirst();
+        Releveindex r;
+
+        while(res.isAfterLast() == false){
+            r=objectFromCursor(res);
+            array_list.add(r);
+            res.moveToNext();
+        }
+        return array_list;
     }
 }

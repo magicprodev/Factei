@@ -2,6 +2,7 @@ package ma.ormvasm.factei;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,9 +19,19 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
 import ma.ormvasm.factei.DAO.CmvDAO;
 import ma.ormvasm.factei.DAO.Parametre;
 import ma.ormvasm.factei.DAO.ParametreDAO;
+import ma.ormvasm.factei.DAO.Releveindex;
+import ma.ormvasm.factei.DAO.ReleveindexDAO;
 import ma.ormvasm.factei.DAO.UtilisateurDAO;
 
 public class FragmentExportData extends Fragment {
@@ -30,6 +41,10 @@ public class FragmentExportData extends Fragment {
     TextView lblcmv;
     TextView lblutilisateur;
     Button btnexport;
+    ParametreDAO pdao;
+    Parametre p;
+    ReleveindexDAO indx;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -97,8 +112,10 @@ public class FragmentExportData extends Fragment {
             @Override
             public void onClick(View view)
             {
-                Toast.makeText(getActivity(), "Export", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), "Export", Toast.LENGTH_LONG).show();
                 //new FragmentSettings.getAllUsersTask().execute(new ApiConnector());
+
+                new SyncRelevesData().execute(new ApiConnector());
             }
         });
 
@@ -109,6 +126,97 @@ public class FragmentExportData extends Fragment {
 
     }
 
+
+    private class SyncRelevesData extends AsyncTask<ApiConnector,Long, JSONArray> {
+        private boolean serverOK = true ;
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected JSONArray doInBackground(ApiConnector... params) {
+            pdao =new ParametreDAO(getActivity());
+            p=pdao.getData("IP_SERVEUR");
+            String serv =p.getValeur_parametre();
+
+            String urlString = serv + "putdata/index.php";
+            //if (ApiConnector.isServerAlive(urlString)==false){
+            if(false){
+                serverOK = false;
+                return null;
+            }
+
+            else {
+
+                serverOK = true;
+                indx = new ReleveindexDAO(getActivity());
+                indx.setCondReleve("valide=0");
+
+
+                final ArrayList<Releveindex> releves = new ArrayList<Releveindex>(indx.getListReleveindex2());
+
+                try {
+                    JSONObject userdata = null;
+                    JSONArray data = new JSONArray();
+
+                    for ( Releveindex rel:releves
+                    ) {
+
+                        userdata = new JSONObject();
+
+                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                        userdata.put("id_releveindex",rel.getId_releveindex());
+                        userdata.put("code_prise",rel.getCode_prise());
+                        userdata.put("date_debut_index",rel.getDate_debut_index());
+                        userdata.put("date_fin_index",rel.getDate_fin_index());
+                        userdata.put("index_debut",rel.getIndex_debut());
+                        userdata.put("index_fin",rel.getIndex_fin());
+                        userdata.put("code_etat_prise",rel.getCode_etat_prise());
+                        userdata.put("volume_index",rel.getVolume_index());
+                        userdata.put("valide",rel.getValide());
+                        userdata.put("code_cmv",rel.getCode_cmv());
+                        userdata.put("date_maj",rel.getDate_maj());
+                        userdata.put("utilisateur_maj",rel.getUtilisateur_maj());
+                        userdata.put("date_insert",rel.getDate_insert());
+                        userdata.put("utilisateur_insert",rel.getUtilisateur_insert());
+                        userdata.put("observations",rel.getObservations());
+                        userdata.put("position_x",rel.getPosition_x());
+                        userdata.put("position_y",rel.getPosition_y());
+                        userdata.put("row_id",rel.getRow_id());
+
+                        data.put(userdata);
+
+                    }
+
+                    params[0].setData(data,urlString,getActivity());
+                }
+                catch(JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+
+            }
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray jsonArray) {
+
+            if (serverOK){
+
+                Helper.showMessage(getActivity(), getString(R.string.donnees_exportees_avec_succes), getString(R.string.title_export), R.drawable.ic_success_green);
+
+            }
+            else {
+
+                Helper.showMessage(getActivity(),getString(R.string.probleme_connexion),getString(R.string.title_err_export),R.drawable.ic_error_red);
+
+            }
+        }
+    }
 
 
 }

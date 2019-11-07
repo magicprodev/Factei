@@ -45,6 +45,7 @@ public class FragmentImportData extends Fragment {
     Parametre p;
     ParametreDAO pdao ;
     private String urlString ="";
+    private String err_import ="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -162,7 +163,13 @@ public class FragmentImportData extends Fragment {
                     @Override
                     public void onClick(View view) {
                         // TODO Do something
-                        new getAllRelevesTask().execute(new ApiConnector());
+                        err_import="";
+                        new getAllPrisesTask().execute(new ApiConnector());
+                        if (err_import.equals("")){
+                            new getAllRelevesTask().execute(new ApiConnector());
+                        }else {
+                            Helper.showMessage(getActivity(),err_import,getString(R.string.title_err_import),R.drawable.ic_error_red);
+                        }
 
 
                         d.dismiss();
@@ -228,4 +235,55 @@ public class FragmentImportData extends Fragment {
         }
     }
 
+
+    private class getAllPrisesTask extends AsyncTask<ApiConnector,Long, JSONArray> {
+        private boolean serverOK = true ;
+        @Override
+        protected void onPreExecute() {
+            mPogressBar.setVisibility(View.VISIBLE);
+        }
+        @Override
+        protected JSONArray doInBackground(ApiConnector... params) {
+            pdao =new ParametreDAO(getActivity());
+            p=pdao.getData("IP_SERVEUR");
+            String serv =p.getValeur_parametre();
+            p=pdao.getData("CODE_CMV");
+            String cmv =p.getValeur_parametre();
+            p=pdao.getData("UTILISATEUR");
+            String user =p.getValeur_parametre();
+
+            urlString = serv + "/datalist/?cmd=priseslist&cmv=" +cmv+"&user="+user+"&offset=0";
+
+            if (ApiConnector.isServerAlive(urlString)==false){
+                serverOK = false;
+                return null;
+            }
+            else {
+                ArrayList<Prise> resp=new ArrayList<Prise>();
+                JSONArray jsonArray = params[0].getData(Prise.class,urlString,resp);
+                serverOK = true;
+                return jsonArray;}
+        }
+        @Override
+        protected void onPostExecute(JSONArray jsonArray) {
+            final PriseDAO prdao =new PriseDAO(getActivity());
+            if (serverOK){
+                if (jsonArray == null) {
+                    err_import=getString(R.string.donnees_non_trouvees);
+                    //Helper.showMessage(getActivity(), getString(R.string.donnees_non_trouvees), getString(R.string.title_err_import), R.drawable.ic_error_red);
+                }
+                else {
+                    prdao.InsererPrisesFromJson(jsonArray, getActivity());
+
+                    //Helper.showMessage(getActivity(), getString(R.string.donnees_importees_avec_succes), getString(R.string.title_import), R.drawable.ic_success_green);
+                }
+
+            }
+            else {
+                err_import = getString(R.string.probleme_connexion);
+                //Helper.showMessage(getActivity(),getString(R.string.probleme_connexion),getString(R.string.title_err_import),R.drawable.ic_error_red);
+            }
+            mPogressBar.setVisibility(View.GONE);
+        }
+    }
 }

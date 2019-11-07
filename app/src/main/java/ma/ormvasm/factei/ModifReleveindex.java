@@ -135,6 +135,10 @@ public class ModifReleveindex extends AppCompatActivity {
             prm=pdao.getData("UTILISATEUR");
             String utilisateur =prm.getValeur_parametre();
 
+
+            prm=pdao.getData("CODE_CMV");
+            String codecmv =prm.getValeur_parametre();
+
             if (!index_fin.matches("")) {
 
                 //ReleveindexDAO der = new ReleveindexDAO(ModifReleveindex.this);
@@ -155,7 +159,8 @@ public class ModifReleveindex extends AppCompatActivity {
                     ri.setUtilisateur_maj(utilisateur);
                     ri.setDate_maj(Helper.getCurrentDateTime());
                     ri.setVolume_index(volume_index);
-
+                    ri.setCode_cmv(codecmv);
+                    ri.setRow_id(Helper.rowId(""));
                     rd.modifier(ri);
                     Toast.makeText(ModifReleveindex.this, "Relevé Index modifié avec succès", Toast.LENGTH_LONG).show();
                     Intent intent=new Intent();

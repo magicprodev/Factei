@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -51,6 +52,8 @@ public class ListeReleveindex extends  Fragment {
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
     private String stCond_save = "";
+    private String valide="";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,6 +73,11 @@ public class ListeReleveindex extends  Fragment {
         mPogressBar = (ProgressBar) myView.findViewById(R.id.progressBar);
         releveindexListView = (ListView) myView.findViewById(R.id.releveIndexListView);
 
+
+        Bundle args = getArguments();
+        valide = args.getString("valide", "0");
+
+        stCond_save = "valide="+valide+" ";
         //test github
 
         //ActionBar actionBar = ((AppCompatActivity) getActivity(this)).getSupportActionBar();
@@ -123,7 +131,7 @@ public class ListeReleveindex extends  Fragment {
         releveindexListView.addHeaderView(headerView, null, false);
 
 
-        readData("");
+        readData("valide="+valide);
 
 
         return myView;
@@ -149,7 +157,7 @@ public class ListeReleveindex extends  Fragment {
         releves = indx.getListReleveindex();
         adapter = new ReleveindexListViewAdapter(releves, getActivity());
         releveindexListView.setAdapter(adapter);
-        textView.setText(getString(R.string.nb_total_releves)+" "+indx.getNbRelevesindex());
+        textView.setText(getString(R.string.nb_total_releves)+" "+indx.getNbRelevesindex(valide));
         mPogressBar.setVisibility(View.GONE);
     }
 
@@ -183,13 +191,24 @@ public class ListeReleveindex extends  Fragment {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     //Log.i("onQueryTextSubmit", query);
-                    stCond_save = "code_prise like '%" + query + "%'";
+                    stCond_save = " valide="+valide+" and code_prise like '%" + query + "%'";
                     readData(stCond_save);
                     return true;
                 }
             };
 
             searchView.setOnQueryTextListener(queryTextListener);
+
+            searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+                @Override
+                public boolean onClose() {
+                    //Toast t = Toast.makeText(getActivity(), "close", Toast.LENGTH_SHORT);
+                    //t.show();
+                    stCond_save = " valide="+valide+" ";
+                    readData(stCond_save);
+                    return false;
+                }
+            });
         }
         super.onCreateOptionsMenu(menu, inflater);
 

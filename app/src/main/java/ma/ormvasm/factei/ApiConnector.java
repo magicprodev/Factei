@@ -59,6 +59,8 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.zip.GZIPInputStream;
 
+import ma.ormvasm.factei.DAO.Parametre;
+import ma.ormvasm.factei.DAO.ParametreDAO;
 import ma.ormvasm.factei.DAO.Utilisateur;
 
 import static android.provider.Settings.System.DATE_FORMAT;
@@ -201,4 +203,96 @@ public class ApiConnector {
 
 
     }
+
+
+    public  JSONArray setData(JSONArray jsonObjArr, String urlString,Context ctx){
+        //JSONArray jsonArray = null;
+        HttpURLConnection urlConnection =null;
+
+        try{
+            URL url = new URL(urlString);
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                //HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                urlConnection.setDoOutput(true);
+                urlConnection.setDoInput(true);
+                urlConnection.setInstanceFollowRedirects(false);
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                urlConnection.setRequestProperty("Accept","application/json");
+
+
+                DataOutputStream os = new DataOutputStream(urlConnection.getOutputStream());
+
+
+                os.writeBytes(jsonObjArr.toString());
+
+                /*try{
+                jsonArray=new JSONArray();
+                JSONObject jsonParam = new JSONObject();
+                jsonParam.put("ID", "25");
+                jsonParam.put("description", "Real");
+                jsonParam.put("enable", "true");
+                jsonArray.put(jsonParam);
+                }
+                catch(JSONException e) {
+                    e.printStackTrace();
+                }
+
+                os.writeBytes(jsonArray.toString());*/
+
+                //os.writeBytes(rrr);
+                os.flush();
+                os.close();
+
+
+                Log.i("hh-STATUS", String.valueOf(urlConnection.getResponseCode()));
+                Log.i("hh-MSG" , urlConnection.getResponseMessage());
+                Log.i("hh-CONTENT" ,urlConnection.getContent().toString());
+
+                urlConnection.disconnect();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+
+            finally {
+                urlConnection.disconnect();
+            }
+
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return jsonObjArr;
+
+    }
+
+    public String makePOSTRequest(String url, List<NameValuePair> nameValuePairs) {
+        String response = "";
+
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(url);
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            response = EntityUtils.toString(httpEntity);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return response;
+
+    }
+
+
+
+
 }

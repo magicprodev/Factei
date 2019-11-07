@@ -17,13 +17,14 @@
     <string name="index_non_valide">Valeur index non valide</string>
     <string name="title_activity_liste_releveindex">Liste Relevés index</string>
     <string name="liste_releveindex">Liste relevés</string>
+    <string name="liste_anciens_releveindex">Anciens relevés</string>
     <string name="id_releveindex">id_releveindex</string>
     <string name="index_fin2">Valeur</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_FragmentAcceuil">Accueil</string>
     <string name="menu_export">Exporter</string>
-    <string name="menu_import">Anciens Index</string>
+    <string name="menu_import">Importer</string>
     <string name="n_prise_introuvable">N° Prise introuvable</string>
     <string name="releve_insere_avec_succes">Relevé Index ajouté avec succès</string>
     <string name="renseigner_valeur_index">Veuillez renseigner la valeur d\'index</string>
@@ -46,7 +47,7 @@
     <string name="donnees_non_trouvees">Aucune Donnée trouvée</string>
     <string name="probleme_connexion">Problème de connexion</string>
     <string name="refresh">Rafraîchir</string>
-    <string name="title_activity_fragment_import_data">Anciens Index</string>
+    <string name="title_activity_fragment_import_data">Import données</string>
     <string name="title_activity_fragment_export_data">Export données</string>
     <string name="import_data">Import données</string>
     <string name="importer">Importer Anciens Index</string>
@@ -58,8 +59,11 @@
     <string name="num_prise">N° prise</string>
     <string name="antenne">Antenne</string>
     <string name="donnees_importees_avec_succes">Données importées avec succès</string>
+    <string name="donnees_exportees_avec_succes">Données exportées avec succès</string>
     <string name="title_import">Import</string>
+    <string name="title_export">Export</string>
     <string name="title_err_import">Erreur Import</string>
+    <string name="title_err_export">Erreur Export</string>
     <string name="nb_total_prises">Nombre total de prises : </string>
     <string name="nb_total_releves">Nombre total de relevés : </string>
     <string name="confirm_inport_anciens_index">Vous êtes sûr de vouloir importer les anciens index. Attention : Tous les relevés d\'index existants seront supprimés ?  </string>
