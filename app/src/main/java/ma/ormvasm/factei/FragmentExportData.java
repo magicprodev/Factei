@@ -1,6 +1,7 @@
 package ma.ormvasm.factei;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -44,7 +45,7 @@ public class FragmentExportData extends Fragment {
     ParametreDAO pdao;
     Parametre p;
     ReleveindexDAO indx;
-
+    ProgressBar mPogressBar = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,6 +65,9 @@ public class FragmentExportData extends Fragment {
         lblcmv=(TextView) myView.findViewById(R.id.lblcmv);
         lblutilisateur=(TextView) myView.findViewById(R.id.lblUtilisateur);
         btnexport=(Button) myView.findViewById(R.id.btnexportdata);
+        mPogressBar = (ProgressBar) myView.findViewById(R.id.progressBar);
+
+        mPogressBar.setVisibility(View.GONE);
 
         getActivity().setTitle(getString(R.string.export_data));
 
@@ -114,8 +118,9 @@ public class FragmentExportData extends Fragment {
             {
                 //Toast.makeText(getActivity(), "Export", Toast.LENGTH_LONG).show();
                 //new FragmentSettings.getAllUsersTask().execute(new ApiConnector());
+                showDeleteDialog(R.layout.custom_title_dialog,getString(R.string.export_data) ,getString(R.string.export_data),getString(R.string.cancel_record));
 
-                new SyncRelevesData().execute(new ApiConnector());
+
             }
         });
 
@@ -132,7 +137,7 @@ public class FragmentExportData extends Fragment {
 
         @Override
         protected void onPreExecute() {
-
+            mPogressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -140,10 +145,14 @@ public class FragmentExportData extends Fragment {
             pdao =new ParametreDAO(getActivity());
             p=pdao.getData("IP_SERVEUR");
             String serv =p.getValeur_parametre();
+            p=pdao.getData("CODE_CMV");
+            String cmv =p.getValeur_parametre();
+            p=pdao.getData("ID_SOCIETE");
+            String societe =p.getValeur_parametre();
 
-            String urlString = serv + "putdata/index.php";
-            //if (ApiConnector.isServerAlive(urlString)==false){
-            if(false){
+            String urlString = serv + "putdata/index.php?cmv="+cmv+"&societe="+societe;
+
+            if (ApiConnector.isServerAlive(urlString)==false){
                 serverOK = false;
                 return null;
             }
@@ -215,8 +224,48 @@ public class FragmentExportData extends Fragment {
                 Helper.showMessage(getActivity(),getString(R.string.probleme_connexion),getString(R.string.title_err_export),R.drawable.ic_error_red);
 
             }
+            mPogressBar.setVisibility(View.GONE);
         }
     }
 
+    public void showDeleteDialog(int titre_layout,String dialogTitle ,String positiveButtonTitle, String negativeButtonTitle){
 
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //int tt =R.layout.custom_title_dialog;
+        View customTitleView = inflater.inflate(titre_layout, null);
+        TextView title = (TextView) customTitleView.findViewById(R.id.title);
+        title.setText(dialogTitle);
+
+
+        final AlertDialog d = new AlertDialog.Builder(getActivity())
+                .setCustomTitle(customTitleView)
+                .setMessage(getActivity().getString(R.string.confirm_export_releves_index) )
+                .setPositiveButton(positiveButtonTitle, null) //Set to null. We override the onclick
+                .setNegativeButton(negativeButtonTitle, null)
+                .create();
+
+        d.setCanceledOnTouchOutside(false);
+
+        d.setOnShowListener(new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow(DialogInterface dialog) {
+
+                Button b = d.getButton(AlertDialog.BUTTON_POSITIVE);
+                b.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        // TODO Do something
+                        new SyncRelevesData().execute(new ApiConnector());
+
+                        d.dismiss();
+                    }
+
+                });
+            }
+        });
+
+        d.show();
+    }
 }

@@ -181,6 +181,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('CODE_CMV','01');");
         db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('UTILISATEUR','');");
         db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('IP_SERVEUR','');");
+        db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('ID_SOCIETE','1');");
 
         //cmv
         db.execSQL("INSERT INTO cmv(code_cmv, cmv) values('01','801')");

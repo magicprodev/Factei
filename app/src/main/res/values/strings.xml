@@ -66,7 +66,9 @@
     <string name="title_err_export">Erreur Export</string>
     <string name="nb_total_prises">Nombre total de prises : </string>
     <string name="nb_total_releves">Nombre total de relevés : </string>
-    <string name="confirm_inport_anciens_index">Vous êtes sûr de vouloir importer les anciens index. Attention : Tous les relevés d\'index existants seront supprimés ?  </string>
+    <string name="confirm_import_anciens_index">Vous êtes sûr de vouloir importer les anciens index. Attention : Tous les relevés d\'index existants seront supprimés ?  </string>
+    <string name="confirm_export_releves_index">Vous êtes sûr de vouloir exporter les relevés d\'index saisis ?  </string>
+
 
 
 

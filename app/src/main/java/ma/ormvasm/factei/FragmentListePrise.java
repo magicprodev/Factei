@@ -107,7 +107,7 @@ public class FragmentListePrise extends Fragment {
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
 
         MenuItem refreshItem = menu.findItem(R.id.action_refresh);
-        refreshItem.setVisible(true);
+        refreshItem.setVisible(false);
 
         if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();

@@ -228,21 +228,7 @@ public class ApiConnector {
 
                 os.writeBytes(jsonObjArr.toString());
 
-                /*try{
-                jsonArray=new JSONArray();
-                JSONObject jsonParam = new JSONObject();
-                jsonParam.put("ID", "25");
-                jsonParam.put("description", "Real");
-                jsonParam.put("enable", "true");
-                jsonArray.put(jsonParam);
-                }
-                catch(JSONException e) {
-                    e.printStackTrace();
-                }
 
-                os.writeBytes(jsonArray.toString());*/
-
-                //os.writeBytes(rrr);
                 os.flush();
                 os.close();
 

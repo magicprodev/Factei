@@ -145,7 +145,7 @@ public class FragmentImportData extends Fragment {
 
         final AlertDialog d = new AlertDialog.Builder(getActivity())
                 .setCustomTitle(customTitleView)
-                .setMessage(getActivity().getString(R.string.confirm_inport_anciens_index) )
+                .setMessage(getActivity().getString(R.string.confirm_import_anciens_index) )
                 .setPositiveButton(positiveButtonTitle, null) //Set to null. We override the onclick
                 .setNegativeButton(negativeButtonTitle, null)
                 .create();
