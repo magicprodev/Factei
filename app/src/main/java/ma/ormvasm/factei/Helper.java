@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -49,25 +50,40 @@ public class Helper {
         return reformattedStr;
     }
 
-    public static String md5(String s) { try {
 
-        // Create MD5 Hash
-        MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
-        digest.update(s.getBytes());
-        byte messageDigest[] = digest.digest();
 
-        // Create Hex String
-        StringBuffer hexString = new StringBuffer();
-        for (int i=0; i<messageDigest.length; i++)
-            hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
-        return hexString.toString();
+    private static String convertedToHex(byte[] data) {
+        StringBuffer buf = new StringBuffer();
 
-    } catch (NoSuchAlgorithmException e) {
-        e.printStackTrace();
+        for (int i = 0; i < data.length; i++) {
+            int halfOfByte = (data[i] >>> 4) & 0x0F;
+            int twoHalfBytes = 0;
+
+            do {
+                if ((0 <= halfOfByte) && (halfOfByte <= 9)) {
+                    buf.append((char) ('0' + halfOfByte));
+                } else {
+                    buf.append((char) ('a' + (halfOfByte - 10)));
+                }
+
+                halfOfByte = data[i] & 0x0F;
+
+            } while (twoHalfBytes++ < 1);
+        }
+        return buf.toString();
     }
-        return "";
 
+    public static String md5(String text) throws NoSuchAlgorithmException,
+            UnsupportedEncodingException {
+        MessageDigest md;
+        md = MessageDigest.getInstance("MD5");
+        byte[] md5 = new byte[64];
+        md.update(text.getBytes("iso-8859-1"), 0, text.length());
+        md5 = md.digest();
+        return convertedToHex(md5);
     }
+
+
 
     public  static void showMessage(Context context, String msg, String titre,int icon){
         new AlertDialog.Builder(context)
@@ -82,5 +98,9 @@ public class Helper {
                     }
                 }).show();
     }
+
+
+
+
 
 }

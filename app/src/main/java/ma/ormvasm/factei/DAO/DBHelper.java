@@ -113,6 +113,32 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static final String UTILISATEUR_TABLE_DROP ="DROP TABLE IF EXISTS " + UTILISATEUR_TABLE_NAME;
 
+    //TABLE AUTORISATION
+
+    public static final String AUTORISATION_TABLE_NAME = "autorisation";
+    public static final String AUTORISATION_COLUMN_ID_AUTORISATION = "id_autorisation";
+    public static final String AUTORISATION_COLUMN_GROUPE = "groupe";
+    public static final String AUTORISATION_COLUMN_ECRAN = "ecran";
+    public static final String AUTORISATION_COLUMN_DROIT_ACCESS = "droit_access";
+    public static final String AUTORISATION_COLUMN_DROIT_INSERT = "droit_insert";
+    public static final String AUTORISATION_COLUMN_DROIT_UPDATE = "droit_update";
+    public static final String AUTORISATION_COLUMN_DROIT_DELETE = "droit_delete";
+
+
+    public static final String AUTORISATION_TABLE_CREATE =
+            "CREATE TABLE " + AUTORISATION_TABLE_NAME + " (" +
+                    AUTORISATION_COLUMN_ID_AUTORISATION + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    AUTORISATION_COLUMN_GROUPE + " TEXT, " +
+                    AUTORISATION_COLUMN_ECRAN + " TEXT, " +
+                    AUTORISATION_COLUMN_DROIT_ACCESS + " TEXT, " +
+                    AUTORISATION_COLUMN_DROIT_INSERT + " INTEGER, " +
+                    AUTORISATION_COLUMN_DROIT_UPDATE + " INTEGER, " +
+                    AUTORISATION_COLUMN_DROIT_DELETE + " TEXT);";
+
+
+    public static final String AUTORISATION_TABLE_DROP ="DROP TABLE IF EXISTS " + AUTORISATION_TABLE_NAME;
+
+
     //TABLE prise
     public static final String PRISE_TABLE_NAME = "prise";
     public static final String PRISE_COLUMN_CODE_PRISE="code_prise";
@@ -171,6 +197,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(PARAMETRE_TABLE_CREATE);
         db.execSQL(CMV_TABLE_CREATE);
         db.execSQL(UTILISATEUR_TABLE_CREATE);
+        db.execSQL(AUTORISATION_TABLE_CREATE);
 
         //Prises
         //etat prise
@@ -201,6 +228,17 @@ public class DBHelper extends SQLiteOpenHelper {
         //utilisateur
         db.execSQL("INSERT INTO utilisateur(code_utilisateur,utilisateur,mot_passe,groupe,code_cmv) values('admin','admin','admin','ADM','');");
         db.execSQL("INSERT INTO utilisateur(code_utilisateur,utilisateur,mot_passe,groupe,code_cmv) values('fact','fact','fact','ADF','');");
+
+
+        //autorisation
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','FragmentExportData','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','FragmentImportData','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','FragmentListePrise','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','FragmentListeUtilisateur','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','FragmentSettings','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','ListeReleveindex','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','ModifReleveindex','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','SaisieReleveindex','Y','Y','Y','Y');");
 
     }
 

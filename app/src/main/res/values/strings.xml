@@ -68,8 +68,15 @@
     <string name="nb_total_releves">Nombre total de relevés : </string>
     <string name="confirm_import_anciens_index">Vous êtes sûr de vouloir importer les anciens index. Attention : Tous les relevés d\'index existants seront supprimés ?  </string>
     <string name="confirm_export_releves_index">Vous êtes sûr de vouloir exporter les relevés d\'index saisis ?  </string>
-
-
+    <string name="title_activity_login">Se connecter</string>
+    <string name="prompt_utilisateur">Nom utilisateur</string>
+    <string name="prompt_motdepasse">Mot de passe</string>
+    <string name="action_sign_in">Se connecter</string>
+    <string name="title_login">Connexion</string>
+    <string name="welcome">"Bienvenu !"</string>
+    <string name="invalid_username">Nom d\'utlisateur ou Mot de passe non valide</string>
+    <string name="login_failed">"Connexio échouée"</string>
+    <string name="invalid_password">"Connexio échouée"</string>
 
 
 </resources>

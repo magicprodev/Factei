@@ -246,7 +246,7 @@ public class PriseDAO extends DAOBase {
         Prise pr;
         PriseDAO prdao =new PriseDAO(context);
         prdao.supprimerTout();
-
+        int l=jsonarr.length();
         try {
             for(int i=0;i<jsonarr.length();i++){
                 JSONObject jsonObj=jsonarr.getJSONObject(i);

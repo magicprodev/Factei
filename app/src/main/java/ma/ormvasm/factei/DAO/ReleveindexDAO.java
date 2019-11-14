@@ -179,7 +179,7 @@ public class ReleveindexDAO extends DAOBase {
                 "observations,position_x,position_y,row_id" +
                 " from releveindex r join etatprise e on r.code_etat_prise=e.code_etat_prise " +
                 stCond +
-                " order by code_prise,substr('0000000000'||code_prise, -10, 10)", null );
+                " order by substr('0000000000'||code_prise, -10, 10)", null );
         res.moveToFirst();
         Releveindex r;
 

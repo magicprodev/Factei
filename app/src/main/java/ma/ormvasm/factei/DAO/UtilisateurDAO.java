@@ -8,7 +8,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+
+import ma.ormvasm.factei.Helper;
 
 public class UtilisateurDAO extends DAOBase{
 
@@ -188,6 +192,38 @@ public class UtilisateurDAO extends DAOBase{
 
         } catch (JSONException e) {
             Log.e("MYAPP", "unexpected JSON exception", e);
+        }
+
+    }
+
+
+    public Utilisateur getUtilisateur(String usr, String motpasse) {
+        // CODE
+        String req="SELECT * FROM " + UTILISATEUR_TABLE_NAME + " where 1=2";
+        try {
+            req = "SELECT * FROM " + UTILISATEUR_TABLE_NAME + " where " +
+                    UTILISATEUR_COLUMN_CODE_UTILISATEUR + " ='" + usr + "' AND " +
+                    UTILISATEUR_COLUMN_MOT_PASSE + " ='" + Helper.md5(motpasse) + "'";
+        }
+        catch (NoSuchAlgorithmException | UnsupportedEncodingException ex){
+            Log.e("md5",ex.toString(),ex);
+        }
+
+        Cursor res = mDb.rawQuery(req, null);
+
+        if (res.moveToFirst()) {
+            res.moveToFirst();
+            Utilisateur p;
+
+            p = new Utilisateur(
+                    res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_CODE_UTILISATEUR)),
+                    res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_UTILISATEUR)),
+                    res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_MOT_PASSE)),
+                    res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_GROUPE)),
+                    res.getString(res.getColumnIndex(UTILISATEUR_COLUMN_CODE_CMV)));
+            return p;
+        } else {
+            return null;
         }
 
     }
