@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import ma.ormvasm.factei.DAO.Parametre;
+import ma.ormvasm.factei.DAO.ParametreDAO;
 import ma.ormvasm.factei.DAO.Utilisateur;
 import ma.ormvasm.factei.DAO.UtilisateurDAO;
 
@@ -36,6 +38,11 @@ public class LoginActivity extends AppCompatActivity {
                 u = udao.getUtilisateur(usernameEditText.getText()+"",passwordEditText.getText()+"");
 
                 if (u!=null){
+                    ParametreDAO pdao=new ParametreDAO(LoginActivity.this);
+                    Parametre p = pdao.getData("UTILISATEUR_CNX");
+                    p.setValeur_parametre(u.getCode_utilisateur());
+
+                    pdao.modifier(p);
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);

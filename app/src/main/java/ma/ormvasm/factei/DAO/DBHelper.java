@@ -131,8 +131,8 @@ public class DBHelper extends SQLiteOpenHelper {
                     AUTORISATION_COLUMN_GROUPE + " TEXT, " +
                     AUTORISATION_COLUMN_ECRAN + " TEXT, " +
                     AUTORISATION_COLUMN_DROIT_ACCESS + " TEXT, " +
-                    AUTORISATION_COLUMN_DROIT_INSERT + " INTEGER, " +
-                    AUTORISATION_COLUMN_DROIT_UPDATE + " INTEGER, " +
+                    AUTORISATION_COLUMN_DROIT_INSERT + " TEXT, " +
+                    AUTORISATION_COLUMN_DROIT_UPDATE + " TEXT, " +
                     AUTORISATION_COLUMN_DROIT_DELETE + " TEXT);";
 
 
@@ -207,6 +207,7 @@ public class DBHelper extends SQLiteOpenHelper {
         //parametre
         db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('CODE_CMV','01');");
         db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('UTILISATEUR','');");
+        db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('UTILISATEUR_CNX','');");
         db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('IP_SERVEUR','');");
         db.execSQL("INSERT INTO parametre(code_parametre, valeur_parametre) values('ID_SOCIETE','1');");
 
@@ -226,19 +227,60 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
         //utilisateur
-        db.execSQL("INSERT INTO utilisateur(code_utilisateur,utilisateur,mot_passe,groupe,code_cmv) values('admin','admin','admin','ADM','');");
-        db.execSQL("INSERT INTO utilisateur(code_utilisateur,utilisateur,mot_passe,groupe,code_cmv) values('fact','fact','fact','ADF','');");
+        db.execSQL("INSERT INTO utilisateur(code_utilisateur,utilisateur,mot_passe,groupe,code_cmv) values('admin','admin','6868ff62a37092bb25507e623e98f272','ADM','');");
+        db.execSQL("INSERT INTO utilisateur(code_utilisateur,utilisateur,mot_passe,groupe,code_cmv) values('fact','fact','b5e970419471b643635f449a887561c6','ADF','');");
 
 
         //autorisation
+        // Groupe ADM : Administrateurs
         db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','FragmentExportData','Y','Y','Y','Y');");
         db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','FragmentImportData','Y','Y','Y','Y');");
         db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','FragmentListePrise','Y','Y','Y','Y');");
         db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','FragmentListeUtilisateur','Y','Y','Y','Y');");
         db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','FragmentSettings','Y','Y','Y','Y');");
         db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','ListeReleveindex','Y','Y','Y','Y');");
-        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','ModifReleveindex','Y','Y','Y','Y');");
-        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','SaisieReleveindex','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','ListeReleveindexAnc','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','ModifReleveindex','Y','N','N','N');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADM','SaisieReleveindex','Y','N','N','N');");
+
+        // Groupe ADF : Administrateurs Facturation
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADF','FragmentExportData','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADF','FragmentImportData','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADF','FragmentListePrise','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADF','FragmentListeUtilisateur','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADF','FragmentSettings','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADF','ListeReleveindex','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADF','ListeReleveindexAnc','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADF','ModifReleveindex','Y','N','N','N');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('ADF','SaisieReleveindex','Y','N','N','N');");
+
+        // Groupe AIG : Aiguadiers
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('AIG','FragmentExportData','N','N','N','N');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('AIG','FragmentImportData','N','N','N','N');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('AIG','FragmentListePrise','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('AIG','FragmentListeUtilisateur','N','N','N','N');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('AIG','FragmentSettings','N','N','N','N');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('AIG','ListeReleveindex','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('AIG','ListeReleveindexAnc','N','N','N','N');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('AIG','ModifReleveindex','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('AIG','SaisieReleveindex','Y','Y','Y','Y');");
+
+        // Groupe COA : Coordinateurs Aiguadiers
+
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('COA','FragmentExportData','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('COA','FragmentImportData','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('COA','FragmentListePrise','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('COA','FragmentListeUtilisateur','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('COA','FragmentSettings','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('COA','ListeReleveindex','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('COA','ListeReleveindexAnc','Y','Y','Y','Y');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('COA','ModifReleveindex','Y','N','N','N');");
+        db.execSQL("INSERT INTO autorisation(groupe,ecran,droit_access,droit_insert,droit_update,droit_delete) values('COA','SaisieReleveindex','Y','N','N','N');");
+
+
+
+
+
 
     }
 
@@ -251,6 +293,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(PARAMETRE_TABLE_DROP);
         db.execSQL(CMV_TABLE_DROP);
         db.execSQL(UTILISATEUR_TABLE_DROP);
+        db.execSQL(AUTORISATION_TABLE_DROP);
         onCreate(db);
     }
 

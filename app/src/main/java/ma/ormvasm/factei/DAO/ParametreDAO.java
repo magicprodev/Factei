@@ -96,5 +96,7 @@ public class ParametreDAO  extends DAOBase {
         }
         return array_list;
     }
+
+
 }
 

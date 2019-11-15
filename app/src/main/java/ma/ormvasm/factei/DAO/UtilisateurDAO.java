@@ -13,6 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import ma.ormvasm.factei.Helper;
+import ma.ormvasm.factei.MainActivity;
 
 public class UtilisateurDAO extends DAOBase{
 
@@ -227,6 +228,11 @@ public class UtilisateurDAO extends DAOBase{
         }
 
     }
-    }
+
+
+
+
+
+}
 
 

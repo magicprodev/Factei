@@ -12,6 +12,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import ma.ormvasm.factei.DAO.Autorisation;
+import ma.ormvasm.factei.DAO.AutorisationDAO;
+import ma.ormvasm.factei.DAO.Parametre;
+import ma.ormvasm.factei.DAO.ParametreDAO;
+import ma.ormvasm.factei.DAO.Utilisateur;
+import ma.ormvasm.factei.DAO.UtilisateurDAO;
+
 public class Helper {
     public static String getCurrentDate(){
 
@@ -101,6 +108,16 @@ public class Helper {
 
 
 
+    public static Autorisation getAutorisation(String ecran,Context context){
+        String user_encours="";
+        ParametreDAO pdao=new ParametreDAO(context);
+        Parametre p = pdao.getData("UTILISATEUR_CNX");
+        user_encours=p.getValeur_parametre();
+        UtilisateurDAO udao =new UtilisateurDAO(context);
+        Utilisateur u = udao.getData(user_encours);
+        AutorisationDAO adao =new AutorisationDAO(context);
+        return adao.getAutorisation(ecran,u.getGroupe());
 
+    }
 
 }

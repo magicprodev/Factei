@@ -19,6 +19,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.app.FragmentTransaction;
 
+import ma.ormvasm.factei.DAO.Autorisation;
+import ma.ormvasm.factei.DAO.AutorisationDAO;
+import ma.ormvasm.factei.DAO.Parametre;
+import ma.ormvasm.factei.DAO.ParametreDAO;
+import ma.ormvasm.factei.DAO.Utilisateur;
+import ma.ormvasm.factei.DAO.UtilisateurDAO;
+
 import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity
@@ -34,6 +41,11 @@ public class MainActivity extends AppCompatActivity
     FragmentExportData fe;
     FragmentListePrise fp;
     Bundle args;
+
+    Utilisateur usr;
+    String groupe_encours="";
+    Autorisation aut;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +60,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
 
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         getFragmentManager().beginTransaction()
@@ -58,7 +71,10 @@ public class MainActivity extends AppCompatActivity
 
         toggle.setDrawerIndicatorEnabled(true);
 
+
+
     }
+
 
     @Override
     public void onBackPressed() {
@@ -78,7 +94,7 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction;
 
-        clearStack();
+
 
         if (id == R.id.nav_listeReleves) {
             lr = new ListeReleveindex();
@@ -193,7 +209,18 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         Log.d(TAG, "MainActivity.onOptionsItemSelected");
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.activity_menu_drawer, menu);
+
+        //updateMenu(menu,MainActivity.this);
+
+        MenuItem mnItem2  = menu.findItem(R.id.nav_listeAnciensReleves);
+        //aut=Helper.getAutorisation("ListeReleveindexAnc",MainActivity.this);
+
+        mnItem2.setVisible(false);
+
+
+
+
         return true;
     }
 
@@ -222,28 +249,49 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    private void updateMenu(Menu menu,Context ctx){
 
-    public void clearStack() {
-        //Here we are clearing back stack fragment entries
-        int backStackEntry = getSupportFragmentManager().getBackStackEntryCount();
-        if (backStackEntry > 0) {
-            for (int i = 0; i < backStackEntry; i++) {
-                getSupportFragmentManager().popBackStackImmediate();
-            }
-        }
+        boolean b;
 
-        //Here we are removing all the fragment that are shown here
-        Integer s=getSupportFragmentManager().getFragments().size();
+        MenuItem mnItem1 = menu.findItem(R.id.nav_listeReleves);
+        aut=Helper.getAutorisation("ListeReleveindex",ctx);
+        b=(aut.getDroit_access().equals("Y"));
+        mnItem1.setVisible(b);
 
-        if (getSupportFragmentManager().getFragments() != null && getSupportFragmentManager().getFragments().size() > 0) {
-            for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
-                Fragment mFragment = getSupportFragmentManager().getFragments().get(i);
-                if (mFragment != null) {
-                    getSupportFragmentManager().beginTransaction().remove(mFragment).commit();
-                }
-            }
-        }
+        MenuItem mnItem2  = menu.findItem(R.id.nav_listeAnciensReleves);
+        aut=Helper.getAutorisation("ListeReleveindexAnc",ctx);
+        b=(aut.getDroit_access().equals("Y"));
+        mnItem2.setVisible(false);
+
+        MenuItem mnItem = menu.findItem(R.id.nav_saisie_releve);
+        aut=Helper.getAutorisation("SaisieReleveindex",ctx);
+        mnItem.setVisible((aut.getDroit_access().equals("Y")));
+
+        mnItem = menu.findItem(R.id.nav_listePrises);
+        aut=Helper.getAutorisation("FragmentListePrise",ctx);
+        mnItem.setVisible((aut.getDroit_access().equals("Y")));
+
+        mnItem = menu.findItem(R.id.nav_parametres);
+        aut=Helper.getAutorisation("FragmentSettings",ctx);
+        mnItem.setVisible((aut.getDroit_access().equals("Y")));
+
+        mnItem = menu.findItem(R.id.nav_utilisateurs);
+        aut=Helper.getAutorisation("FragmentListeUtilisateur",ctx);
+        mnItem.setVisible((aut.getDroit_access().equals("Y")));
+
+        mnItem = menu.findItem(R.id.nav_import);
+        aut=Helper.getAutorisation("FragmentImportData",ctx);
+        mnItem.setVisible((aut.getDroit_access().equals("Y")));
+
+        mnItem = menu.findItem(R.id.nav_export);
+        aut=Helper.getAutorisation("FragmentExportData",ctx);
+        mnItem.setVisible((aut.getDroit_access().equals("Y")));
+
+
+
+
     }
+
 
 
 }
