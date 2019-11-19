@@ -73,10 +73,15 @@
     <string name="prompt_motdepasse">Mot de passe</string>
     <string name="action_sign_in">Se connecter</string>
     <string name="title_login">Connexion</string>
+    <string name="title_logout">Déconnexion</string>
     <string name="welcome">"Bienvenu !"</string>
     <string name="invalid_username">Nom d\'utlisateur ou Mot de passe non valide</string>
     <string name="login_failed">"Connexio échouée"</string>
-    <string name="invalid_password">"Connexio échouée"</string>
+    <string name="invalid_password">"Connexion échouée"</string>
+    <string name="confirm_logout">Êtes-vous sûr(e) de vouloir vous déconnecter? </string>
+    <string name="deconnexion">Déconnexion</string>
+    <string name="sedeconnecter">Se déconnecter</string>
+
 
 
 </resources>

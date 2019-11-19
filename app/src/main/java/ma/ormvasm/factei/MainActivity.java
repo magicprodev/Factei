@@ -1,7 +1,9 @@
 package ma.ormvasm.factei;
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,10 +16,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.app.FragmentTransaction;
+import android.widget.Button;
+import android.widget.TextView;
 
 import ma.ormvasm.factei.DAO.Autorisation;
 import ma.ormvasm.factei.DAO.AutorisationDAO;
@@ -71,7 +76,10 @@ public class MainActivity extends AppCompatActivity
 
         toggle.setDrawerIndicatorEnabled(true);
 
+        Menu menu;
 
+        menu=navigationView.getMenu();
+        updateMenu(menu,MainActivity.this);
 
     }
 
@@ -186,6 +194,12 @@ public class MainActivity extends AppCompatActivity
 
 
         }
+        else
+        if (id == R.id.nav_logout) {
+
+            showDeleteDialog(R.layout.custom_title_dialog,getString(R.string.deconnexion) ,getString(R.string.sedeconnecter),getString(R.string.cancel_record));
+
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -251,19 +265,17 @@ public class MainActivity extends AppCompatActivity
 
     private void updateMenu(Menu menu,Context ctx){
 
-        boolean b;
 
-        MenuItem mnItem1 = menu.findItem(R.id.nav_listeReleves);
+
+        MenuItem mnItem = menu.findItem(R.id.nav_listeReleves);
         aut=Helper.getAutorisation("ListeReleveindex",ctx);
-        b=(aut.getDroit_access().equals("Y"));
-        mnItem1.setVisible(b);
+        mnItem.setVisible((aut.getDroit_access().equals("Y")));
 
-        MenuItem mnItem2  = menu.findItem(R.id.nav_listeAnciensReleves);
+        mnItem  = menu.findItem(R.id.nav_listeAnciensReleves);
         aut=Helper.getAutorisation("ListeReleveindexAnc",ctx);
-        b=(aut.getDroit_access().equals("Y"));
-        mnItem2.setVisible(false);
+        mnItem.setVisible((aut.getDroit_access().equals("Y")));
 
-        MenuItem mnItem = menu.findItem(R.id.nav_saisie_releve);
+        mnItem = menu.findItem(R.id.nav_saisie_releve);
         aut=Helper.getAutorisation("SaisieReleveindex",ctx);
         mnItem.setVisible((aut.getDroit_access().equals("Y")));
 
@@ -292,6 +304,49 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
+    public void showDeleteDialog(int titre_layout,String dialogTitle ,String positiveButtonTitle, String negativeButtonTitle){
+
+        LayoutInflater inflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View customTitleView = inflater.inflate(titre_layout, null);
+        TextView title = (TextView) customTitleView.findViewById(R.id.title);
+        title.setText(dialogTitle);
+
+        final AlertDialog d = new AlertDialog.Builder(MainActivity.this)
+                .setCustomTitle(customTitleView)
+                .setMessage(MainActivity.this.getString(R.string.confirm_logout) )
+                .setPositiveButton(positiveButtonTitle, null)
+                .setNegativeButton(negativeButtonTitle, null)
+                .create();
+
+        d.setCanceledOnTouchOutside(false);
+
+        d.setOnShowListener(new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow(DialogInterface dialog) {
+
+                Button b = d.getButton(AlertDialog.BUTTON_POSITIVE);
+                b.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        // TODO Do something
+                        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.this.finish();
+                        d.dismiss();
+                    }
+
+
+
+                });
+            }
+        });
+
+        d.show();
+    }
 
 
 }
