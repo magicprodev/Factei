@@ -53,7 +53,13 @@ public class ListeReleveindex extends  Fragment {
     private SearchView.OnQueryTextListener queryTextListener;
     private String stCond_save = "";
     private String valide="";
+    private String user_encours="";
+    private String groupe_encours="";
 
+    public void setUserEncours(String user_encours, String groupe_encours) {
+        this.user_encours = user_encours;
+        this.groupe_encours = groupe_encours;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,23 +92,27 @@ public class ListeReleveindex extends  Fragment {
 
         getActivity().setTitle(getString(R.string.liste_releveindex));
 
-        releveindexListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        //if (groupe_encours.equals("AIG")) {
+            releveindexListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String selected = ((TextView) view.findViewById(R.id.txtIdReleveindex)).getText().toString();
+                    String selected = ((TextView) view.findViewById(R.id.txtIdReleveindex)).getText().toString();
 
-                Intent intent = new Intent(getActivity(), ModifReleveindex.class);
-                intent.putExtra("ID_RELEVE", selected);
-                //startActivity(intent);
-                startActivityForResult(intent, 1);
-                //Toast.makeText(ListeReleveindex.this, selected, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), ModifReleveindex.class);
+                    intent.putExtra("ID_RELEVE", selected);
+                    intent.putExtra("user_encours", user_encours);
+                    intent.putExtra("groupe_encours", groupe_encours);
+                    //startActivity(intent);
+                    startActivityForResult(intent, 1);
+                    //Toast.makeText(ListeReleveindex.this, selected, Toast.LENGTH_SHORT).show();
 
 
-                //Toast.makeText(ListeReleveindex.this, "ON Click "+(i-1), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ListeReleveindex.this, "ON Click "+(i-1), Toast.LENGTH_SHORT).show();
 
-            }
-        });
+                }
+            });
+        //}
 
        /* releveindexListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

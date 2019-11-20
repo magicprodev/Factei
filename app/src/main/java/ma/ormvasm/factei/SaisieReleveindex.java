@@ -60,7 +60,13 @@ public class SaisieReleveindex extends Fragment {
     LocationManager locationManager;
     double position_x=0;
     double position_y=0;
+    private String user_encours="";
+    private String groupe_encours="";
 
+    public void setUserEncours(String user_encours, String groupe_encours) {
+        this.user_encours = user_encours;
+        this.groupe_encours = groupe_encours;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -281,6 +287,13 @@ public class SaisieReleveindex extends Fragment {
         Log.d(TAG, "Fragment.onOptionsItemSelected");
         menu.clear();
         inflater.inflate(R.menu.menu_form, menu);
+        MenuItem filter_save = menu.findItem(R.id.btn_save);
+        MenuItem filter_delete = menu.findItem(R.id.btn_delete);
+        if (!(groupe_encours.equals("AIG"))){
+           filter_save.setVisible(false);
+        }
+        filter_delete.setVisible(false);
+
         super.onCreateOptionsMenu(menu,inflater);
     }
 

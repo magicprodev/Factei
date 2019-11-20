@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txttitre"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/logo1"
+                android:src="@drawable/logo2"
                 />
 
 

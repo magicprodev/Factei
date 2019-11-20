@@ -55,6 +55,8 @@ public class ModifReleveindex extends AppCompatActivity {
     private String code_etat_prise="";
     private String idReleve;
     private Releveindex ri;
+    private String user_encours="";
+    private String groupe_encours="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,8 @@ public class ModifReleveindex extends AppCompatActivity {
         spinnerEtatprise=(Spinner) findViewById(R.id.spinetatprise);
         observations=(TextView) findViewById(R.id.txtobservations);
         idReleve=getIntent().getStringExtra("ID_RELEVE");
+        user_encours=getIntent().getStringExtra("user_encours");
+        groupe_encours=getIntent().getStringExtra("groupe_encours");
 
         spinnerEtatprise = (Spinner)  findViewById(R.id.spinetatprise);
         loadSpinnerEtatprise();
@@ -262,6 +266,11 @@ public class ModifReleveindex extends AppCompatActivity {
         else{
             filter_delete.setVisible(true);
             filter_save.setVisible(true);
+        }
+
+        if (!(groupe_encours.equals("AIG"))){
+            filter_delete.setVisible(false);
+            filter_save.setVisible(false);
         }
         return true;
     }

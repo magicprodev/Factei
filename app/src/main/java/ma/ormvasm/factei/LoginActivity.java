@@ -17,6 +17,8 @@ public class LoginActivity extends AppCompatActivity {
 
     UtilisateurDAO udao ;
     Utilisateur u;
+    ParametreDAO pdao;
+    Parametre p;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,15 +40,24 @@ public class LoginActivity extends AppCompatActivity {
                 u = udao.getUtilisateur(usernameEditText.getText()+"",passwordEditText.getText()+"");
 
                 if (u!=null){
-                    ParametreDAO pdao=new ParametreDAO(LoginActivity.this);
-                    Parametre p = pdao.getData("UTILISATEUR_CNX");
-                    p.setValeur_parametre(u.getCode_utilisateur());
+                    String grp = u.getGroupe();
+                    pdao =new ParametreDAO(LoginActivity.this);
+                    p=pdao.getData("UTILISATEUR");
+                    String usr =p.getValeur_parametre();
 
-                    pdao.modifier(p);
+                    if (grp.equals("AIG") && !(usr.equals(u.getCode_utilisateur())) ){
+                        Helper.showMessage(LoginActivity.this,getString(R.string.user_not_authorized_for_this_device),getString(R.string.title_login),R.drawable.ic_error_red);
+                    }
+                    else {
+                        pdao = new ParametreDAO(LoginActivity.this);
+                        Parametre p = pdao.getData("UTILISATEUR_CNX");
+                        p.setValeur_parametre(u.getCode_utilisateur());
+                        pdao.modifier(p);
 
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
                 else{
 

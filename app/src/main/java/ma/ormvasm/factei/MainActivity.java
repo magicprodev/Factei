@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity
     FragmentListePrise fp;
     Bundle args;
 
-    Utilisateur usr;
-    String groupe_encours="";
+    private String user_encours="";
+    private String groupe_encours="";
     Autorisation aut;
 
     @Override
@@ -78,6 +78,15 @@ public class MainActivity extends AppCompatActivity
 
         Menu menu;
 
+        context=MainActivity.this;
+
+        ParametreDAO pdao=new ParametreDAO(context);
+        Parametre p = pdao.getData("UTILISATEUR_CNX");
+        user_encours=p.getValeur_parametre();
+        UtilisateurDAO udao =new UtilisateurDAO(context);
+        Utilisateur u = udao.getData(user_encours);
+        groupe_encours=u.getGroupe();
+
         menu=navigationView.getMenu();
         updateMenu(menu,MainActivity.this);
 
@@ -106,6 +115,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_listeReleves) {
             lr = new ListeReleveindex();
+            lr.setUserEncours(user_encours,groupe_encours);
             args = new Bundle();
             args.putString("valide", "0");
             lr.setArguments(args);
@@ -131,6 +141,7 @@ public class MainActivity extends AppCompatActivity
         else
         if (id == R.id.nav_saisie_releve) {
             sr = new SaisieReleveindex();
+            sr.setUserEncours(user_encours,groupe_encours);
             fm.beginTransaction()
                     .replace(R.id.content_frame
                             , sr)
@@ -153,6 +164,7 @@ public class MainActivity extends AppCompatActivity
         else
         if (id == R.id.nav_parametres) {
             fs = new FragmentSettings();
+            fs.setUserEncours(user_encours,groupe_encours);
             fm.beginTransaction()
                     .replace(R.id.content_frame
                             , fs)
@@ -223,17 +235,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         Log.d(TAG, "MainActivity.onOptionsItemSelected");
-        getMenuInflater().inflate(R.menu.activity_menu_drawer, menu);
-
-        //updateMenu(menu,MainActivity.this);
-
-        MenuItem mnItem2  = menu.findItem(R.id.nav_listeAnciensReleves);
-        //aut=Helper.getAutorisation("ListeReleveindexAnc",MainActivity.this);
-
-        mnItem2.setVisible(false);
-
-
-
+        getMenuInflater().inflate(R.menu.menu_main, menu);
 
         return true;
     }
@@ -265,38 +267,38 @@ public class MainActivity extends AppCompatActivity
 
     private void updateMenu(Menu menu,Context ctx){
 
-
-
+        AutorisationDAO adao=new AutorisationDAO(MainActivity.this);
+        aut=adao.getAutorisation("ListeReleveindex",groupe_encours);
         MenuItem mnItem = menu.findItem(R.id.nav_listeReleves);
-        aut=Helper.getAutorisation("ListeReleveindex",ctx);
+
         mnItem.setVisible((aut.getDroit_access().equals("Y")));
 
         mnItem  = menu.findItem(R.id.nav_listeAnciensReleves);
-        aut=Helper.getAutorisation("ListeReleveindexAnc",ctx);
+        aut=adao.getAutorisation("ListeReleveindexAnc",groupe_encours);
         mnItem.setVisible((aut.getDroit_access().equals("Y")));
 
         mnItem = menu.findItem(R.id.nav_saisie_releve);
-        aut=Helper.getAutorisation("SaisieReleveindex",ctx);
+        aut=adao.getAutorisation("SaisieReleveindex",groupe_encours);
         mnItem.setVisible((aut.getDroit_access().equals("Y")));
 
         mnItem = menu.findItem(R.id.nav_listePrises);
-        aut=Helper.getAutorisation("FragmentListePrise",ctx);
+        aut=adao.getAutorisation("FragmentListePrise",groupe_encours);
         mnItem.setVisible((aut.getDroit_access().equals("Y")));
 
         mnItem = menu.findItem(R.id.nav_parametres);
-        aut=Helper.getAutorisation("FragmentSettings",ctx);
+        aut=adao.getAutorisation("FragmentSettings",groupe_encours);
         mnItem.setVisible((aut.getDroit_access().equals("Y")));
 
         mnItem = menu.findItem(R.id.nav_utilisateurs);
-        aut=Helper.getAutorisation("FragmentListeUtilisateur",ctx);
+        aut=adao.getAutorisation("FragmentListeUtilisateur",groupe_encours);
         mnItem.setVisible((aut.getDroit_access().equals("Y")));
 
         mnItem = menu.findItem(R.id.nav_import);
-        aut=Helper.getAutorisation("FragmentImportData",ctx);
+        aut=adao.getAutorisation("FragmentImportData",groupe_encours);
         mnItem.setVisible((aut.getDroit_access().equals("Y")));
 
         mnItem = menu.findItem(R.id.nav_export);
-        aut=Helper.getAutorisation("FragmentExportData",ctx);
+        aut=adao.getAutorisation("FragmentExportData",groupe_encours);
         mnItem.setVisible((aut.getDroit_access().equals("Y")));
 
 

@@ -48,6 +48,13 @@ public class FragmentSettings extends Fragment {
     private String urlString ="";
     Parametre p;
     ParametreDAO pdao ;
+    private String user_encours="";
+    private String groupe_encours="";
+
+    public void setUserEncours(String user_encours, String groupe_encours) {
+        this.user_encours = user_encours;
+        this.groupe_encours = groupe_encours;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FactIrri 1.0</string>
+    <string name="app_name">FactuApp 1.0</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_saisie_releveindex">Ajout Relevé Index</string>
     <string name="title_activity_modif_releveindex">Modification Relevé</string>
@@ -81,6 +81,8 @@
     <string name="confirm_logout">Êtes-vous sûr(e) de vouloir vous déconnecter? </string>
     <string name="deconnexion">Déconnexion</string>
     <string name="sedeconnecter">Se déconnecter</string>
+    <string name="user_not_authorized_for_this_device">Utilisateur non autorisé pour cet appareil</string>
+
 
 
 

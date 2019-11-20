@@ -108,16 +108,5 @@ public class Helper {
 
 
 
-    public static Autorisation getAutorisation(String ecran,Context context){
-        String user_encours="";
-        ParametreDAO pdao=new ParametreDAO(context);
-        Parametre p = pdao.getData("UTILISATEUR_CNX");
-        user_encours=p.getValeur_parametre();
-        UtilisateurDAO udao =new UtilisateurDAO(context);
-        Utilisateur u = udao.getData(user_encours);
-        AutorisationDAO adao =new AutorisationDAO(context);
-        return adao.getAutorisation(ecran,u.getGroupe());
-
-    }
 
 }
