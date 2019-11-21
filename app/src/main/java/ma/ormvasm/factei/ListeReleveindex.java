@@ -90,7 +90,13 @@ public class ListeReleveindex extends  Fragment {
         //ActionBar actionBar = getSupportActionBar();
         //actionBar.setTitle(R.string.title_activity_liste_releveindex);
 
-        getActivity().setTitle(getString(R.string.liste_releveindex));
+        if (valide.equals("0")) {
+            getActivity().setTitle(getString(R.string.liste_releveindex));
+        }
+        else {
+
+            getActivity().setTitle(getString(R.string.liste_anciens_releveindex));
+        }
 
         //if (groupe_encours.equals("AIG")) {
             releveindexListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

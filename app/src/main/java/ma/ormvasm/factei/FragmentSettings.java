@@ -256,7 +256,7 @@ public class FragmentSettings extends Fragment {
             String cmv =p.getValeur_parametre();
 
 
-            urlString = serv + "/datalist/?cmd=userslist&cmv=" +cmv+"&offset=0";
+            urlString = "http://"+serv + "/eFact/datalist/?cmd=userslist&cmv=" +cmv+"&offset=0";
 
             if (ApiConnector.isServerAlive(urlString)==false){
                 serverOK = false;

@@ -58,7 +58,7 @@ public class UtilisateurDAO extends DAOBase{
 
         public void supprimerTout() {
             // CODE
-            mDb.delete(UTILISATEUR_TABLE_NAME,UTILISATEUR_COLUMN_CODE_UTILISATEUR + " <> ?" ,new String[]{"admin"});
+            mDb.delete(UTILISATEUR_TABLE_NAME,UTILISATEUR_COLUMN_CODE_UTILISATEUR + " not in(?,?)" ,new String[]{"admin","fact"});
         }
 
         /**

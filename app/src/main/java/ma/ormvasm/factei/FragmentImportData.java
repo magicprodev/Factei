@@ -201,7 +201,7 @@ public class FragmentImportData extends Fragment {
             p=pdao.getData("UTILISATEUR");
             String user =p.getValeur_parametre();
 
-            urlString = serv + "/datalist/?cmd=releveslist&cmv=" +cmv+"&user="+user+"&offset=0";
+            urlString = "http://"+serv + "/eFact/datalist/?cmd=releveslist&cmv=" +cmv+"&user="+user+"&offset=0";
 
             if (ApiConnector.isServerAlive(urlString)==false){
                 serverOK = false;
@@ -252,7 +252,7 @@ public class FragmentImportData extends Fragment {
             p=pdao.getData("UTILISATEUR");
             String user =p.getValeur_parametre();
 
-            urlString = serv + "/datalist/?cmd=priseslist&cmv=" +cmv+"&user="+user+"&offset=0";
+            urlString = "http://"+serv + "/eFact/datalist/?cmd=priseslist&cmv=" +cmv+"&user="+user+"&offset=0";
 
             if (ApiConnector.isServerAlive(urlString)==false){
                 serverOK = false;

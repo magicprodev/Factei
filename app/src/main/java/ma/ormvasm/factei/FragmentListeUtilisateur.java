@@ -130,7 +130,7 @@ public class FragmentListeUtilisateur extends Fragment {
             String serv =p.getValeur_parametre();
             p=pdao.getData("CODE_CMV");
             String cmv =p.getValeur_parametre();
-            urlString = serv + "/datalist/?cmd=userslist&cmv=" +cmv+"&offset=0";
+            urlString = "http://"+serv + "/eFact/datalist/?cmd=userslist&cmv=" +cmv+"&offset=0";
 
             if (ApiConnector.isServerAlive(urlString)==false){
                 serverOK = false;

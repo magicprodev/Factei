@@ -150,7 +150,7 @@ public class FragmentExportData extends Fragment {
             p=pdao.getData("ID_SOCIETE");
             String societe =p.getValeur_parametre();
 
-            String urlString = serv + "putdata/index.php?cmv="+cmv+"&societe="+societe;
+            String urlString = "http://"+serv + "/eFact/putdata/index.php?cmv="+cmv+"&societe="+societe;
 
             if (ApiConnector.isServerAlive(urlString)==false){
                 serverOK = false;

@@ -60,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
                 else{
-
                     Helper.showMessage(LoginActivity.this,getString(R.string.invalid_username),getString(R.string.title_login),R.drawable.ic_error_red);
                 }
 
