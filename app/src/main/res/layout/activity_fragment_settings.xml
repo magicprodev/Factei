@@ -124,6 +124,15 @@
                 android:layout_below="@+id/rlspinutilisateur"
                 android:layout_alignRight="@+id/rlspinutilisateur"
                 android:text="@string/refresh" />
+
+            <Button
+                android:id="@+id/btnsavedb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnrefreshusers"
+                android:layout_alignLeft="@+id/lblutilisateur"
+                android:text="@string/savedb" />
+
             <TextView
                 android:id="@+id/lblutilisateur"
                 android:layout_width="114dp"

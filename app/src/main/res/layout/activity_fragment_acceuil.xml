@@ -56,7 +56,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="center">
+        android:gravity="center"
+        >
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
@@ -69,5 +70,44 @@
             android:textSize="15dp"
             android:textStyle="bold"
             />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/infousercmv"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_above="@+id/footer"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/bg_rectangle">
+
+        <TextView
+            android:id="@+id/cmv"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:ems="10"
+            android:layout_marginRight="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/cmv"
+            android:textSize="16dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/utilisateur"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@id/cmv"
+            android:ems="10"
+            android:text="@string/aiguadier"
+            android:textSize="16dp"
+            android:textStyle="bold"/>
+
     </RelativeLayout>
 </RelativeLayout>

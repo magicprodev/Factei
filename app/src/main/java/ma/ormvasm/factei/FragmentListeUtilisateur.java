@@ -105,6 +105,9 @@ public class FragmentListeUtilisateur extends Fragment {
         MenuItem searchItem = menu.findItem(R.id.action_search);
         searchItem.setVisible(false);
 
+        searchItem = menu.findItem(R.id.action_refresh);
+        searchItem.setVisible(false);
+
     }
 
     @Override

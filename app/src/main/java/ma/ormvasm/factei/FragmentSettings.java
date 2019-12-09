@@ -21,6 +21,10 @@ import android.widget.Toast;
 
 import org.json.JSONArray;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import ma.ormvasm.factei.DAO.Cmv;
@@ -41,6 +45,7 @@ public class FragmentSettings extends Fragment {
     Spinner spinnercmv;
     Spinner spinnerutilisateur;
     Button btnrefresh;
+    Button btnsavedb;
     private String code_cmv="";
     private String code_utilisateur="";
     ArrayList<Cmv> listeCmv;
@@ -71,6 +76,9 @@ public class FragmentSettings extends Fragment {
         spinnercmv=(Spinner) myView.findViewById(R.id.spincmv);
         spinnerutilisateur=(Spinner) myView.findViewById(R.id.spinutilisateur);
         btnrefresh=(Button) myView.findViewById(R.id.btnrefreshusers);
+
+        btnsavedb=(Button) myView.findViewById(R.id.btnsavedb);
+
 
         loadSpinnerCmv();
         loadSpinnerUtilisateur();
@@ -118,12 +126,60 @@ public class FragmentSettings extends Fragment {
             @Override
             public void onClick(View view)
             {
-                enregistrer(view);
+                rafraichir();
                 new getAllUsersTask().execute(new ApiConnector());
             }
         });
 
+
+        btnsavedb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                saveDataBase();
+
+            }
+        });
+
         return  myView;
+    }
+
+    public void saveDataBase(){
+
+        File f=new File("/data/data/ma.ormvasm.factei/databases/factei.db");
+        FileInputStream fis=null;
+        FileOutputStream fos=null;
+
+        try
+        {
+            fis=new FileInputStream(f);
+            fos=new FileOutputStream("/mnt/sdcard/factei_dump.db");
+            while(true)
+            {
+                int i=fis.read();
+                if(i!=-1)
+                {fos.write(i);}
+                else
+                {break;}
+            }
+            fos.flush();
+            Toast.makeText(getActivity(), "DB dump OK", Toast.LENGTH_LONG).show();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "DB dump ERROR", Toast.LENGTH_LONG).show();
+        }
+        finally
+        {
+            try
+            {
+                fos.close();
+                fis.close();
+            }
+            catch(IOException ioe)
+            {}
+        }
     }
     public void enregistrer(View v) {
         Parametre p ;
@@ -141,6 +197,23 @@ public class FragmentSettings extends Fragment {
         pdao.modifier(p);
 
     }
+
+    public void rafraichir() {
+        Parametre p ;
+        ParametreDAO pdao=new ParametreDAO(getActivity());
+        p=pdao.getData("CODE_CMV");
+        p.setValeur_parametre(code_cmv);
+        pdao.modifier(p);
+
+        p=pdao.getData("IP_SERVEUR");
+        p.setValeur_parametre(serveur.getText().toString());
+        pdao.modifier(p);
+
+        p=pdao.getData("UTILISATEUR");
+        p.setValeur_parametre("");
+        pdao.modifier(p);
+    }
+
     private void loadSpinnerCmv() {
         //  url = url +"?cmd=listeSecteur&examen="+idexam;
         listeCmv = new ArrayList<Cmv>();
@@ -164,6 +237,7 @@ public class FragmentSettings extends Fragment {
         adapterutilisateur.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerutilisateur.setAdapter(adapterutilisateur);
 
+
     }
 
     private void loadPametres(){
@@ -171,12 +245,15 @@ public class FragmentSettings extends Fragment {
         ParametreDAO pdao=new ParametreDAO(getActivity());
         p=pdao.getData("CODE_CMV");
         int pos=0;
-        CmvDAO c =new CmvDAO(getActivity());
+        CmvDAO cdao =new CmvDAO(getActivity());
         String cmv="";
         cmv=p.getValeur_parametre();
 
         if (cmv != null && !cmv.isEmpty()) {
-            pos = Integer.parseInt(c.getData2(p.getValeur_parametre()).getCmv());
+            Cmv c =cdao.getData2(p.getValeur_parametre());
+            if (c!=null) {
+                pos = Integer.parseInt(c.getCmv());
+            }
         }
         spinnercmv.setSelection(pos-1);
 
@@ -184,12 +261,16 @@ public class FragmentSettings extends Fragment {
 
         p=pdao.getData("UTILISATEUR");
         pos=0;
-        UtilisateurDAO u =new UtilisateurDAO(getActivity());
+        UtilisateurDAO udao =new UtilisateurDAO(getActivity());
         String user="";
         user=p.getValeur_parametre();
 
-        if (user != null && !user.isEmpty()) {
-            pos = Integer.parseInt(u.getData2(p.getValeur_parametre()).getUtilisateur());
+        if (!(user.equals("")) && (user!= null) && !(user.isEmpty())) {
+            Utilisateur u =  udao.getData2(p.getValeur_parametre());
+            if (u!=null) {
+                pos = Integer.parseInt(u.getUtilisateur());
+            }
+
         }
         spinnerutilisateur.setSelection(pos-1);
 

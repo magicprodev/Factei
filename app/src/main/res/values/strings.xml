@@ -82,8 +82,8 @@
     <string name="deconnexion">Déconnexion</string>
     <string name="sedeconnecter">Se déconnecter</string>
     <string name="user_not_authorized_for_this_device">Utilisateur non autorisé pour cet appareil</string>
-
-
+    <string name="savedb">Sauvegarder Base de données</string>
+    <string name="aiguadier">Aiguadier</string>
 
 
 </resources>
