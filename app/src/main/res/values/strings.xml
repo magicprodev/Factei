@@ -84,6 +84,7 @@
     <string name="user_not_authorized_for_this_device">Utilisateur non autorisé pour cet appareil</string>
     <string name="savedb">Sauvegarder Base de données</string>
     <string name="aiguadier">Aiguadier</string>
-
+    <string name="dumpdb_ok">Sauvegarde réalisée avec succès</string>
+    <string name="dumpdb_error">Erreur de sauvegarde</string>
 
 </resources>

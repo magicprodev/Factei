@@ -25,7 +25,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import ma.ormvasm.factei.DAO.Cmv;
 import ma.ormvasm.factei.DAO.CmvDAO;
@@ -40,6 +43,7 @@ import static android.content.ContentValues.TAG;
 
 public class FragmentSettings extends Fragment {
     TextView serveur;
+    TextView lblserveur;
     private SpinCmvAdapter adaptercmv;
     private SpinUtilisateurAdapter adapterutilisateur;
     Spinner spinnercmv;
@@ -73,6 +77,7 @@ public class FragmentSettings extends Fragment {
         //setSupportActionBar(toolbar);
 
         serveur=(TextView) myView.findViewById(R.id.txtserveur);
+        lblserveur=(TextView) myView.findViewById(R.id.lblserveur);
         spinnercmv=(Spinner) myView.findViewById(R.id.spincmv);
         spinnerutilisateur=(Spinner) myView.findViewById(R.id.spinutilisateur);
         btnrefresh=(Button) myView.findViewById(R.id.btnrefreshusers);
@@ -141,6 +146,19 @@ public class FragmentSettings extends Fragment {
             }
         });
 
+        if (groupe_encours.equals("ADM")){
+            serveur.setVisibility(View.VISIBLE);
+            lblserveur.setVisibility(View.VISIBLE);
+            spinnercmv.setEnabled(true);
+            spinnercmv.setClickable(true);
+        }
+        else{
+
+            serveur.setVisibility(View.GONE);
+            lblserveur.setVisibility(View.GONE);
+            spinnercmv.setEnabled(false);
+            spinnercmv.setClickable(false);
+        }
         return  myView;
     }
 
@@ -152,8 +170,11 @@ public class FragmentSettings extends Fragment {
 
         try
         {
+            Date c = Calendar.getInstance().getTime();
+            SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+            String strdt = df.format(c);
             fis=new FileInputStream(f);
-            fos=new FileOutputStream("/mnt/sdcard/factei_dump.db");
+            fos=new FileOutputStream("/mnt/sdcard/factei_dump_" + strdt + ".db");
             while(true)
             {
                 int i=fis.read();
@@ -163,12 +184,12 @@ public class FragmentSettings extends Fragment {
                 {break;}
             }
             fos.flush();
-            Toast.makeText(getActivity(), "DB dump OK", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getString(R.string.dumpdb_ok), Toast.LENGTH_LONG).show();
         }
         catch(Exception e)
         {
             e.printStackTrace();
-            Toast.makeText(getActivity(), "DB dump ERROR", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getString(R.string.dumpdb_error), Toast.LENGTH_LONG).show();
         }
         finally
         {

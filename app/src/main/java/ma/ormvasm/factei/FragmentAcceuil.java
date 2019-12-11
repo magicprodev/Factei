@@ -39,7 +39,7 @@ public class FragmentAcceuil extends Fragment  {
         p=pdao.getData("CODE_CMV");
 
         if (TextUtils.isEmpty(p.getValeur_parametre())){
-            txtcmv.setText(txtcmv.getText()+": ");
+            txtcmv.setText(txtcmv.getText()+" : ");
         }
         else{
             CmvDAO cdao = new CmvDAO(getActivity());
@@ -47,7 +47,7 @@ public class FragmentAcceuil extends Fragment  {
             c=cdao.getData(p.getValeur_parametre());
 
             if (c!=null){
-                txtcmv.setText(txtcmv.getText()+": "+c.getCmv());
+                txtcmv.setText(txtcmv.getText()+" : "+c.getCmv());
                 }
             }
 

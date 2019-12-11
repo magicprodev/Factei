@@ -18,4 +18,6 @@
     <color name="green_500">#4CAF50</color>
     <color name="lime_500">#CDDC39</color>
     <color name="balck">#000000</color>
+    <color name="lightblue">#f1f8e9</color>
+
 </resources>
